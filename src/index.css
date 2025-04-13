@@ -1,1 +1,10 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+@theme {
+  --font-arial: "Arial", sans-serif;
+}
+
+.body {
+  background: #4D6479;
+  background: linear-gradient(180deg,rgba(77, 100, 121, 1) 0%, rgba(23, 38, 53, 1) 100%);
+}
