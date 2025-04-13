@@ -17,9 +17,10 @@ L.Icon.Default.mergeOptions({
 })
 
 const Summery = () => {
-  const { apiKey, locationName, setLocationName, coord, setCoord, weatherDataNow, setWeatherDataNow, aqiData, setAqiData, dailyForecastData, setDailyForecastData, hourlyForecastData, setHourlyForeCastData } = useContext(WeatherContext);
+  const { apiKey, fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, setLocationName, coord, setCoord, weatherDataNow, setWeatherDataNow, aqiData, setAqiData, dailyForecastData, setDailyForecastData, hourlyForecastData, setHourlyForeCastData } = useContext(WeatherContext);
 
   const [currentTime, setCurrentTime] = useState('');
+
 
   // TODO: UPDATE TIME
   useEffect(() => {
@@ -47,39 +48,16 @@ const Summery = () => {
         (location) => {
           const { latitude, longitude } = location.coords;
           setCoord([latitude, longitude]);
-
-          // Run all async functions in parallel
-          Promise.allSettled([
-            FetchCurrentWeatherByMap(latitude, longitude),
-            axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`),
-            FetchAqiData(latitude, longitude),
-            Fetch16DaysForeCast(latitude, longitude),
-            FetchHourlyForeCast(latitude, longitude),
-          ]).then((results) => {
-            // Handle each result
-            const [weatherResult, locationResult, aqiResult, dailyForecastResult, hourlyForecastResult] = results;
-
-            if (weatherResult.status === 'fulfilled') {
-              setWeatherDataNow(weatherResult.value);
+          fetchAllWeatherData(latitude, longitude).then(() => {
+            const newRecentLocation = {
+              name: locationName.split(',')[0],
+              coord: [latitude, longitude]
             }
-
-            if (locationResult.status === 'fulfilled') {
-              const address = locationResult.value.data.address;
-              setLocationName(`${address.town || address.suburb || address.county}, ${address.state_district}, ${address.state}, ${address.country}`);
-            }
-
-            if (aqiResult.status === 'fulfilled') {
-              setAqiData(aqiResult.value?.list[0]);
-            }
-
-            if (dailyForecastResult.status === 'fulfilled') {
-              setDailyForecastData(dailyForecastResult.value);
-            }
-
-            if (hourlyForecastResult.status === 'fulfilled') {
-              setHourlyForeCastData(hourlyForecastResult.value);
-            }
-          });
+            const updatedRecentSearchLoc = [...recentSearchLoc];
+            updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
+            if (updatedRecentSearchLoc.length > 4) updatedRecentSearchLoc.pop();
+            setRecentSearchLoc(updatedRecentSearchLoc);
+          })
         },
         (error) => {
           console.error('Error getting location:', error);
@@ -102,39 +80,17 @@ const Summery = () => {
       click(e) {
         const { lat, lng } = e.latlng;
         setCoord([lat, lng]);
-
-        // Run all async functions in parallel
-        Promise.allSettled([
-          FetchCurrentWeatherByMap(lat, lng),
-          axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`),
-          FetchAqiData(lat, lng),
-          Fetch16DaysForeCast(lat, lng),
-          FetchHourlyForeCast(lat, lng),
-        ]).then((results) => {
-          // Handle each result
-          const [weatherResult, locationResult, aqiResult, dailyForecastResult, hourlyForecastResult] = results;
-
-          if (weatherResult.status === 'fulfilled') {
-            setWeatherDataNow(weatherResult.value);
-          }
-
-          if (locationResult.status === 'fulfilled') {
-            const address = locationResult.value.data.address;
-            setLocationName(`${address.town || address.suburb || address.county}, ${address.state_district}, ${address.state}, ${address.country}`);
-          }
-
-          if (aqiResult.status === 'fulfilled') {
-            setAqiData(aqiResult.value?.list[0]);
-          }
-
-          if (dailyForecastResult.status === 'fulfilled') {
-            setDailyForecastData(dailyForecastResult.value);
-          }
-
-          if (hourlyForecastResult.status === 'fulfilled') {
-            setHourlyForeCastData(hourlyForecastResult.value);
-          }
-        });
+        fetchAllWeatherData(lat, lng)
+          .then(() => {
+            const newRecentLocation = {
+              name: locationName.split(',')[0],
+              coord: [lat, lng]
+            }
+            const updatedRecentSearchLoc = [...recentSearchLoc];
+            updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
+            if (updatedRecentSearchLoc.length > 4) updatedRecentSearchLoc.pop();
+            setRecentSearchLoc(updatedRecentSearchLoc);
+          })
       },
     });
 

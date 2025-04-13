@@ -38,3 +38,9 @@ export const FetchHourlyForeCast = async(lat, lon) => {
     console.error('Error fetching hourly forecast data', err.message)
   }
 }
+
+export async function GetWeatherBySearch(cityName) {
+  weatherData = await fetchData(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`);
+  lat = weatherData.coord.lat;
+  lon = weatherData.coord.lon;
+}
