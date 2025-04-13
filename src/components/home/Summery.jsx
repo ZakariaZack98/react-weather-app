@@ -4,6 +4,7 @@ import { FaInfo } from 'react-icons/fa6'
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
+import axios from 'axios'
 
 // Fix for default marker icon in Leaflet
 delete L.Icon.Default.prototype._getIconUrl
@@ -15,21 +16,28 @@ L.Icon.Default.mergeOptions({
 
 const Summery = ({ selectedLocation, currentWeatherData }) => {
   const [position, setPosition] = useState([23.8103, 90.4125]) // Default: Dhaka, Bangladesh
+  const [positionName, setPositionName] = useState('Dhaka, Bangladesh')
 
   /**
    * TODO: GET THE USERS POSITION USING GEOLOCATION API=======================================
-   * */ 
+   * */
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (location) => {
           const { latitude, longitude } = location.coords
-          setPosition([latitude, longitude]) 
+          setPosition([latitude, longitude])
+          axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+            .then(response => {
+              const address = response.data.address;
+              setPositionName(`${address.town || address.suburb || address.county}, ${address.state_district}, ${address.state}, ${address.country}`);
+            })
         },
         (error) => {
           console.error('Error getting location:', error)
         }
       )
+
     } else {
       console.error('Geolocation is not supported by this browser.')
     }
@@ -46,6 +54,12 @@ const Summery = ({ selectedLocation, currentWeatherData }) => {
     useMapEvents({
       click(e) {
         setPosition([e.latlng.lat, e.latlng.lng]) // Update position on map click
+        console.log([e.latlng.lat, e.latlng.lng]) // Update position on map click
+        axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${e.latlng.lat}&lon=${e.latlng.lng}`)
+          .then(response => {
+            const address = response.data.address;
+            setPositionName(`${address.town || address.suburb || address.county}, ${address.state_district}, ${address.state}, ${address.country}`);
+          })
       },
     })
 
@@ -83,7 +97,7 @@ const Summery = ({ selectedLocation, currentWeatherData }) => {
     <div className="summery pb-5">
       <div className="locationHeading flex items-center gap-x-10 py-5">
         {/* selected location will go here */}
-        <p>Dhaka, Bangladesh</p>
+        <p>{positionName}</p>
         <span className="w-8 h-8 flex justify-center items-center rounded-full border-[1px] border-white">
           <FaHome />
         </span>
