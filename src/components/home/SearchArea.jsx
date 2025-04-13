@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaSearch } from 'react-icons/fa'
+import { WeatherContext } from '../../contexts/WeatherContext'
 
-const SearchArea = ({recentLocations, searchHandlers}) => {
+const SearchArea = ({searchHandlers}) => {
+  const {recentSearchLoc} = useContext(WeatherContext)
   return (
     <div className='flex py-4 gap-x-10'>
       <div className="searchBar w-1/6 relative">
@@ -12,7 +14,7 @@ const SearchArea = ({recentLocations, searchHandlers}) => {
       </div>
       <div className="recentSearchedLocations flex gap-x-4">
         {
-          recentLocations?.map(location => (
+          recentSearchLoc?.map(location => (
             <div key={location} className='px-10 py-1 border-[1px] border-[#ffffff3d] rounded-xl bg-[#ffffff28] cursor-pointer hover:bg-[#ffffff4d] duration-300'>
               <p className='opacity-70'>{location}</p>
             </div>
