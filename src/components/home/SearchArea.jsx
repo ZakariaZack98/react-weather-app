@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { WeatherContext } from '../../contexts/WeatherContext'
 
-const SearchArea = ({searchHandlers}) => {
+const SearchArea = () => {
   const {recentSearchLoc, fetchAllWeatherData} = useContext(WeatherContext);
   return (
     <div className='flex py-4 gap-x-10'>
