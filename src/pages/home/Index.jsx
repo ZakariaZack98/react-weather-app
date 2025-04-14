@@ -1,6 +1,7 @@
 import React from 'react'
 import SearchArea from '../../components/home/SearchArea'
 import Summery from '../../components/home/Summery'
+import ForecastSlider from '../../components/home/ForecastSlider'
 
 const Home = () => {
   
@@ -11,6 +12,7 @@ const Home = () => {
         <div className="mainContents w-full">
           <div className="main w-5/6">
             <Summery/>
+            <ForecastSlider/>
           </div>
           <div className="sidebar w-1/6">
 

@@ -35,7 +35,7 @@ const WeatherProvider = ({children}) => {
       }
 
       if (hourlyForecastResult.status === 'fulfilled') {
-        setHourlyForeCastData(hourlyForecastResult.value);
+        setHourlyForeCastData(hourlyForecastResult.value.list);
       }
       setCoord([lat, lng])
     });
