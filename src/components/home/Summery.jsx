@@ -4,9 +4,7 @@ import { FaInfo } from 'react-icons/fa6'
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import axios from 'axios'
 import { WeatherContext } from '../../contexts/WeatherContext'
-import { Fetch16DaysForeCast, FetchAqiData, FetchCurrentWeatherByMap, FetchHourlyForeCast } from '../../utils/utils'
 
 // Fix for default marker icon in Leaflet
 delete L.Icon.Default.prototype._getIconUrl
@@ -17,7 +15,7 @@ L.Icon.Default.mergeOptions({
 })
 
 const Summery = () => {
-  const { apiKey, fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, setLocationName, coord, setCoord, weatherDataNow, setWeatherDataNow, aqiData, setAqiData, dailyForecastData, setDailyForecastData, hourlyForecastData, setHourlyForeCastData } = useContext(WeatherContext);
+  const { apiKey, fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, setLocationName, coord, setCoord, weatherDataNow, setWeatherDataNow, aqiData, setAqiData, hourlyForecastData, setHourlyForeCastData } = useContext(WeatherContext);
 
   const [currentTime, setCurrentTime] = useState('');
 
@@ -48,15 +46,9 @@ const Summery = () => {
         (location) => {
           const { latitude, longitude } = location.coords;
           setCoord([latitude, longitude]);
+          console.log(latitude, longitude); //!! NAME & COORD MISSMATCH BUG NIEEDS TO BE FIXED
           fetchAllWeatherData(latitude, longitude).then(() => {
-            const newRecentLocation = {
-              name: locationName.split(',')[0],
-              coord: [latitude, longitude]
-            }
-            const updatedRecentSearchLoc = [...recentSearchLoc];
-            updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
-            if (updatedRecentSearchLoc.length > 4) updatedRecentSearchLoc.pop();
-            setRecentSearchLoc(updatedRecentSearchLoc);
+            console.log('data fech successfull')
           })
         },
         (error) => {
@@ -83,11 +75,11 @@ const Summery = () => {
         fetchAllWeatherData(lat, lng)
           .then(() => {
             const newRecentLocation = {
-              name: locationName.split(',')[0],
-              coord: [lat, lng]
+              name: `${locationName.split(',')[0]}, ${locationName.split(',')[1]}`,
+              coord: coord
             }
             const updatedRecentSearchLoc = [...recentSearchLoc];
-            updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
+            if(!updatedRecentSearchLoc.find(item => item.name === newRecentLocation.name))updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
             if (updatedRecentSearchLoc.length > 4) updatedRecentSearchLoc.pop();
             setRecentSearchLoc(updatedRecentSearchLoc);
           })

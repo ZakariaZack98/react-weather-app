@@ -1,4 +1,5 @@
 const apiKey = import.meta.env.VITE_OW_APIKey;
+const weatherApiKey = import.meta.env.VITE_WEATHER_APIKey;
 
 async function fetchData(url) {
   const response = await fetch(url);
@@ -20,14 +21,6 @@ export const FetchAqiData = async (lat, lon) => {
     return await fetchData(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`);
   } catch (error) {
     console.error('Error fetching AQI data', err.message)
-  }
-}
-
-export const Fetch16DaysForeCast = async(lat, lon) => {
-  try {
-    return await fetchData(`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=7&appid=${apiKey}&units=metric`)
-  } catch (error) {
-    console.error('Error fetching 16 days forecast data', err.message)
   }
 }
 
