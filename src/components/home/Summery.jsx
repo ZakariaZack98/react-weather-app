@@ -112,6 +112,32 @@ const Summery = () => {
     }
   ]
 
+  // TODO: DETERMINE IF IT'S NIGHT OR DAY===============================================================
+  const isDayTime = () => {
+    const currentHour = new Date().getHours();
+    return currentHour >= 6 && currentHour < 18;
+  }
+
+
+  // TODO: GET TODAYS HIGHEST & LOWEST TEMPERATURE=======================================================
+  const getTodaysHighestTemp = () => {
+    if(!hourlyForecastData || hourlyForecastData.length === 0) return null;
+    const today = new Date().toISOString().split('T')[0];
+    const todaysData = hourlyForecastData.filter(forecast => forecast.dt_txt.split(' ')[0] === today)
+    if (todaysData.length === 0) return null;
+    const highestTemp = Math.max(...todaysData.map(data => data.main.temp));
+    return Math.round(highestTemp);
+  }
+  const getTodaysLowestTemp = () => {
+    if(!hourlyForecastData || hourlyForecastData.length === 0) return null;
+    const today = new Date().toISOString().split('T')[0];
+    const todaysData = hourlyForecastData.filter(forecast => forecast.dt_txt.split(' ')[0] === today)
+    if (todaysData.length === 0) return null;
+    const highestTemp = Math.min(...todaysData.map(data => data.main.temp));
+    return Math.round(highestTemp);
+  }
+
+
   return (
     <div className="summery pb-5">
       <div className="locationHeading flex items-center gap-x-10 py-5">
@@ -145,9 +171,10 @@ const Summery = () => {
                     <p className="">Feels Like {Math.round(weatherDataNow?.main?.feels_like)}°c</p>
                   </div>
                 </div>
-                <div className="suggestion">
-                  <p>Expect {weatherDataNow?.weather[0]?.description}, The High will be 40°c.</p>
-                </div>
+                <p className="suggestion">
+                Expect {weatherDataNow?.weather[0]?.description}, The {isDayTime() ? 'High' : 'Low'} will be{' '}
+                {isDayTime() ? `${getTodaysHighestTemp() ? `${getTodaysHighestTemp()}°c` : 'N/A'}` : `${getTodaysLowestTemp() ? `${getTodaysLowestTemp()}°c` : 'N/A'}`}.
+                </p>
                 <div className="othersUpdate w-full flex justify-between">
                   {othersData?.map((item) => (
                     <div key={item.name}>

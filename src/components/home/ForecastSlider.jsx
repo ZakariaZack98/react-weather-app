@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaChartBar, FaList } from 'react-icons/fa';
+import { WeatherContext } from '../../contexts/WeatherContext';
 
 const ForecastSlider = () => {
   const modes = ['Overview', 'Precipitation', 'Wind', 'Humidity', 'Cloud Cover', 'Pressure', 'Visibility', 'Feels Like'];
   const [visualizeMode, setVisualizeMode] = useState('chart');
   const [activeMode, setActiveMode] = useState('Overview');
+  const {hourlyForecastData} = useContext(WeatherContext);
+  const [day, setDay] = useState(1);
   return (
     <div>
       <div className="modePart flex justify-between items-center">
