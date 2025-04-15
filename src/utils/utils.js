@@ -1,5 +1,4 @@
 const apiKey = import.meta.env.VITE_OW_APIKey;
-const weatherApiKey = import.meta.env.VITE_WEATHER_APIKey;
 const WEATHER_PRIORITY = [
   "Thunderstorm",
   "Rain",
@@ -11,6 +10,7 @@ const WEATHER_PRIORITY = [
   "Fog",
 ];
 
+//* API DATA FETCH HELPER FUNCTION
 async function fetchData(url) {
   const response = await fetch(url);
   if (!response.ok) throw new Error(`Error: ${response.status}`);
@@ -18,6 +18,11 @@ async function fetchData(url) {
   return data;
 }
 
+/**
+ * TODO: FETCH CURRENT WEATHER OF THE SELECTED POSITION ON THE MAP ==============================================
+ * @param {lat} number latitude value from the leaflet map
+ * @param {lon} number longitude value from the leaflet map
+ * */ 
 export const FetchCurrentWeatherByMap = async (lat, lon) => {
   try {
     return await fetchData(
@@ -28,6 +33,12 @@ export const FetchCurrentWeatherByMap = async (lat, lon) => {
   }
 };
 
+/**
+ * TODO: FETCH CURRENT AIR QUALITY OF THE SELECTED POSITION ON THE MAP ==============================================
+ * @param {lat} number
+ * @param {lon} number 
+ * @return  {aqiData} object containing Air Quality data
+ * */ 
 export const FetchAqiData = async (lat, lon) => {
   try {
     return await fetchData(
@@ -38,6 +49,12 @@ export const FetchAqiData = async (lat, lon) => {
   }
 };
 
+/**
+ * TODO: FETCH FORECAST FOR 5 DAYS OF THE SELECTED POSITION ON THE MAP ==============================================
+ * @param {lat} number
+ * @param {lon} number 
+ * @return  {foreCastData} object containing Air Quality data
+ * */ 
 export const FetchHourlyForeCast = async (lat, lon) => {
   try {
     return await fetchData(
@@ -48,6 +65,11 @@ export const FetchHourlyForeCast = async (lat, lon) => {
   }
 };
 
+/**
+ * TODO: FETCH  WEATHER OF THE SEARCHED LOCATION ==============================================
+ * @param {cityName} string name of the city/place
+ * 
+ * */ 
 export async function GetWeatherBySearch(cityName) {
   weatherData = await fetchData(
     `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`
@@ -56,6 +78,7 @@ export async function GetWeatherBySearch(cityName) {
   lon = weatherData.coord.lon;
 }
 
+//* Formate ISO Date String to Readable date ie. 15 Apr
 export const DateFormatter = (dateStr) => {
   const date = new Date(dateStr);
 
@@ -68,6 +91,12 @@ export const DateFormatter = (dateStr) => {
 
 const isDaytime = (entry) => entry.sys.pod === "d";
 
+
+/**
+ * TODO: GET DAY & NIGHT DOMINANT WEATHER ICON
+ * @param {dailyData} array of daily forecast data/ 3hours step
+ * @return {dominantIcon} object containing dominant day and night icon code
+ * */ 
 export const GetDailyIcon = (dailyData) => {
   if (dailyData && dailyData.length > 0) {
     const daytimeEntries = dailyData.filter(isDaytime);
