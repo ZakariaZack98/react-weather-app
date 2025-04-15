@@ -1,16 +1,39 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaChartBar, FaList } from 'react-icons/fa';
 import { WeatherContext } from '../../contexts/WeatherContext';
+import DayCard from '../common/DayCard';
 
 const ForecastSlider = () => {
   const modes = ['Overview', 'Precipitation', 'Wind', 'Humidity', 'Cloud Cover', 'Pressure', 'Visibility', 'Feels Like'];
   const [visualizeMode, setVisualizeMode] = useState('chart');
   const [activeMode, setActiveMode] = useState('Overview');
   const {hourlyForecastData} = useContext(WeatherContext);
-  const [day, setDay] = useState(1);
+  const [weatherDataByDay , setWeatherDataByDay] = useState([]);
+  const [day, setDay] = useState(0);
+
+  /**
+   * TODO: ORGANIZE ALL THE FORECAST DATA INTO AN ARRAY (INDEX WILL BE THE DAY; ie, 0 is today, 1 is next date & so on....)
+   * @param {hourlyForecastData} {Array}
+   * */ 
+  useEffect(() => {
+    if(hourlyForecastData && hourlyForecastData.length > 0) {
+      const today = new Date();
+      const updatedWeatherDataByDay = [...weatherDataByDay];
+      for(let i = 0; i <= 4; i++) {
+        const nextDate = new Date(today);
+        nextDate.setDate(today.getDate() + i);
+        const formattedDate = nextDate.toISOString().split('T')[0];
+        const targetDateData = hourlyForecastData.filter(data => data.dt_txt.split(' ')[0] === formattedDate);
+        updatedWeatherDataByDay.push(targetDateData);
+      }
+      setWeatherDataByDay(updatedWeatherDataByDay);
+    }
+  }, [hourlyForecastData])
+
+
   return (
-    <div>
-      <div className="modePart flex justify-between items-center">
+    <div className='pb-4'>
+      <div className="modePart flex justify-between items-center pb-5">
         <div className="modes flex gap-x-4 py-3">
           {
             modes?.map((mode, idx) => (
@@ -31,7 +54,11 @@ const ForecastSlider = () => {
           </div>
         </div>
       </div>
-
+      <div className="mainSlider">
+        <div className="dayCardsWrapper flex">
+          <DayCard/>
+        </div>
+      </div>
     </div>
   )
 }

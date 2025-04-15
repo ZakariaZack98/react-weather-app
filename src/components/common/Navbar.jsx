@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <div className="bg-white">
       <div className= 'container mx-auto py-4 flex justify-between'>
-      <div className="navItems flex items-center gap-x-7 font-medium">
+      <div className="navItems flex items-center gap-x-7 font-medium text-sm">
         {
           navElems?.map((elem, idx) => <span key={idx} className={elem === path ? 'font-bold' : ''} onClick={() => navigate(`/${elem}`)}>{elem}</span>)
         }
