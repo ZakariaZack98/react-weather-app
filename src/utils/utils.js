@@ -1,5 +1,15 @@
 const apiKey = import.meta.env.VITE_OW_APIKey;
 const weatherApiKey = import.meta.env.VITE_WEATHER_APIKey;
+const WEATHER_PRIORITY = [
+  "Thunderstorm",
+  "Rain",
+  "Snow",
+  "Drizzle",
+  "Clouds",
+  "Clear",
+  "Mist",
+  "Fog",
+];
 
 async function fetchData(url) {
   const response = await fetch(url);
@@ -46,12 +56,68 @@ export async function GetWeatherBySearch(cityName) {
   lon = weatherData.coord.lon;
 }
 
-export const DateFormatter = (timeStamp) => {
-  const date = new Date(timeStamp);
+export const DateFormatter = (dateStr) => {
+  const date = new Date(dateStr);
 
   const formatter = new Intl.DateTimeFormat("en-GB", {
     day: "numeric",
-    month: "long",
+    month: "short",
   });
   return formatter.format(date);
+};
+
+const isDaytime = (entry) => entry.sys.pod === "d";
+
+export const GetDailyIcon = (dailyData) => {
+  if (dailyData && dailyData.length > 0) {
+    const daytimeEntries = dailyData.filter(isDaytime);
+    const nighttimeEntries = dailyData.filter((data) => !isDaytime(data));
+
+    let dominantDayCondition = "Clear";
+    for (const condition of WEATHER_PRIORITY) {
+      if (daytimeEntries.some((entry) => entry.weather[0].main === condition)) {
+        dominantDayCondition = condition;
+        break;
+      }
+    }
+    const dominantDayEntry =
+      daytimeEntries.find(
+        (entry) => entry.weather[0].main === dominantDayCondition
+      ) || daytimeEntries[0];
+
+    //for nighttime icon
+    let dominantNightCondition = "Clear";
+    for (const condition of WEATHER_PRIORITY) {
+      if (
+        nighttimeEntries.some((entry) => entry.weather[0].main === condition)
+      ) {
+        dominantNightCondition = condition;
+        break;
+      }
+    }
+    const dominantNightEntry =
+      nighttimeEntries.find(
+        (entry) => entry.weather[0].main === dominantNightCondition
+      ) || nighttimeEntries[0];
+
+    return {
+      dayIcon: dominantDayEntry.weather[0].icon,
+      nightIcon: dominantNightEntry.weather[0].icon,
+    };
+  }
+};
+
+export const GetTempSummery = (dailyData) => {
+  if (dailyData && dailyData.length > 0) {
+    const max = Math.round(
+      Math.max(...dailyData.map((data) => data.main.temp))
+    );
+    const min = Math.round(
+      Math.min(...dailyData.map((data) => data.main.temp))
+    );
+    return {
+      min,
+      max,
+    };
+  }
 };

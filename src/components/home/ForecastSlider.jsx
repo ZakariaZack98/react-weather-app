@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaChartBar, FaList } from 'react-icons/fa';
 import { WeatherContext } from '../../contexts/WeatherContext';
 import DayCard from '../common/DayCard';
-import { DateFormatter } from '../../utils/utils';
+import { DateFormatter, GetDailyIcon, GetTempSummery } from '../../utils/utils';
 
 const ForecastSlider = () => {
   const modes = ['Overview', 'Precipitation', 'Wind', 'Humidity', 'Cloud Cover', 'Pressure', 'Visibility', 'Feels Like'];
@@ -30,11 +30,14 @@ const ForecastSlider = () => {
       const updatedWeatherData = weatherDataByDate?.map(dateData => {
         return {
           id: 0,
-          date: DateFormatter(dateData[0]?.dt),
+          date: DateFormatter(dateData[0]?.dt_txt.split(' ')[0]),
           day: new Date(dateData[0]?.dt_txt.split(' ')[0]).toLocaleString('default', { weekday: 'long' }),
+          dominantIcons: GetDailyIcon(dateData),
+          tempSummery: GetTempSummery(dateData),
           data: dateData
         }
       })
+      console.log(updatedWeatherData[1])
       setWeatherDataByDay(updatedWeatherData);
     }
   }, [hourlyForecastData])
@@ -64,8 +67,10 @@ const ForecastSlider = () => {
         </div>
       </div>
       <div className="mainSlider">
-        <div className="dayCardsWrapper flex">
-          <DayCard/>
+        <div className="dayCardsWrapper flex gap-x-2">
+          {
+            weatherDataByDay?.map(data => <DayCard key={data.id} foreCastData={data} date={data.date}/>)
+          }
         </div>
       </div>
     </div>
