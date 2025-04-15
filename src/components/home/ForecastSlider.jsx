@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FaChartBar, FaList } from 'react-icons/fa';
 import { WeatherContext } from '../../contexts/WeatherContext';
 import DayCard from '../common/DayCard';
+import { DateFormatter } from '../../utils/utils';
 
 const ForecastSlider = () => {
   const modes = ['Overview', 'Precipitation', 'Wind', 'Humidity', 'Cloud Cover', 'Pressure', 'Visibility', 'Feels Like'];
@@ -18,15 +19,23 @@ const ForecastSlider = () => {
   useEffect(() => {
     if(hourlyForecastData && hourlyForecastData.length > 0) {
       const today = new Date();
-      const updatedWeatherDataByDay = [...weatherDataByDay];
+      const weatherDataByDate = [];
       for(let i = 0; i <= 4; i++) {
         const nextDate = new Date(today);
         nextDate.setDate(today.getDate() + i);
         const formattedDate = nextDate.toISOString().split('T')[0];
         const targetDateData = hourlyForecastData.filter(data => data.dt_txt.split(' ')[0] === formattedDate);
-        updatedWeatherDataByDay.push(targetDateData);
+        weatherDataByDate.push(targetDateData);
       }
-      setWeatherDataByDay(updatedWeatherDataByDay);
+      const updatedWeatherData = weatherDataByDate?.map(dateData => {
+        return {
+          id: 0,
+          date: DateFormatter(dateData[0]?.dt),
+          day: new Date(dateData[0]?.dt_txt.split(' ')[0]).toLocaleString('default', { weekday: 'long' }),
+          data: dateData
+        }
+      })
+      setWeatherDataByDay(updatedWeatherData);
     }
   }, [hourlyForecastData])
 

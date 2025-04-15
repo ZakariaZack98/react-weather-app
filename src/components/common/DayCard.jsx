@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DayCard = () => {
+const DayCard = ({foreCastData}) => {
   return (
     <div className='w-1/5 bg-[#495867] py-5 px-7 rounded-xl flex flex-col gap-y-4 cursor-pointer'>
       <div className="date flex justify-between items-center">
