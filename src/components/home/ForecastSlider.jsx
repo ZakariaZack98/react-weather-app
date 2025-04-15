@@ -3,6 +3,7 @@ import { FaChartBar, FaList } from 'react-icons/fa';
 import { WeatherContext } from '../../contexts/WeatherContext';
 import DayCard from '../common/DayCard';
 import { DateFormatter, GetDailyIcon, GetTempSummery } from '../../utils/utils';
+import Chart from './Chart';
 
 const ForecastSlider = () => {
   const modes = ['Overview', 'Precipitation', 'Wind', 'Humidity', 'Cloud Cover', 'Pressure', 'Visibility', 'Feels Like'];
@@ -10,7 +11,7 @@ const ForecastSlider = () => {
   const [activeMode, setActiveMode] = useState('Overview');
   const {hourlyForecastData} = useContext(WeatherContext);
   const [weatherDataByDay , setWeatherDataByDay] = useState([]);
-  const [day, setDay] = useState(0);
+  const [activeDay, setActiveDay] = useState(DateFormatter(new Date().toISOString().split('T')[0]));
 
   /**
    * TODO: ORGANIZE ALL THE FORECAST DATA INTO AN ARRAY (INDEX WILL BE THE DAY; ie, 0 is today, 1 is next date & so on....)
@@ -43,8 +44,9 @@ const ForecastSlider = () => {
   }, [hourlyForecastData])
 
 
-  return (
-    <div className='pb-4'>
+  if(weatherDataByDay && weatherDataByDay.length > 0 ) {
+    return (
+      <div className='pb-4'>
       <div className="modePart flex justify-between items-center pb-5">
         <div className="modes flex gap-x-4 py-3">
           {
@@ -67,14 +69,16 @@ const ForecastSlider = () => {
         </div>
       </div>
       <div className="mainSlider">
-        <div className="dayCardsWrapper flex gap-x-2">
+        <div className="dayCardsWrapper flex items-start gap-x-2">
           {
-            weatherDataByDay?.map(data => <DayCard key={data.id} foreCastData={data} date={data.date}/>)
+            weatherDataByDay?.map(data => <DayCard key={data.id} foreCastData={data} date={data.date} activeDay={activeDay} setActiveDay={setActiveDay}/>)
           }
         </div>
+        <Chart data={weatherDataByDay.find(data => data.date === activeDay)} activeMode={activeMode}/>
       </div>
     </div>
-  )
+    )
+  }
 }
 
 export default ForecastSlider

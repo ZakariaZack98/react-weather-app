@@ -101,8 +101,8 @@ export const GetDailyIcon = (dailyData) => {
       ) || nighttimeEntries[0];
 
     return {
-      dayIcon: dominantDayEntry.weather[0].icon,
-      nightIcon: dominantNightEntry.weather[0].icon,
+      dayIcon: dominantDayEntry?.weather[0]?.icon || '01d',
+      nightIcon: dominantNightEntry?.weather[0]?.icon || '01n',
     };
   }
 };
