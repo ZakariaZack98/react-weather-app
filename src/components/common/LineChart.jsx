@@ -19,7 +19,7 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
   const [gradColors, setGradColors] = useState(['rgba(243, 96, 39, 0.48)', 'rgba(0, 178, 28, 0.48)', 'rgba(255, 255, 255, 0)']);
 
   useEffect(() => {
-    if (activeMode === 'Wind' || activeMode === 'Cloud Cover') {
+    if (activeMode === 'Wind' || activeMode === 'Humidity') {
       setGradColors(colorData.wind);
     } else if (activeMode === 'Overview' || activeMode === 'Feels Like') {
       setGradColors(colorData.temp);
@@ -42,16 +42,16 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
       {
         label:
           activeMode === 'Precipitation'
-            ? 'Rain'
+            ? 'Chances of Rain (%)'
             : activeMode === 'Wind'
-              ? 'Wind Speed'
+              ? 'Wind Speed (km/h)'
               : activeMode === 'Humidity'
-                ? 'Humidity'
+                ? 'Humidity (%)'
                 : activeMode === 'Pressure'
-                  ? 'Pressure'
+                  ? 'Pressure (mbr)'
                   : activeMode === 'Visibility'
-                    ? 'Visibility'
-                    : 'Temperature',
+                    ? 'Visibility (km)'
+                    : 'Temperature (°c)',
         data:
           activeMode === 'Precipitation'
             ? hourlyDataset.map((hourlyData) => hourlyData.pop * 100)
@@ -101,7 +101,26 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top',
+        position: 'bottom',
+        
+        paddingEnd: 100,
+        labels: {
+          usePointStyle: true,
+          color: 'white',
+          generateLabels: (chart) => {
+            const dataset = chart.data.datasets[0];
+            return [{
+              text: dataset.label,
+              fillStyle: gradColors[1],
+              strokeStyle: gradColors[1],
+              pointStyle: 'circle',
+              hidden: false,
+              index: 0,
+              fontColor: 'white',
+              fontSize: 20,
+            }];
+          },
+        },
       },
       tooltip: {
         mode: 'index',
@@ -124,12 +143,14 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
         },
       },
       x: {
+        position: 'top',
         grid: {
           display: true,
           color: 'rgba(255, 255, 255, 0.05)',
         },
         ticks: {
           color: 'white',
+          padding: 10,
         },
       },
     },

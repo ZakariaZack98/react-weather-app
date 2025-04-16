@@ -89,6 +89,14 @@ export const DateFormatter = (dateStr) => {
   return formatter.format(date);
 };
 
+
+export function ConvertToLocalISOString(dateTimeString) {
+  const date = new Date(dateTimeString);
+  const pad = (num) => num.toString().padStart(2, '0');
+  
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+}
+
 const isDaytime = (entry) => entry.sys.pod === "d";
 
 // * CONVERT ISO TIME STRING TO LOCAL AM/PM TIME
@@ -101,6 +109,8 @@ export const ConvertTo12Hour = (time24) => {
   
   return `${hour12} ${period}`;
 }
+
+
 
 /**
  * TODO: GET DAY & NIGHT DOMINANT WEATHER ICON====================================================

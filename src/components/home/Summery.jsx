@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-lea
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { WeatherContext } from '../../contexts/WeatherContext'
+import { ConvertToLocalISOString } from '../../utils/utils'
 
 // Fix for default marker icon in Leaflet
 delete L.Icon.Default.prototype._getIconUrl
@@ -118,7 +119,7 @@ const Summery = () => {
   // TODO: GET TODAYS HIGHEST & LOWEST TEMPERATURE=======================================================
   const getTodaysHighestTemp = () => {
     if(!hourlyForecastData || hourlyForecastData.length === 0) return null;
-    const today = new Date().toISOString().split('T')[0];
+    const today = ConvertToLocalISOString(new Date()).split('T')[0];
     const todaysData = hourlyForecastData.filter(forecast => forecast.dt_txt.split(' ')[0] === today)
     if (todaysData.length === 0) return null;
     const highestTemp = Math.max(...todaysData.map(data => data.main.temp));
@@ -126,7 +127,7 @@ const Summery = () => {
   }
   const getTodaysLowestTemp = () => {
     if(!hourlyForecastData || hourlyForecastData.length === 0) return null;
-    const today = new Date().toISOString().split('T')[0];
+    const today = ConvertToLocalISOString(new Date()).split('T')[0];
     const todaysData = hourlyForecastData.filter(forecast => forecast.dt_txt.split(' ')[0] === today)
     if (todaysData.length === 0) return null;
     const highestTemp = Math.min(...todaysData.map(data => data.main.temp));
