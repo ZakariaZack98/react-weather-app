@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js';
+import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { WeatherContext } from '../../contexts/WeatherContext';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js';
 import { ConvertTo12Hour } from '../../utils/utils';
+import { ColorGroups } from '../../lib/GradColorGrp';
 
 ChartJS.register(
   CategoryScale,
@@ -15,60 +15,85 @@ ChartJS.register(
 );
 
 const LineChart = ({ hourlyDataset, activeMode }) => {
-  const chartRef = useRef(null);
-  const [chartData, setChartData] = useState(null);
+  const colorData = ColorGroups;
+  const [gradColors, setGradColors] = useState(['rgba(243, 96, 39, 0.48)', 'rgba(0, 178, 28, 0.48)', 'rgba(255, 255, 255, 0)']);
 
   useEffect(() => {
-    if (!hourlyDataset || hourlyDataset.length === 0) {
-      setChartData(null);
-      return;
+    if (activeMode === 'Wind' || activeMode === 'Cloud Cover') {
+      setGradColors(colorData.wind);
+    } else if (activeMode === 'Overview' || activeMode === 'Feels Like') {
+      setGradColors(colorData.temp);
+    } else if (activeMode === 'Pressure') {
+      setGradColors(colorData.pressure);
+    } else if (activeMode === 'Visibility') {
+      setGradColors(colorData.visibility);
+    } else {
+      setGradColors(colorData.temp);
     }
+  }, [activeMode, colorData]);
 
-    const newData = {
-      labels: hourlyDataset.map((hourlyData) => ConvertTo12Hour(hourlyData.dt_txt.split(' ')[1])),
-      datasets: [
-        {
-          label:
-            activeMode === 'Precipitation'
-              ? 'Rain'
-              : activeMode === 'Wind'
+  if (!hourlyDataset || hourlyDataset.length === 0) {
+    return <div className="text-center text-gray-500">No data available to display the chart.</div>;
+  }
+
+  const data = {
+    labels: hourlyDataset.map((hourlyData) => ConvertTo12Hour(hourlyData.dt_txt.split(' ')[1])),
+    datasets: [
+      {
+        label:
+          activeMode === 'Precipitation'
+            ? 'Rain'
+            : activeMode === 'Wind'
               ? 'Wind Speed'
               : activeMode === 'Humidity'
-              ? 'Humidity'
-              : activeMode === 'Pressure'
-              ? 'Pressure'
-              : activeMode === 'Visibility'
-              ? 'Visibility'
-              : 'Temperature',
-          data:
-            activeMode === 'Precipitation'
-              ? hourlyDataset.map((hourlyData) => hourlyData.pop * 100)
-              : activeMode === 'Wind'
+                ? 'Humidity'
+                : activeMode === 'Pressure'
+                  ? 'Pressure'
+                  : activeMode === 'Visibility'
+                    ? 'Visibility'
+                    : 'Temperature',
+        data:
+          activeMode === 'Precipitation'
+            ? hourlyDataset.map((hourlyData) => hourlyData.pop * 100)
+            : activeMode === 'Wind'
               ? hourlyDataset.map((hourlyData) => hourlyData.wind.speed)
               : activeMode === 'Humidity'
-              ? hourlyDataset.map((hourlyData) => hourlyData.main.humidity)
-              : activeMode === 'Pressure'
-              ? hourlyDataset.map((hourlyData) => hourlyData.main.pressure)
-              : activeMode === 'Visibility'
-              ? hourlyDataset.map((hourlyData) => hourlyData.visibility / 1000)
-              : activeMode === 'Feels Like'
-              ? hourlyDataset.map((hourlyData) => hourlyData.main.feels_like)
-              : hourlyDataset.map((hourlyData) => hourlyData.main.temp),
-          borderColor: 'blue',
-          tension: 0.5, 
-          borderWidth: 3,
-          pointRadius: 0, 
-          pointHoverRadius: 6,
-          fill: true, 
+                ? hourlyDataset.map((hourlyData) => hourlyData.main.humidity)
+                : activeMode === 'Pressure'
+                  ? hourlyDataset.map((hourlyData) => hourlyData.main.pressure)
+                  : activeMode === 'Visibility'
+                    ? hourlyDataset.map((hourlyData) => hourlyData.visibility / 1000)
+                    : activeMode === 'Feels Like'
+                      ? hourlyDataset.map((hourlyData) => hourlyData.main.feels_like)
+                      : hourlyDataset.map((hourlyData) => hourlyData.main.temp),
+        borderColor: (ctx) => {
+          const chart = ctx.chart;
+          const { ctx: canvasCtx, chartArea } = chart;
+          if (!chartArea) return 'orange';
+          const gradient = canvasCtx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+          gradient.addColorStop(0, gradColors[0]);
+          gradient.addColorStop(0.5, gradColors[1]);
+          gradient.addColorStop(1, gradColors[2]);
+          return gradient;
         },
-      ],
-    };
-
-    console.log(newData);
-    console.log(activeMode)
-
-    setChartData(newData);
-  }, [activeMode, hourlyDataset]);
+        backgroundColor: (ctx) => {
+          const chart = ctx.chart;
+          const { ctx: canvasCtx, chartArea } = chart;
+          if (!chartArea) return 'orange';
+          const gradient = canvasCtx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+          gradient.addColorStop(0, gradColors[0]);
+          gradient.addColorStop(0.5, gradColors[1]);
+          gradient.addColorStop(1, gradColors[2]);
+          return gradient;
+        },
+        tension: 0.5,
+        borderWidth: 3,
+        pointRadius: 0,
+        pointHoverRadius: 6,
+        fill: true,
+      },
+    ],
+  };
 
   const options = {
     responsive: true,
@@ -85,19 +110,25 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
     },
     scales: {
       y: {
-        beginAtZero: true,
+        beginAtZero: false,
+        min: activeMode === 'Pressure' ? 990 : 0,
+        max: activeMode === 'Wind' ? 15 : undefined,
         grid: {
           drawBorder: false,
           display: true,
-          color: 'white',
+          color: 'rgba(255, 255, 255, 0.05)',
         },
         ticks: {
-          stepSize: 10, // Set the gap between y-axis values to 10
+          stepSize: activeMode === 'Wind' ? 1 : 10,
+          color: 'white',
         },
       },
       x: {
         grid: {
           display: true,
+          color: 'rgba(255, 255, 255, 0.05)',
+        },
+        ticks: {
           color: 'white',
         },
       },
@@ -109,11 +140,13 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
     },
   };
 
-  if (!chartData) {
-    return <div className="text-center text-gray-500">No data available to display the chart.</div>;
-  }
-
-  return <Line data={chartData} options={options} ref={chartRef} />;
+  return (
+    <Line
+      data={data}
+      options={options}
+      redraw
+    />
+  );
 };
 
 export default LineChart;
