@@ -15,7 +15,7 @@ L.Icon.Default.mergeOptions({
 })
 
 const Summery = () => {
-  const { apiKey, fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, setLocationName, coord, setCoord, weatherDataNow, setWeatherDataNow, aqiData, setAqiData, hourlyForecastData, setHourlyForeCastData } = useContext(WeatherContext);
+  const { fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, coord, weatherDataNow, aqiData, hourlyForecastData} = useContext(WeatherContext);
 
   const [currentTime, setCurrentTime] = useState('');
 
@@ -31,10 +31,10 @@ const Summery = () => {
       setCurrentTime(formattedTime);
     };
 
-    updateTime(); // Set the initial time
-    const interval = setInterval(updateTime, 1000); // Update every second
+    updateTime(); 
+    const interval = setInterval(updateTime, 1000);
 
-    return () => clearInterval(interval); // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   /**
@@ -45,11 +45,7 @@ const Summery = () => {
       navigator.geolocation.getCurrentPosition(
         (location) => {
           const { latitude, longitude } = location.coords;
-          setCoord([latitude, longitude]);
-          console.log(latitude, longitude); //!! NAME & COORD MISSMATCH BUG NIEEDS TO BE FIXED
-          fetchAllWeatherData(latitude, longitude).then(() => {
-            console.log('data fech successfull')
-          })
+          fetchAllWeatherData(latitude, longitude)
         },
         (error) => {
           console.error('Error getting location:', error);
@@ -65,13 +61,13 @@ const Summery = () => {
     const map = useMap();
 
     useEffect(() => {
-      map.setView(coord, map.getZoom()); // Center the map on the current position
+      // Center the map on the current position
+      map.setView(coord, map.getZoom()); 
     }, [coord, map]);
 
     useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng;
-        setCoord([lat, lng]);
         fetchAllWeatherData(lat, lng)
           .then(() => {
             const newRecentLocation = {

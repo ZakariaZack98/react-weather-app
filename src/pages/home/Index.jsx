@@ -4,7 +4,7 @@ import Summery from '../../components/home/Summery'
 import ForecastSlider from '../../components/home/ForecastSlider'
 
 const Home = () => {
-  
+
   return (
     <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll" style={{scrollbarWidth: 'none'}}>
       <div className='container mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>

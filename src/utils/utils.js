@@ -91,9 +91,19 @@ export const DateFormatter = (dateStr) => {
 
 const isDaytime = (entry) => entry.sys.pod === "d";
 
+// * CONVERT ISO TIME STRING TO LOCAL AM/PM TIME
+export const ConvertTo12Hour = (time24) => {
+  const [hours, minutes, seconds] = time24?.split(':');
+  const hour = parseInt(hours);
+  
+  const period = hour >= 12 ? 'PM' : 'AM';
+  const hour12 = hour % 12 || 12;
+  
+  return `${hour12} ${period}`;
+}
 
 /**
- * TODO: GET DAY & NIGHT DOMINANT WEATHER ICON
+ * TODO: GET DAY & NIGHT DOMINANT WEATHER ICON====================================================
  * @param {dailyData} array of daily forecast data/ 3hours step
  * @return {dominantIcon} object containing dominant day and night icon code
  * */ 
@@ -136,6 +146,11 @@ export const GetDailyIcon = (dailyData) => {
   }
 };
 
+/**
+ * TODO: GET MAX & MIN TEMP BASED ON HOURLY FORECAST DATA ============================================
+ * @param {dailyData} array of daily forecast data/ 3hours step
+ * @return {tempSummery} object containing min & max temp
+ * */ 
 export const GetTempSummery = (dailyData) => {
   if (dailyData && dailyData.length > 0) {
     const max = Math.round(

@@ -71,7 +71,7 @@ const ForecastSlider = () => {
       <div className="mainSlider">
         <div className="dayCardsWrapper flex items-start gap-x-2">
           {
-            weatherDataByDay?.map(data => <DayCard key={data.id} foreCastData={data} date={data.date} activeDay={activeDay} setActiveDay={setActiveDay}/>)
+            weatherDataByDay?.map(data => <DayCard key={data.date} foreCastData={data} date={data.date} activeDay={activeDay} setActiveDay={setActiveDay}/>)
           }
         </div>
         <Chart data={weatherDataByDay.find(data => data.date === activeDay)} activeMode={activeMode}/>

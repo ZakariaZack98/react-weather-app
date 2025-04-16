@@ -16,10 +16,7 @@ const SearchArea = () => {
         {
           recentSearchLoc?.map(location => (
             <div key={location.coord[1]} className='px-10 py-1 border-[1px] border-[#ffffff3d] rounded-xl bg-[#ffffff28] cursor-pointer hover:bg-[#ffffff4d] duration-300' onClick={() => {
-              setCoord(location.coord);
-              console.log('setCoord called with:', location.coord);
               fetchAllWeatherData(location.coord[0], location.coord[1])
-              .then(() => console.log('data fetch successfull'))
             }}>
               <p className='opacity-70'>{location.name}</p>
             </div>
