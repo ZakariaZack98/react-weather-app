@@ -18,30 +18,38 @@ const ForecastSlider = () => {
    * @param {hourlyForecastData} {Array}
    * */ 
   useEffect(() => {
-    if(hourlyForecastData && hourlyForecastData.length > 0) {
+    if (hourlyForecastData && hourlyForecastData.length > 0) {
       const today = new Date();
       const weatherDataByDate = [];
-      for(let i = 0; i <= 4; i++) {
+
+      // First day's data: first 8 elements (24 hours)
+      weatherDataByDate.push(hourlyForecastData.slice(0, 8));
+
+      // Next 4 days by date
+      for (let i = 1; i <= 4; i++) {
         const nextDate = new Date(today);
         nextDate.setDate(today.getDate() + i);
         const formattedDate = nextDate.toISOString().split('T')[0];
-        const targetDateData = hourlyForecastData.filter(data => data.dt_txt.split(' ')[0] === formattedDate);
+        const targetDateData = hourlyForecastData.filter(
+          data => data.dt_txt.split(' ')[0] === formattedDate
+        );
         weatherDataByDate.push(targetDateData);
       }
-      const updatedWeatherData = weatherDataByDate?.map(dateData => {
+
+      const updatedWeatherData = weatherDataByDate.map(dateData => {
         return {
           id: 0,
-          date: DateFormatter(dateData[0]?.dt_txt.split(' ')[0]),
-          day: new Date(dateData[0]?.dt_txt.split(' ')[0]).toLocaleString('default', { weekday: 'long' }),
+          date: DateFormatter(dateData[0].dt_txt.split(' ')[0]),
+          day: new Date(dateData[0].dt_txt.split(' ')[0]).toLocaleString('default', { weekday: 'long' }),
           dominantIcons: GetDailyIcon(dateData),
           tempSummery: GetTempSummery(dateData),
           data: dateData
-        }
-      })
-      console.log(updatedWeatherData[1])
+        };
+      });
+
       setWeatherDataByDay(updatedWeatherData);
     }
-  }, [hourlyForecastData])
+  }, [hourlyForecastData]);
 
 
   if(weatherDataByDay && weatherDataByDay.length > 0 ) {
@@ -71,7 +79,7 @@ const ForecastSlider = () => {
       <div className="mainSlider">
         <div className="dayCardsWrapper flex items-start gap-x-2">
           {
-            weatherDataByDay?.map(data => <DayCard key={data.date} foreCastData={data} date={data.date} activeDay={activeDay} setActiveDay={setActiveDay}/>)
+            weatherDataByDay?.map((data, idx) => <DayCard key={idx} foreCastData={data} date={data.date} activeDay={activeDay} setActiveDay={setActiveDay}/>)
           }
         </div>
         <Chart data={weatherDataByDay.find(data => data.date === activeDay)} activeMode={activeMode}/>
