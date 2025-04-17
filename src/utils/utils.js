@@ -50,6 +50,24 @@ export const FetchAqiData = async (lat, lon) => {
 };
 
 /**
+ * TODO: Determine the wind direction from degree value==========================================================
+ * @param {number} deg - Wind direction in degrees (0-360)
+ * @returns {string} Wind direction abbreviation
+ */
+export function GetWindDirection(deg) {
+  if (typeof deg !== 'number' || isNaN(deg)) return '';
+  const directions = [
+    'N', 'NNE', 'NE', 'ENE',
+    'E', 'ESE', 'SE', 'SSE',
+    'S', 'SSW', 'SW', 'WSW',
+    'W', 'WNW', 'NW', 'NNW'
+  ];
+  //* Each sector is 22.5°
+  const index = Math.round(((deg % 360) / 22.5)) % 16;
+  return directions[index];
+}
+
+/**
  * TODO: FETCH FORECAST FOR 5 DAYS OF THE SELECTED POSITION ON THE MAP ==============================================
  * @param {lat} number
  * @param {lon} number 

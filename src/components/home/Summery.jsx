@@ -5,7 +5,8 @@ import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-lea
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { WeatherContext } from '../../contexts/WeatherContext'
-import { ConvertToLocalISOString } from '../../utils/utils'
+import { ConvertToLocalISOString, GetWindDirection } from '../../utils/utils'
+import WindDirectionIcon from '../common/WindDirectionIcon'
 
 // Fix for default marker icon in Leaflet
 delete L.Icon.Default.prototype._getIconUrl
@@ -181,7 +182,7 @@ const Summery = () => {
                           <FaInfo />
                         </span>
                       </div>
-                      <p className=''>{
+                      <div className=''>{
                         item.name === 'Humidity'
                           ? weatherDataNow?.main?.humidity + '%'
                           : item.name === 'Air Quality'
@@ -189,11 +190,11 @@ const Summery = () => {
                             : item.name === 'Pressure'
                               ? weatherDataNow?.main?.pressure + 'mbr'
                               : item.name === 'Wind'
-                                ? Math.round(weatherDataNow?.wind?.speed) + 'km/h' + ' NNE' // !!direction calculation should be applied here
+                                ? Math.round(weatherDataNow?.wind?.speed) + 'km/h' + " " + GetWindDirection(weatherDataNow?.wind?.deg) // !!direction calculation should be applied here
                                 : item.name === 'Visibility'
                                   ? weatherDataNow?.visibility / 1000 + 'km'
                                   : null
-                      }</p>
+                      }</div>
                     </div>
                   ))}
                 </div>

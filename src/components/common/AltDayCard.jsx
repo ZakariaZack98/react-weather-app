@@ -15,7 +15,7 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
   useEffect(() => {
     if (activeMode === 'Precipitation') {
       const allRainObj = foreCastData?.data?.map(hourlyData => hourlyData.rain).filter(item => Boolean(item));
-      const avg = allRainObj.map(obj => Object.values(obj)[0]).reduce((a, b) => a + b) / allRainObj.length
+      const avg = allRainObj?.map(obj => Object.values(obj)[0])?.reduce((a, b) => a + b) / allRainObj.length
       console.log(avg)
       setAltCardData({
         input: Math.max(...foreCastData?.data?.map(hourlyData => hourlyData.pop * 100)),
@@ -107,7 +107,7 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
           prefix: 'max',
         },
         bottomData: {
-          data: `${Math.max(...foreCastData?.data?.map(hourlyData => hourlyData.main.pressure))}mbr`,
+          data: `${Math.min(...foreCastData?.data?.map(hourlyData => hourlyData.main.pressure))}mbr`,
           prefix: 'min',
         }
       })
