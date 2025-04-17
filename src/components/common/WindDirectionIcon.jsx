@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaLocationArrow } from 'react-icons/fa';
+import { GetWindDirection } from '../../utils/utils';
 
 /**
  * WindDirectionIcon
@@ -16,7 +17,7 @@ const WindDirectionIcon = ({ deg = 0, size = 32, color = '#ffffff' }) => {
         transform: `rotate(${rotation}deg)`,
         transition: 'transform 0.3s',
       }}
-      title={`Wind direction: ${deg}°`}
+      title={`Wind direction: ${GetWindDirection(deg)}`}
     >
       <FaLocationArrow size={size} color={color} />
     </span>

@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaChartBar, FaList } from "react-icons/fa";
+import { FaChartBar, FaList, FaTemperatureHigh, FaWind } from "react-icons/fa";
 import { WeatherContext } from "../../contexts/WeatherContext";
 import DayCard from "../common/DayCard";
 import { ConvertToLocalISOString, DateFormatter, GetDailyIcon, GetTempSummery } from "../../utils/utils";
 import Chart from "./Chart";
 import AltDayCard from "../common/AltDayCard";
+import HourForecastCard from "../common/HourForecastCard";
+import { FaDroplet } from "react-icons/fa6";
 
 const ForecastSlider = () => {
   const modes = [
@@ -17,6 +19,22 @@ const ForecastSlider = () => {
     "Visibility",
     "Feels Like",
   ];
+
+  const cardLegends = [
+    {
+      name: 'Temperature',
+      icon: FaTemperatureHigh
+    },
+    {
+      name: 'Precipitation',
+      icon: FaDroplet
+    },
+    {
+      name: 'Wind',
+      icon: FaWind
+    },
+  ]
+
   const [visualizeMode, setVisualizeMode] = useState("chart");
   const [activeMode, setActiveMode] = useState("Overview");
   const { hourlyForecastData } = useContext(WeatherContext);
@@ -69,9 +87,8 @@ const ForecastSlider = () => {
             {modes?.map((mode, idx) => (
               <p
                 key={idx}
-                className={`px-6 py-1 border border-[#ffffff3d] rounded-xl ${
-                  activeMode === mode ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
-                } cursor-pointer  duration-300 opacity-70`}
+                className={`px-6 py-1 border border-[#ffffff3d] rounded-xl ${activeMode === mode ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
+                  } cursor-pointer  duration-300 opacity-70`}
                 onClick={() => setActiveMode(mode)}>
                 {mode}
               </p>
@@ -79,18 +96,16 @@ const ForecastSlider = () => {
           </div>
           <div className="visualizationSwitch flex justify-center items-center">
             <div
-              className={`chart flex justify-center items-center gap-x-1 px-5 py-2 border border-[#ffffff3d] rounded-s-xl ${
-                visualizeMode === "chart" ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
-              } cursor-pointer opacity-70`}
+              className={`chart flex justify-center items-center gap-x-1 px-5 py-2 border border-[#ffffff3d] rounded-s-xl ${visualizeMode === "chart" ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
+                } cursor-pointer opacity-70`}
               onClick={() => setVisualizeMode("chart")}>
               <span>
                 <FaChartBar />
               </span>
             </div>
             <div
-              className={`list flex justify-center items-center gap-x-1 px-5 py-2 border border-[#ffffff3d] rounded-e-xl ${
-                visualizeMode === "list" ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
-              } cursor-pointer opacity-70`}
+              className={`list flex justify-center items-center gap-x-1 px-5 py-2 border border-[#ffffff3d] rounded-e-xl ${visualizeMode === "list" ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
+                } cursor-pointer opacity-70`}
               onClick={() => setVisualizeMode("list")}>
               <span>
                 <FaList />
@@ -102,23 +117,45 @@ const ForecastSlider = () => {
           <div className="dayCardsWrapper flex items-start gap-x-2">
             {weatherDataByDay?.map((data, idx) => (
               activeMode === 'Overview' || activeMode === 'Feels Like' ? <DayCard
-              key={idx}
-              foreCastData={data}
-              date={data.date}
-              activeDay={activeDay}
-              setActiveDay={setActiveDay}
-              activeMode={activeMode}
-            /> : <AltDayCard
-            key={idx}
-            foreCastData={data}
-            date={data.date}
-            activeDay={activeDay}
-            setActiveDay={setActiveDay}
-            activeMode={activeMode}
-          />
+                key={idx}
+                foreCastData={data}
+                date={data.date}
+                activeDay={activeDay}
+                setActiveDay={setActiveDay}
+                activeMode={activeMode}
+              /> : <AltDayCard
+                key={idx}
+                foreCastData={data}
+                date={data.date}
+                activeDay={activeDay}
+                setActiveDay={setActiveDay}
+                activeMode={activeMode}
+              />
             ))}
           </div>
-          <Chart data={weatherDataByDay.find((data) => data.date === activeDay)} activeMode={activeMode} />
+          {
+            visualizeMode === 'chart' ? <Chart data={weatherDataByDay.find((data) => data.date === activeDay)} activeMode={activeMode} /> : (
+              <div className="flex flex-col w-full p-5 bg-[#3E5063] rounded-xl -translate-y-4 gap-x-2">
+                <div className="flex gap-x-2">
+                  {
+                    weatherDataByDay.find((data) => data.date === activeDay).data.map(hourlyForecastData => <HourForecastCard key={hourlyForecastData.dt} displayData={hourlyForecastData} />)
+                  }
+                </div>
+                <div className="legends flex gap-x-10 mt-4">
+                  {
+                    cardLegends?.map(legend => (
+                      <div className=" flex gap-x-2">
+                        <span>
+                          {React.createElement(legend.icon)}
+                        </span>
+                        <p className="text-sm">{legend.name}</p>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+            )
+          }
         </div>
         <div style={{ height: "100px", display: "flex", alignItems: "center" }}>
         </div>
