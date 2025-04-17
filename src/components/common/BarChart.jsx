@@ -66,8 +66,7 @@ const BarChart = ({hourlyDataset, activeMode}) => {
     scales: {
       y: {
         beginAtZero: false,
-        min: activeMode === "Pressure" ? 990 : 0,
-        max: activeMode === "Wind" ? 15 : undefined,
+        max: activeMode === "Precipitation" || activeMode === "Cloud Cover" ? 100 : undefined,
         grid: {
           drawBorder: false,
           display: true,
