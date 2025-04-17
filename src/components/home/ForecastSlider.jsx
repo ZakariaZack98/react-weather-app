@@ -22,7 +22,7 @@ const ForecastSlider = () => {
 
   const cardLegends = [
     {
-      name: 'Temperature',
+      name: 'Feels Like',
       icon: FaTemperatureHigh
     },
     {
@@ -138,7 +138,7 @@ const ForecastSlider = () => {
               <div className="flex flex-col w-full p-5 bg-[#3E5063] rounded-xl -translate-y-4 gap-x-2">
                 <div className="flex gap-x-2">
                   {
-                    weatherDataByDay.find((data) => data.date === activeDay).data.map(hourlyForecastData => <HourForecastCard key={hourlyForecastData.dt} displayData={hourlyForecastData} />)
+                    weatherDataByDay.find((data) => data.date === activeDay).data.map((hourlyForecastData, idx) => <HourForecastCard key={hourlyForecastData.dt} displayData={hourlyForecastData} delay={idx * 100}/>)
                   }
                 </div>
                 <div className="legends flex gap-x-10 mt-4">

@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FaWind } from 'react-icons/fa'
 import WindDirectionIcon from './WindDirectionIcon'
 import { ConvertTo12Hour } from '../../utils/utils'
 import { FaDroplet } from 'react-icons/fa6'
 import { CiTempHigh } from 'react-icons/ci'
 
-const HourForecastCard = ({ displayData }) => {
+const HourForecastCard = ({ displayData, delay }) => {
   return (
-    <div className='w-[12.5%] h-[260px] p-4 flex flex-col justify-between rounded-xl bg-[#4e647c]'>
+    <div
+      className='w-[12.5%] h-[260px] p-4 flex flex-col justify-between rounded-xl bg-[#4e647c] hover:text-[rgba(0,0,0,0.6)] hover:bg-[rgba(255,255,255,0.65)] cursor-pointer'
+      data-aos="flip-left"
+      data-aos-duration="500"
+      data-aos-delay={delay}
+    >
       <p>{ConvertTo12Hour(displayData?.dt_txt?.split(' ')[1])}</p>
       <div className="iconSec flex flex-col">
         <img
@@ -36,7 +41,7 @@ const HourForecastCard = ({ displayData }) => {
             <FaWind size={18} />
           </span>
           <span className='me-2'>{displayData?.wind?.speed}mph</span>
-          <WindDirectionIcon deg={displayData?.wind?.deg} size={15}/>
+          <WindDirectionIcon deg={displayData?.wind?.deg} size={15} />
         </div>
       </div>
     </div>
