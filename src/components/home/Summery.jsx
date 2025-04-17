@@ -73,7 +73,7 @@ const Summery = () => {
         fetchAllWeatherData(lat, lng)
           .then(() => {
             const newRecentLocation = {
-              name: `${locationName.split(',')[0]}, ${locationName.split(',')[1]}`,
+              name: `${locationName.split(',')[0]}, ${locationName.split(',')[3]}`,
               coord: coord
             }
             const updatedRecentSearchLoc = [...recentSearchLoc];

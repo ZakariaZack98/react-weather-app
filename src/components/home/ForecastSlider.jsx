@@ -1,3 +1,5 @@
+import Aos from 'aos';
+import "aos/dist/aos.css"
 import React, { useContext, useEffect, useState } from "react";
 import { FaChartBar, FaList, FaTemperatureHigh, FaWind } from "react-icons/fa";
 import { WeatherContext } from "../../contexts/WeatherContext";
@@ -7,6 +9,7 @@ import Chart from "./Chart";
 import AltDayCard from "../common/AltDayCard";
 import HourForecastCard from "../common/HourForecastCard";
 import { FaDroplet } from "react-icons/fa6";
+
 
 const ForecastSlider = () => {
   const modes = [
@@ -67,7 +70,7 @@ const ForecastSlider = () => {
       const updatedWeatherData = weatherDataByDate.map((dateData) => {
         return {
           id: 0,
-          date: DateFormatter(dateData[0].dt_txt.split(" ")[0]),
+          date: DateFormatter(dateData[3].dt_txt.split(" ")[0]), // !!Re-evaluate the logic
           day: new Date(dateData[0].dt_txt.split(" ")[0]).toLocaleString("default", { weekday: "long" }),
           dominantIcons: GetDailyIcon(dateData),
           tempSummery: GetTempSummery(dateData),
@@ -77,7 +80,13 @@ const ForecastSlider = () => {
 
       setWeatherDataByDay(updatedWeatherData);
     }
-  }, [hourlyForecastData]);
+  }, [hourlyForecastData, activeDay, visualizeMode, activeMode]);
+
+  useEffect(() => {
+    if (weatherDataByDay && weatherDataByDay.length > 0) {
+      Aos.refresh();
+    }
+  }, [weatherDataByDay]);
 
   if (weatherDataByDay && weatherDataByDay.length > 0) {
     return (
@@ -136,15 +145,21 @@ const ForecastSlider = () => {
           {
             visualizeMode === 'chart' ? <Chart data={weatherDataByDay.find((data) => data.date === activeDay)} activeMode={activeMode} /> : (
               <div className="flex flex-col w-full p-5 bg-[#3E5063] rounded-xl -translate-y-4 gap-x-2">
-                <div className="flex gap-x-2">
+                <div className="flex gap-x-2 justify-between">
                   {
-                    weatherDataByDay.find((data) => data.date === activeDay).data.map((hourlyForecastData, idx) => <HourForecastCard key={hourlyForecastData.dt} displayData={hourlyForecastData} delay={idx * 100}/>)
+                    weatherDataByDay.find((data) => data.date === activeDay).data.map((hourlyForecastData, idx) => <HourForecastCard
+                      key={hourlyForecastData.dt}
+                      displayData={hourlyForecastData}
+                      delay={idx * 100}
+                      data-aos-once="false"
+                      data-aos-anchor-placement="top-bottom"
+                    />)
                   }
                 </div>
                 <div className="legends flex gap-x-10 mt-4">
                   {
                     cardLegends?.map(legend => (
-                      <div className=" flex gap-x-2">
+                      <div key={legend.name} className=" flex gap-x-2">
                         <span>
                           {React.createElement(legend.icon)}
                         </span>

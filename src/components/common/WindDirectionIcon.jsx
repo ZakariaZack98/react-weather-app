@@ -8,7 +8,8 @@ import { GetWindDirection } from '../../utils/utils';
  * @param {number} props.deg - Wind direction in degrees (0-360)
  */
 const WindDirectionIcon = ({ deg = 0, size = 32, color = '#ffffff' }) => {
-  const rotation = deg - 45;
+  //* componsating default orientation of the icon
+  const rotation = 135 - deg;
 
   return (
     <span

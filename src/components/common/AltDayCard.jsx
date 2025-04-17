@@ -14,9 +14,13 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
 
   useEffect(() => {
     if (activeMode === 'Precipitation') {
+      let avg = 0;
       const allRainObj = foreCastData?.data?.map(hourlyData => hourlyData.rain).filter(item => Boolean(item));
-      const avg = allRainObj?.map(obj => Object.values(obj)[0])?.reduce((a, b) => a + b) / allRainObj.length
-      console.log(avg)
+      if(allRainObj.length > 1) {
+        avg = allRainObj?.map(obj => Object.values(obj)[0])?.reduce((a, b) => a + b) / allRainObj.length
+      } else if (allRainObj.length === 1) {
+        avg = Object.values(allRainObj[0])[0] || 0;
+      }
       setAltCardData({
         input: Math.max(...foreCastData?.data?.map(hourlyData => hourlyData.pop * 100)),
         color: 'rgba(78, 113, 252, 1)',
@@ -60,10 +64,10 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
         color: '#85BDF6',
         topData: {
           data: Math.round(avgWindSpeed),
-          prefix: 'mph',
+          prefix: 'km/h',
         },
         bottomData: {
-          data: `${Math.round(maxGust)}mph`,
+          data: `${Math.round(maxGust)}km/h`,
           prefix: 'Wind Gust',
           icon: FaWind
         }

@@ -19,7 +19,7 @@ const Chart = ({ data, activeMode }) => {
                 )
               }
               {
-                activeMode === 'Wind' ? <p className='text-sm pt-3'>{hourlyData?.wind?.speed}mph</p> : <p className='text-sm'>{Math.round(hourlyData.main.temp)}°c</p>
+                activeMode === 'Wind' ? <p className='text-sm pt-3'>{hourlyData?.wind?.speed}km/h</p> : <p className='text-sm'>{Math.round(hourlyData.main.temp)}°c</p>
               }
             </div>
           ))
@@ -27,7 +27,7 @@ const Chart = ({ data, activeMode }) => {
       </div>
       <div className="w-full h-[40dvh] px-5 border border-[rgba(255,255,255,0.14)] p-2 rounded-b-xl">
         {
-          activeMode === 'Precipitation' || activeMode === 'Cloud Cover' ? <BarChart hourlyDataset={data.data} activeMode={activeMode} /> : <LineChart hourlyDataset={data.data} activeMode={activeMode} />
+          activeMode === 'Precipitation' || activeMode === 'Cloud Cover' ? <BarChart hourlyDataset={data?.data} activeMode={activeMode} /> : <LineChart hourlyDataset={data?.data} activeMode={activeMode} />
         }
       </div>
     </div>

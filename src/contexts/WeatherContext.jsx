@@ -27,7 +27,7 @@ const WeatherProvider = ({children}) => {
 
       if (locationResult.status === 'fulfilled') {
         const address = locationResult.value.data.address;
-        setLocationName(`${address.town || address.suburb || address.county || ''}, ${address.state_district}, ${address.state}, ${address.country}`);
+        setLocationName(`${address.town || address.suburb || address.county || ''}, ${address.state_district || ''}, ${address.state || ''}, ${address.country}`);
       }
 
       if (aqiResult.status === 'fulfilled') {

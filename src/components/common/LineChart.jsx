@@ -44,7 +44,7 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
           activeMode === 'Precipitation'
             ? 'Chances of Rain (%)'
             : activeMode === 'Wind'
-              ? 'Wind Speed (mph)'
+              ? 'Wind Speed (km/h)'
               : activeMode === 'Humidity'
                 ? 'Humidity (%)'
                 : activeMode === 'Pressure'
@@ -130,14 +130,14 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
       y: {
         beginAtZero: false,
         min: activeMode === 'Pressure' ? 990 : 0,
-        max: activeMode === 'Wind' ? 15 : undefined,
+        max: activeMode === 'Wind' ? 15 : activeMode === 'Overview' || activeMode === 'Feels Like' ? 45 : undefined,
         grid: {
           drawBorder: false,
           display: true,
           color: 'rgba(255, 255, 255, 0.05)',
         },
         ticks: {
-          stepSize: activeMode === 'Wind' ? 1 : 10,
+          stepSize: activeMode === 'Wind' ? 1 : 5,
           color: 'white',
         },
       },

@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa'
 import { WeatherContext } from '../../contexts/WeatherContext'
 
 const SearchArea = () => {
-  const {recentSearchLoc, setCoord, fetchAllWeatherData} = useContext(WeatherContext);
+  const {recentSearchLoc, fetchAllWeatherData} = useContext(WeatherContext);
   return (
     <div className='flex py-4 gap-x-10'>
       <div className="searchBar w-1/6 relative">
