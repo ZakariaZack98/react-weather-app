@@ -1,5 +1,6 @@
 import React from 'react'
 import LineChart from '../common/LineChart';
+import BarChart from '../common/BarChart';
 
 const Chart = ({ data, activeMode }) => {
   return (
@@ -18,7 +19,9 @@ const Chart = ({ data, activeMode }) => {
         }
       </div>
       <div className="w-full h-[40dvh] px-5 border border-[rgba(255,255,255,0.14)] p-2 rounded-b-xl">
-        <LineChart hourlyDataset={data.data} activeMode={activeMode} />
+        {
+          activeMode === 'Precipitation' || activeMode === 'Cloud Cover' ? <BarChart hourlyDataset={data.data} activeMode={activeMode}/> : <LineChart hourlyDataset={data.data} activeMode={activeMode}/>
+        }
       </div>
     </div>
   )
