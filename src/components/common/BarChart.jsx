@@ -36,8 +36,8 @@ const BarChart = ({hourlyDataset, activeMode}) => {
           activeMode === "Precipitation"
             ? hourlyDataset.map((hourlyData) => hourlyData.pop * 100)
             : hourlyDataset.map((hourlyData) => hourlyData.clouds.all),           
-        borderColor: activeMode === 'Cloud Cover' ? 'cyan' : 'blue',
-        backgroundColor: activeMode === 'Cloud Cover' ? 'cyan' : 'blue',
+        borderColor: activeMode === 'Cloud Cover' ? 'cyan' : 'rgba(78, 113, 252, 1)',
+        backgroundColor: activeMode === 'Cloud Cover' ? 'cyan' : 'rgba(78, 113, 252, 1)',
         borderRadius: 50,
         barThickness: 40,
       },

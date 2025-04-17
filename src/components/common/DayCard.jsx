@@ -11,7 +11,7 @@ const DayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode }) =>
       onClick={() => setActiveDay(date)}>
       <div className="date flex justify-between items-center">
         {/* //!FIX THE LOCAL TIME BUG */}
-        <p className="date text-2xl font-semibold">
+        <p className="date text-xl font-semibold">
           {DateFormatter(new Date().toISOString().split("T")[0]) === foreCastData.date ? "Today" : foreCastData.date}
         </p>
         <p>{foreCastData.day}</p>

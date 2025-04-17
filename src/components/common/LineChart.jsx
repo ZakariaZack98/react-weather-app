@@ -44,7 +44,7 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
           activeMode === 'Precipitation'
             ? 'Chances of Rain (%)'
             : activeMode === 'Wind'
-              ? 'Wind Speed (km/h)'
+              ? 'Wind Speed (mph)'
               : activeMode === 'Humidity'
                 ? 'Humidity (%)'
                 : activeMode === 'Pressure'
@@ -102,8 +102,7 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
     plugins: {
       legend: {
         position: 'bottom',
-        
-        paddingEnd: 100,
+        padding: 10,
         labels: {
           usePointStyle: true,
           color: 'white',
@@ -117,7 +116,7 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
               hidden: false,
               index: 0,
               fontColor: 'white',
-              fontSize: 20,
+              fontSize: 25,
             }];
           },
         },
