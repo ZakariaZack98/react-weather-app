@@ -193,3 +193,39 @@ export const GetTempSummery = (dailyData) => {
     };
   }
 };
+
+/**
+ * TODO: RETURN THE CLOSEST TIMESTRING TO CURRENT LOCAL TIME FROM AN ARRAY OF TIMESTRINGS===============================
+ * @param {timeArray} array 
+ * @returns {closestTime} string
+ */ 
+export const GetClosestTime = (timeArray) => {
+  const timeToMinutes = (timeStr) => {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  const timeArrayInMinutes = timeArray.map(timeToMinutes);
+
+  
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+  
+  const closestTimeInMinutes = timeArrayInMinutes.reduce(
+    (closest, time) => {
+      const timeDiff = Math.abs(time - currentMinutes);
+      const wrapAroundDiff = Math.abs(time + 1440 - currentMinutes);
+      const minDiff = Math.min(timeDiff, wrapAroundDiff);
+
+      if (minDiff < closest.diff) {
+        return { time, diff: minDiff };
+      }
+      return closest;
+    },
+    { time: null, diff: Infinity }
+  ).time;
+
+  
+  return timeArray[timeArrayInMinutes.indexOf(closestTimeInMinutes)];
+};
