@@ -130,7 +130,14 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
       y: {
         beginAtZero: false,
         min: activeMode === 'Pressure' ? 990 : 0,
-        max: activeMode === 'Wind' ? 15 : activeMode === 'Overview' || activeMode === 'Feels Like' ? 45 : undefined,
+        max: 
+        activeMode === 'Wind' 
+        ? 15 
+        : activeMode === 'Overview' || activeMode === 'Feels Like' 
+        ? 45 
+        : activeMode === 'Humidity'
+        ? 100
+        : undefined,
         grid: {
           drawBorder: false,
           display: true,

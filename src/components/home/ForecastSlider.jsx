@@ -70,7 +70,7 @@ const ForecastSlider = () => {
       const updatedWeatherData = weatherDataByDate.map((dateData) => {
         return {
           id: 0,
-          date: DateFormatter(dateData[0].dt_txt.split(" ")[0]), // !!Re-evaluate the logic
+          date: DateFormatter(dateData[3].dt_txt.split(" ")[0]), // !!Re-evaluate the logic
           day: new Date(dateData[0].dt_txt.split(" ")[0]).toLocaleString("default", { weekday: "long" }),
           dominantIcons: GetDailyIcon(dateData),
           tempSummery: GetTempSummery(dateData),
@@ -171,8 +171,6 @@ const ForecastSlider = () => {
               </div>
             )
           }
-        </div>
-        <div style={{ height: "100px", display: "flex", alignItems: "center" }}>
         </div>
       </div>
     );

@@ -2,8 +2,7 @@ import React from 'react'
 import SearchArea from '../../components/home/SearchArea'
 import Summery from '../../components/home/Summery'
 import ForecastSlider from '../../components/home/ForecastSlider'
-import TrendCurve from '../../components/common/TrendCurve'
-import TrendCardTyp1 from '../../components/common/TrendCardTyp1'
+import WeatherDetails from '../../components/home/WeatherDetails'
 
 const Home = () => {
 
@@ -15,10 +14,10 @@ const Home = () => {
           <div className="main w-5/6">
             <Summery/>
             <ForecastSlider/>
-            <TrendCardTyp1/>
+            <WeatherDetails/>
           </div>
           <div className="sidebar w-1/6">
-
+            
           </div>
         </div>
       </div>
