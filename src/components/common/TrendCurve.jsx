@@ -13,7 +13,7 @@ function hexToRgba(hex, alpha = 1) {
   return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
 }
 
-const TrendCurve = ({ data, curveColor, min = undefined, max = undefined, fill = false }) => {
+const TrendCurve = ({ data, curveColor, min = undefined, max = undefined, fill = false, ascpectMaintain = true }) => {
   const closest = GetClosestTime(data?.labels);
   const pointRadiusArr = data?.labels?.map(timeStr => {
     if (timeStr === closest) {
@@ -49,6 +49,7 @@ const TrendCurve = ({ data, curveColor, min = undefined, max = undefined, fill =
   };
   const options = {
     responsive: true,
+    maintainAspectRatio: ascpectMaintain,
     plugins: {
       legend: { display: false },
       tooltip: {

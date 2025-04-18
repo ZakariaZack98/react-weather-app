@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { FaAngleRight } from 'react-icons/fa'
 import TempTrendCard from './TrendCards/TempTrendCard'
 import { WeatherContext } from '../../contexts/WeatherContext'
+import FeelsLikeTrendCard from './TrendCards/FeelsLikeTrendCard'
 
 const WeatherDetails = () => {
   const { hourlyForecastData } = useContext(WeatherContext);
@@ -19,8 +20,9 @@ const WeatherDetails = () => {
                 </span>
               </div>
             </div>
-            <div className="w-full flex flex-wrap justify-between items-start my-5">
+            <div className="w-full flex flex-wrap  items-start my-5 gap-x-3">
               <TempTrendCard />
+              <FeelsLikeTrendCard/>
             </div>
           </div>
         )
