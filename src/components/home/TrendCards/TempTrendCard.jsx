@@ -22,8 +22,8 @@ const TempTrendCard = () => {
 
 
   return (
-    <div className='w-[25%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
-      <h1 className='text-sm'>Temperature</h1>
+    <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+      <h1 className='font-semibold'>Temperature</h1>
       <TrendCurve data={dataForCurve} curveColor={'#d4ff17'} min={0} max={45} fill={true} maintainAspectRatio={true}/>
       <div className="textSec">
         <div className="flex items-center gap-x-2">
