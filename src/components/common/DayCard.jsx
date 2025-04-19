@@ -1,7 +1,7 @@
 import React from "react";
-import { DateFormatter } from "../../utils/utils";
+import { ConvertToLocalISOString, DateFormatter } from "../../utils/utils";
 
-const DayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode }) => {
+const DayCard = ({ foreCastData, date, activeDay, setActiveDay }) => {
   return (
     <div
       className={`w-1/5 ${
@@ -12,7 +12,7 @@ const DayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode }) =>
       <div className="date flex justify-between items-center">
         {/* //!FIX THE LOCAL TIME BUG */}
         <p className="date text-xl font-semibold">
-          {DateFormatter(new Date().toISOString().split("T")[0]) === foreCastData.date ? "Today" : foreCastData.date}
+          {DateFormatter(ConvertToLocalISOString(new Date().toISOString())) === foreCastData.date ? "Today" : foreCastData.date}
         </p>
         <p>{foreCastData.day}</p>
       </div>
