@@ -10,6 +10,7 @@ import HumidityTrendCard from './TrendCards/HumidityTrendCard'
 import UVTrendCard from './TrendCards/UVTrendCard'
 import AQITrendCard from './TrendCards/AQITrendCard'
 import VisibilityTrendCard from './TrendCards/VisibilityTrendCard'
+import PressureTrendCard from './TrendCards/PressureTrendCard'
 
 const WeatherDetails = () => {
   const { hourlyForecastData } = useContext(WeatherContext);
@@ -37,6 +38,7 @@ const WeatherDetails = () => {
               <UVTrendCard/>
               <AQITrendCard/>
               <VisibilityTrendCard/>
+              <PressureTrendCard/>
             </div>
           </div>
         )
