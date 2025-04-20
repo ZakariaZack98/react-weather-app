@@ -6,11 +6,11 @@ const PrecipitationTrendCard = () => {
   const { hourlyForecastData } = useContext(WeatherContext);
   const next24hrsForecast = hourlyForecastData?.slice(2, 10);
   const forecastWithRains = next24hrsForecast?.map(hourlyData => hourlyData.rain).filter(item => Boolean(item));
+  const maxRainChance = Math.max(...next24hrsForecast?.map(hourlyData => hourlyData.pop)) * 100;
   const getTotalRainfall = () => {
     if (forecastWithRains?.length === 0) return 0;
     return (forecastWithRains?.map(obj => Object.values(obj)[0])?.reduce((a, b) => a + b)).toFixed(2)
   }
-  const getMaxRainChance = () => Math.max(...next24hrsForecast?.map(hourlyData => hourlyData.pop)) * 100;
 
   return (
     <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
@@ -37,16 +37,16 @@ const PrecipitationTrendCard = () => {
       </div>
       <div className="textSec">
         <div className="flex items-center gap-x-2">
-          <p className='font-semibold'>{getMaxRainChance()}% chance of rain</p>
+          <p className='font-semibold'>{maxRainChance}% chance of rain in 24 hours.</p>
         </div>
         <p className='text-[13px] mt-2'>{
-          getMaxRainChance() === 0
+          maxRainChance === 0
           ? 'No chances of rain in the next 24 hours'
-          : getMaxRainChance() <= 70 && getMaxRainChance() >= 50
+          : maxRainChance <= 70 && maxRainChance >= 50
           ? `Consider taking an umbrella while going out.`
-          : getMaxRainChance() > 70
-          ? `Prominant rain probability. remember to take your umbrella while going out.`
-          : `${getMaxRainChance()}% chances of rain in the next 24 hours.`
+          : maxRainChance > 70
+          ? `Prominant rain probability. Remember to take your umbrella while going out.`
+          : `${maxRainChance}% chances of rain in the next 24 hours.`
           }</p>
       </div>
     </div>

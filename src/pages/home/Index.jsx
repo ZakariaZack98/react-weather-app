@@ -7,17 +7,16 @@ import WeatherDetails from '../../components/home/WeatherDetails'
 const Home = () => {
 
   return (
-    <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll" style={{scrollbarWidth: 'none'}}>
+    <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll" style={{ scrollbarWidth: 'none' }}>
       <div className='container mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-        <SearchArea/>
+        <SearchArea />
         <div className="mainContents flex w-full">
           <div className="main w-5/6">
-            <Summery/>
-            <ForecastSlider/>
-            <WeatherDetails/>
+            <Summery />
+            <ForecastSlider />
+            <WeatherDetails />
           </div>
           <div className="sidebar w-1/6">
-            
           </div>
         </div>
       </div>

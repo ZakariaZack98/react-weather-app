@@ -5,6 +5,7 @@ import { WeatherContext } from '../../contexts/WeatherContext'
 import FeelsLikeTrendCard from './TrendCards/FeelsLikeTrendCard'
 import CloudCoverCard from './TrendCards/CloudCoverCard'
 import PrecipitationTrendCard from './TrendCards/PrecipitationTrendCard'
+import WindTrendCard from './TrendCards/WindTrendCard'
 
 const WeatherDetails = () => {
   const { hourlyForecastData } = useContext(WeatherContext);
@@ -22,11 +23,12 @@ const WeatherDetails = () => {
                 </span>
               </div>
             </div>
-            <div className="w-full flex flex-wrap justify-between items-start my-5 gap-x-3">
+            <div className="w-full flex flex-wrap justify-between items-start my-5 gap-3">
               <TempTrendCard />
               <FeelsLikeTrendCard/>
               <CloudCoverCard/>
               <PrecipitationTrendCard/>
+              <WindTrendCard/>
             </div>
           </div>
         )

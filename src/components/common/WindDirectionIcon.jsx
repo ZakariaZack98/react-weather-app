@@ -9,7 +9,7 @@ import { GetWindDirection } from '../../utils/utils';
  */
 const WindDirectionIcon = ({ deg = 0, size = 32, color = '#ffffff' }) => {
   //* componsating default orientation of the icon
-  const rotation = 135 - deg;
+  const rotation = 135 + deg;
 
   return (
     <span
@@ -18,7 +18,7 @@ const WindDirectionIcon = ({ deg = 0, size = 32, color = '#ffffff' }) => {
         transform: `rotate(${rotation}deg)`,
         transition: 'transform 0.3s',
       }}
-      title={`Wind direction: ${GetWindDirection(deg)}`}
+      title={`Wind direction: From ${GetWindDirection(deg)}`}
     >
       <FaLocationArrow size={size} color={color} />
     </span>

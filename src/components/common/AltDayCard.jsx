@@ -40,7 +40,6 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
       const avgDayCloud = dayObj.map(data => data.clouds.all).reduce((a, b) => a + b) / dayObj.length;
       const nightObj = foreCastData?.data?.filter(hourlyData => hourlyData.sys.pod === 'n');
       const avgNightCloud = nightObj.map(data => data.clouds.all).reduce((a, b) => a + b) / nightObj.length;
-      console.log(avgDayCloud)
       setAltCardData({
         input: foreCastData?.data?.map(hourlyData => hourlyData.clouds.all).reduce((a, b) => a + b) / foreCastData?.data?.length,
         color: 'cyan',
