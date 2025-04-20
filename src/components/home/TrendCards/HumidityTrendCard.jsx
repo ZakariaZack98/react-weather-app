@@ -5,7 +5,7 @@ import { ConvertTo12Hour } from '../../../utils/utils';
 
 const HumidityTrendCard = () => {
   const { hourlyForecastData, weatherDataNow } = useContext(WeatherContext);
-  const sampleData = hourlyForecastData?.slice(0, 8);
+  const sampleData = hourlyForecastData?.slice(2, 10);
   const humidityData = sampleData?.map(hourlyData => hourlyData?.main?.humidity);
   const currentHumidity = weatherDataNow?.main?.humidity;
   const maxHumidity = Math.max(...humidityData);
