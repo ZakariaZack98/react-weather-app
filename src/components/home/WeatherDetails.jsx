@@ -7,6 +7,7 @@ import CloudCoverCard from './TrendCards/CloudCoverCard'
 import PrecipitationTrendCard from './TrendCards/PrecipitationTrendCard'
 import WindTrendCard from './TrendCards/WindTrendCard'
 import HumidityTrendCard from './TrendCards/HumidityTrendCard'
+import UVTrendCard from './TrendCards/UVTrendCard'
 
 const WeatherDetails = () => {
   const { hourlyForecastData } = useContext(WeatherContext);
@@ -31,6 +32,7 @@ const WeatherDetails = () => {
               <PrecipitationTrendCard/>
               <WindTrendCard/>
               <HumidityTrendCard/>
+              <UVTrendCard/>
             </div>
           </div>
         )

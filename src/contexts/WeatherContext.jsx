@@ -1,8 +1,10 @@
 import React, { createContext, useState } from 'react'
-import { FetchAqiData, FetchCurrentWeatherByMap, FetchHourlyForeCast } from '../utils/utils';
+import { FetchAqiData, FetchCurrentWeatherByMap, FetchHourlyForeCast, FetchUVdata } from '../utils/utils';
 import axios from 'axios';
+
 const WeatherContext = createContext();
-const WeatherProvider = ({children}) => {
+
+const WeatherProvider = ({ children }) => {
   const apiKey = import.meta.env.VITE_OW_APIKey;
   const [recentSearchLoc, setRecentSearchLoc] = useState([])
   const [locationName, setLocationName] = useState('Bosila, Dhaka');
@@ -10,6 +12,7 @@ const WeatherProvider = ({children}) => {
   const [weatherDataNow, setWeatherDataNow] = useState({})
   const [aqiData, setAqiData] = useState([]);
   const [hourlyForecastData, setHourlyForeCastData] = useState([]);
+  const [uvData, setUvData] = useState(null);
 
   const fetchAllWeatherData = async (lat, lng) => {
     Promise.allSettled([
@@ -17,9 +20,10 @@ const WeatherProvider = ({children}) => {
       axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`),
       FetchAqiData(lat, lng),
       FetchHourlyForeCast(lat, lng),
+      FetchUVdata(lat, lng),
     ]).then((results) => {
       // Handle each result
-      const [weatherResult, locationResult, aqiResult, hourlyForecastResult] = results;
+      const [weatherResult, locationResult, aqiResult, hourlyForecastResult, uvResult] = results;
 
       if (weatherResult.status === 'fulfilled') {
         setWeatherDataNow(weatherResult.value);
@@ -37,12 +41,34 @@ const WeatherProvider = ({children}) => {
       if (hourlyForecastResult.status === 'fulfilled') {
         setHourlyForeCastData(hourlyForecastResult.value.list);
       }
+
+      if (uvResult.status === 'fulfilled') {
+        setUvData(uvResult.value);
+      }
+
       setCoord([lat, lng])
     });
   }
-  
+
   return (
-    <WeatherContext.Provider value={{apiKey, fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, setLocationName, coord, setCoord, weatherDataNow, setWeatherDataNow, aqiData, setAqiData, hourlyForecastData, setHourlyForeCastData}}>
+    <WeatherContext.Provider value={{
+      apiKey,
+      fetchAllWeatherData,
+      recentSearchLoc,
+      setRecentSearchLoc,
+      locationName,
+      setLocationName,
+      coord,
+      setCoord,
+      weatherDataNow,
+      setWeatherDataNow,
+      aqiData,
+      setAqiData,
+      hourlyForecastData,
+      setHourlyForeCastData,
+      uvData,
+      setUvData
+    }}>
       {children}
     </WeatherContext.Provider>
   )

@@ -19,7 +19,7 @@ async function fetchData(url) {
 }
 
 /**
- * TODO: FETCH CURRENT WEATHER OF THE SELECTED POSITION ON THE MAP ==============================================
+ * TODO: FETCH CURRENT WEATHER OF THE SELECTED LOCATION ==============================================
  * @param {lat} number latitude value from the leaflet map
  * @param {lon} number longitude value from the leaflet map
  * */ 
@@ -34,7 +34,7 @@ export const FetchCurrentWeatherByMap = async (lat, lon) => {
 };
 
 /**
- * TODO: FETCH CURRENT AIR QUALITY OF THE SELECTED POSITION ON THE MAP ==============================================
+ * TODO: FETCH CURRENT AIR QUALITY OF THE SELECTED LOCATION ==============================================
  * @param {lat} number
  * @param {lon} number 
  * @return  {aqiData} object containing Air Quality data
@@ -43,6 +43,35 @@ export const FetchAqiData = async (lat, lon) => {
   try {
     return await fetchData(
       `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`
+    );
+  } catch (error) {
+    console.error("Error fetching AQI data", err.message);
+  }
+};
+
+//* HELPER FUNCTION TO GET AQI DISPLAY DATA===============================================================
+export const GetAQICategory = (aqi) => {
+  const categories = [
+    { level: "Good", color: "#4CAF50", advice: "Air quality is excellent." },
+    { level: "Fair", color: "#FFEB3B", advice: "Sensitive groups should reduce outdoor activity." },
+    { level: "Moderate", color: "#FF9800", advice: "Some pollutants may affect health." },
+    { level: "Poor", color: "#F44336", advice: "Health effects possible for all." },
+    { level: "Very Poor", color: "#9C27B0", advice: "Avoid outdoor activities." }
+  ];
+  return categories[aqi - 1] || categories[4]; // Default to "Very Poor" if invalid
+}
+
+
+/**
+ * TODO: FETCH CURRENT UV DATA OF THE SELECTED LOCATION ==============================================
+ * @param {lat} number
+ * @param {lon} number 
+ * @return  {UVdata} object containing Air Quality data
+ * */ 
+export const FetchUVdata = async (lat, lon) => {
+  try {
+    return await fetchData(
+      `https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`
     );
   } catch (error) {
     console.error("Error fetching AQI data", err.message);

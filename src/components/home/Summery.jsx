@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-lea
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { WeatherContext } from '../../contexts/WeatherContext'
-import { ConvertToLocalISOString, GetWindDirection } from '../../utils/utils'
+import { ConvertToLocalISOString, GetAQICategory, GetWindDirection } from '../../utils/utils'
 import WindDirectionIcon from '../common/WindDirectionIcon'
 
 // Fix for default marker icon in Leaflet
@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
 })
 
 const Summery = () => {
-  const { fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, coord, weatherDataNow, aqiData, hourlyForecastData} = useContext(WeatherContext);
+  const { fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, coord, weatherDataNow, aqiData, hourlyForecastData, uvData} = useContext(WeatherContext);
 
   const [currentTime, setCurrentTime] = useState('');
 
@@ -107,6 +107,9 @@ const Summery = () => {
     {
       name: 'Pressure',
       data: '1001mb',
+    },
+    {
+      name: 'UV Index',
     }
   ]
 
@@ -186,14 +189,14 @@ const Summery = () => {
                         item.name === 'Humidity'
                           ? weatherDataNow?.main?.humidity + '%'
                           : item.name === 'Air Quality'
-                            ? aqiData.main.aqi
+                            ? GetAQICategory(aqiData.main.aqi).level
                             : item.name === 'Pressure'
                               ? weatherDataNow?.main?.pressure + 'mbr'
                               : item.name === 'Wind'
                                 ? Math.round(weatherDataNow?.wind?.speed) + 'km/h' + " " + GetWindDirection(weatherDataNow?.wind?.deg) // !!direction calculation should be applied here
                                 : item.name === 'Visibility'
                                   ? weatherDataNow?.visibility / 1000 + 'km'
-                                  : null
+                                  : uvData?.value
                       }</div>
                     </div>
                   ))}
