@@ -13,9 +13,9 @@ const TempTrendCard = () => {
 
   //TODO: GET A TEMP TREND BASED ON FUTURE TEMPERATURE DATA
   const getTempTrend = () => {
-    if(Math.round(sampleData[sampleData.length - 1]?.main?.temp) > currentTemp) {
+    if(Math.round(sampleData[sampleData.length - 2]?.main?.temp) > currentTemp) {
       return 'will be rising'
-    } else if (Math.round(sampleData[sampleData.length - 1]?.main?.temp) === currentTemp) {
+    } else if (Math.round(sampleData[sampleData.length - 2]?.main?.temp) === currentTemp) {
       return 'will be steady'
     } else return 'will be decreasing'
   }

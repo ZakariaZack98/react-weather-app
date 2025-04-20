@@ -14,9 +14,9 @@ const FeelsLikeTrendCard = () => {
 
   const getFeelTrend = () => {
     if(currentFeelTemp > currentRealTemp) {
-      return 'Slightly Warmer than'
+      return 'Warmer than'
     } else if (currentFeelTemp < currentRealTemp) {
-      return 'Slightly Cooler than'
+      return 'Cooler than'
     } else return 'Similiar as'
   }
 

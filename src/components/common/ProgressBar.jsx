@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const ProgressBar = ({ maxValue = 100, inputValue, color }) => {
-  const [animatedProgress, setAnimatedProgress] = useState(0); // Initial progress is 0
-  const progressPercentage = Math.min((inputValue / maxValue) * 100, 100); // Ensure it doesn't exceed 100%
+const ProgressBar = ({ maxValue = 100, inputValue, color = 'blue'}) => {
+  const [animatedProgress, setAnimatedProgress] = useState(0); 
+  const progressPercentage = Math.min((inputValue / maxValue) * 100, 100); 
 
   useEffect(() => {
     const animation = setTimeout(() => {
-      setAnimatedProgress(progressPercentage); // Animate to the calculated percentage
+      setAnimatedProgress(progressPercentage); 
     }, 100);
 
-    return () => clearTimeout(animation); // Cleanup timeout
+    return () => clearTimeout(animation); 
   }, [progressPercentage]);
 
   return (
@@ -28,12 +28,12 @@ const ProgressBar = ({ maxValue = 100, inputValue, color }) => {
       <div
         style={{
           width: '100%',
-          height: `${animatedProgress}%`, // Use animated progress
+          height: `${animatedProgress}%`,
           backgroundColor: color,
-          borderRadius: '10px', // Rounded corners at the top
+          borderRadius: '10px',
           position: 'absolute',
-          bottom: 0, // Start from the bottom
-          transition: 'height 0.5s ease-in-out', // Smooth animation
+          bottom: 0, 
+          transition: 'height 0.5s ease-in-out',
         }}
       ></div>
     </div>
