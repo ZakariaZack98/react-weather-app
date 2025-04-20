@@ -41,6 +41,7 @@ const WeatherDetails = () => {
               <VisibilityTrendCard/>
               <PressureTrendCard/>
               <MoonPhaseCard/>
+              <MoonPhaseCard/>
             </div>
           </div>
         )

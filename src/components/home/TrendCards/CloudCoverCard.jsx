@@ -8,24 +8,46 @@ const CloudCoverCard = () => {
   const cloudCoverNow = weatherDataNow?.clouds?.all;
   const cloudCoverFuture = futureData?.clouds?.all;
   const getCloudTrend = () => {
-    if(cloudCoverFuture > cloudCoverNow ) {
+    if (cloudCoverFuture > cloudCoverNow) {
       return 'likely to rise'
-    } else if (cloudCoverFuture === cloudCoverNow ) {
+    } else if (cloudCoverFuture === cloudCoverNow) {
       return 'likely to stay similiar'
     } else return 'likely to decrease'
   }
+  console.log(cloudCoverNow)
 
   return (
     <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
       <h1 className='font-semibold'>Cloud Cover</h1>
       <div className="flex w-full justify-center items-center">
         <div className="w-35 h-35 border border-[rgba(255,255,255,0.23)] rounded-full bg-[rgba(255,255,255,0.06)]">
-          <DotLottieReact
-            src="https://lottie.host/4cd9f87d-62e7-428d-a836-ca34f577b989/Au3BnocTTt.lottie"
-            style={{ width: 140, height: 140, transform: 'translateX(10px)' }}
-            loop
-            autoplay
-          />
+          {
+            cloudCoverNow <= 10 ? (
+              <DotLottieReact
+                key="clear"
+                src="https://lottie.host/93bc5c0b-2cf3-4cb2-af95-ad08f14fdf6b/vs6fzTP4e4.lottie"
+                style={{ width: 140, height: 140 }}
+                loop
+                autoplay
+              />
+            ) : cloudCoverNow <= 50 ? (
+              <DotLottieReact
+                key="partly"
+                src="https://lottie.host/ceec6e6d-885d-453c-a152-aaf1fde79d5d/BPZ20XhuHv.lottie"
+                style={{ width: 140, height: 140 }}
+                loop
+                autoplay
+              />
+            ) : (
+              <DotLottieReact
+                key="cloudy"
+                src="https://lottie.host/4cd9f87d-62e7-428d-a836-ca34f577b989/Au3BnocTTt.lottie"
+                style={{ width: 140, height: 140, transform: 'translateX(10px)' }}
+                loop
+                autoplay
+              />
+            )
+          }
         </div>
       </div>
       <div className="textSec">

@@ -26,7 +26,6 @@ const MoonPhaseCard = () => {
   }
 
   const phase = getMoonPhase(new Date());
-  console.log(phase)
 
   //* MOON ICON COMPONENT BASED ON MOON PHASE=================================
   const MoonPhase = ({ phase }) => {
