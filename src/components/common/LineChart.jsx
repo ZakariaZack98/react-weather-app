@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js';
 import { ConvertTo12Hour } from '../../utils/utils';
 import { ColorGroups } from '../../lib/GradColorGrp';
+import { FaDroplet } from 'react-icons/fa6';
 
 ChartJS.register(
   CategoryScale,
@@ -14,7 +15,7 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = ({ hourlyDataset, activeMode }) => {
+const LineChart = ({ hourlyDataset, activeMode, seconderyDataSet }) => {
   const colorData = ColorGroups;
   const [gradColors, setGradColors] = useState(['rgba(243, 96, 39, 0.48)', 'rgba(0, 178, 28, 0.48)', 'rgba(255, 255, 255, 0)']);
 
@@ -37,7 +38,7 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
   }
 
   const data = {
-    labels: hourlyDataset.map((hourlyData) => ConvertTo12Hour(hourlyData.dt_txt.split(' ')[1])),
+    labels: hourlyDataset?.map((hourlyData) => ConvertTo12Hour(hourlyData?.dt_txt?.split(' ')[1])),
     datasets: [
       {
         label:
@@ -54,18 +55,18 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
                     : 'Temperature (°c)',
         data:
           activeMode === 'Precipitation'
-            ? hourlyDataset.map((hourlyData) => hourlyData.pop * 100)
+            ? hourlyDataset?.map((hourlyData) => hourlyData?.pop * 100)
             : activeMode === 'Wind'
-              ? hourlyDataset.map((hourlyData) => hourlyData.wind.speed)
+              ? hourlyDataset?.map((hourlyData) => hourlyData?.wind?.speed)
               : activeMode === 'Humidity'
-                ? hourlyDataset.map((hourlyData) => hourlyData.main.humidity)
+                ? hourlyDataset?.map((hourlyData) => hourlyData?.main?.humidity)
                 : activeMode === 'Pressure'
-                  ? hourlyDataset.map((hourlyData) => hourlyData.main.pressure)
+                  ? hourlyDataset?.map((hourlyData) => hourlyData?.main?.pressure)
                   : activeMode === 'Visibility'
-                    ? hourlyDataset.map((hourlyData) => hourlyData.visibility / 1000)
+                    ? hourlyDataset?.map((hourlyData) => hourlyData?.visibility / 1000)
                     : activeMode === 'Feels Like'
-                      ? hourlyDataset.map((hourlyData) => hourlyData.main.feels_like)
-                      : hourlyDataset.map((hourlyData) => hourlyData.main.temp),
+                      ? hourlyDataset?.map((hourlyData) => hourlyData?.main?.feels_like)
+                      : hourlyDataset?.map((hourlyData) => hourlyData?.main?.temp),
         borderColor: (ctx) => {
           const chart = ctx.chart;
           const { ctx: canvasCtx, chartArea } = chart;
@@ -92,6 +93,28 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
         pointHoverRadius: 6,
         fill: true,
       },
+      ...(seconderyDataSet
+        ? [{
+          label:
+            activeMode === 'Overview'
+              ? 'Feels Like (°c)'
+              : 'Wind Gust (km/h)',
+          data: activeMode === 'Overview'
+            ? hourlyDataset?.map(hourlyData => hourlyData?.main?.feels_like)
+            : hourlyDataset?.map((hourlyData) => hourlyData?.wind?.gust),
+          borderColor: activeMode === 'Overview'
+            ? 'rgba(230, 245, 39, 0.21)'
+            : 'rgba(39, 230, 245, 0.58)',
+          backgroundColor: activeMode === 'Overview'
+            ? 'rgba(230, 245, 39, 0.21)'
+            : 'rgba(39, 230, 245, 0.58)',
+          tension: 0.5,
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 6,
+          fill: false,
+        }]
+        : [])
     ],
   };
 
@@ -106,19 +129,11 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
         labels: {
           usePointStyle: true,
           color: 'white',
-          generateLabels: (chart) => {
-            const dataset = chart.data.datasets[0];
-            return [{
-              text: dataset.label,
-              fillStyle: gradColors[1],
-              strokeStyle: gradColors[1],
-              pointStyle: 'circle',
-              hidden: false,
-              index: 0,
-              fontColor: 'white',
-              fontSize: 25,
-            }];
-          },
+        },
+        title: {
+          display: activeMode === 'Overview', // true or false
+          text: '', // empty string, just for padding
+          padding: { top: 32 },
         },
       },
       tooltip: {
@@ -130,14 +145,14 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
       y: {
         beginAtZero: false,
         min: activeMode === 'Pressure' ? 990 : 0,
-        max: 
-        activeMode === 'Wind' 
-        ? 15 
-        : activeMode === 'Overview' || activeMode === 'Feels Like' 
-        ? 45 
-        : activeMode === 'Humidity'
-        ? 100
-        : undefined,
+        max:
+          activeMode === 'Wind'
+            ? 15
+            : activeMode === 'Overview' || activeMode === 'Feels Like'
+              ? 45
+              : activeMode === 'Humidity'
+                ? 100
+                : undefined,
         grid: {
           drawBorder: false,
           display: true,
@@ -168,11 +183,31 @@ const LineChart = ({ hourlyDataset, activeMode }) => {
   };
 
   return (
-    <Line
-      data={data}
-      options={options}
-      redraw
-    />
+    <>
+      <Line
+        data={data}
+        options={options}
+        redraw
+      />
+      {
+        activeMode === 'Overview' && (
+          <div className="rainIndicator flex w-full justify-center -translate-y-11">
+            <div className='absolute rounded w-[95.5%] bottom-0 h-8 flex'>
+              {hourlyDataset?.slice(0, 7).map(hourlyData => (
+                <div className={`flex justify-center items-center w-full ${hourlyData?.pop * 100 > 0 ? 'bg-blue-400' : 'bg-[rgba(255,255,255,0.33)]'}`}>
+                  <div className="flex items-center gap-x-1">
+                    <span>
+                      <FaDroplet/>
+                    </span>
+                  <p className="text-sm">{hourlyData?.pop * 100}%</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </>
   );
 };
 

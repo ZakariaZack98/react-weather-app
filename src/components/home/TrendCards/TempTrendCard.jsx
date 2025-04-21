@@ -17,7 +17,7 @@ const TempTrendCard = () => {
       return 'will be rising'
     } else if (Math.round(sampleData[sampleData.length - 2]?.main?.temp) === currentTemp) {
       return 'will be steady'
-    } else return 'will be decreasing'
+    } else return 'will be declining'
   }
 
 
