@@ -15,6 +15,7 @@ const WeatherProvider = ({ children }) => {
   const [uvData, setUvData] = useState(null);
 
   const fetchAllWeatherData = async (lat, lng) => {
+    setCoord([lat, lng])
     Promise.allSettled([
       FetchCurrentWeatherByMap(lat, lng),
       axios.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`),
@@ -46,7 +47,6 @@ const WeatherProvider = ({ children }) => {
         setUvData(uvResult.value);
       }
 
-      setCoord([lat, lng])
     });
   }
 

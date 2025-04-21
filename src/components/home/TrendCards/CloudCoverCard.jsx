@@ -34,7 +34,7 @@ const CloudCoverCard = () => {
               <DotLottieReact
                 key="partly"
                 src="https://lottie.host/ceec6e6d-885d-453c-a152-aaf1fde79d5d/BPZ20XhuHv.lottie"
-                style={{ width: 140, height: 140 }}
+                style={{ width: 140, height: 140, scale: '1.3' }}
                 loop
                 autoplay
               />

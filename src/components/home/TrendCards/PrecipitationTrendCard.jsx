@@ -46,7 +46,7 @@ const PrecipitationTrendCard = () => {
           ? `Consider taking an umbrella while going out.`
           : maxRainChance > 70
           ? `Prominant rain probability. Remember to take your umbrella while going out.`
-          : `${maxRainChance}% chances of rain in the next 24 hours.`
+          : `Slight chance of rain, taking an umbrella with you is a good idea!`
           }</p>
       </div>
     </div>
