@@ -89,7 +89,7 @@ const AltLineChart = ({
   }
 
   return (
-    <div style={{ width: '50%', height: '400px' }}>
+    <div style={{ width: '100%', height: '400px' }}>
       <Line data={data} options={options} />
     </div>
   )

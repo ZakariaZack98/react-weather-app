@@ -199,7 +199,7 @@ const LineChart = ({ hourlyDataset, activeMode, seconderyDataSet }) => {
                     <span>
                       <FaDroplet/>
                     </span>
-                  <p className="text-sm">{hourlyData?.pop * 100}%</p>
+                  <p className="text-sm">{Math.round(hourlyData?.pop * 100)}%</p>
                   </div>
                 </div>
               ))}

@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react'
-import { FetchAqiData, FetchCurrentWeatherByMap, FetchHourlyForeCast, FetchUVdata } from '../utils/utils';
+import React, { createContext, useEffect, useState } from 'react'
+import { FetchAqiData, FetchCurrentWeatherByMap, FetchHourlyForeCast, FetchNews, FetchUVdata } from '../utils/utils';
 import axios from 'axios';
 
 const WeatherContext = createContext();
@@ -14,6 +14,13 @@ const WeatherProvider = ({ children }) => {
   const [hourlyForecastData, setHourlyForeCastData] = useState([]);
   const [uvData, setUvData] = useState(null);
   const [weatherMapMode, setWeatherMapMode] = useState('');
+  const [newsData, setNewsData] = useState([])
+
+  useEffect(() => {
+    FetchNews()
+    .then(data => setNewsData(data?.articles))
+    .catch(console.error)
+  }, [])
 
   const fetchAllWeatherData = async (lat, lng) => {
     setCoord([lat, lng])
@@ -70,7 +77,8 @@ const WeatherProvider = ({ children }) => {
       uvData,
       setUvData,
       weatherMapMode,
-      setWeatherMapMode
+      setWeatherMapMode,
+      newsData
     }}>
       {children}
     </WeatherContext.Provider>

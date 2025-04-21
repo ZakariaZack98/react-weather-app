@@ -8,6 +8,7 @@ import {
 const apiKey = import.meta.env.VITE_OW_APIKey;
 const vcApiKey = import.meta.env.VITE_VC_APIKey;
 const wbApiKey = import.meta.env.VITE_WB_APIKey;
+const newsApiKey = import.meta.env.VITE_NEWS_APIKey;
 const WEATHER_PRIORITY = [
   "Thunderstorm",
   "Rain",
@@ -388,4 +389,13 @@ export function GetRandomWeatherbitIconCode() {
 
   const randomIndex = Math.floor(Math.random() * weatherbitIcons.length);
   return weatherbitIcons[randomIndex];
+}
+
+// TODO: FETCH WEATHER NEWS
+export const FetchNews = async () => {
+  try {
+    return await fetchData(`https://newsapi.org/v2/everything?q=weather&apiKey=${newsApiKey}`)
+  } catch (error) {
+    console.error('Error fetching news', error.message);
+  }
 }
