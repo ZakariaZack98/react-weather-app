@@ -14,7 +14,6 @@ const CloudCoverCard = () => {
       return 'likely to stay similiar'
     } else return 'likely to decrease'
   }
-  console.log(cloudCoverNow)
 
   return (
     <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>

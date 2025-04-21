@@ -30,21 +30,6 @@ const Chart = ({ data, activeMode }) => {
           activeMode === 'Precipitation' || activeMode === 'Cloud Cover' ? <BarChart hourlyDataset={data?.data} activeMode={activeMode} /> : <LineChart hourlyDataset={data?.data} activeMode={activeMode} seconderyDataSet={activeMode === 'Overview' || activeMode === 'Wind' ? true : false} />
         }
       </div>
-      {/* {
-        activeMode === 'Overview' && (
-          <div className="rainIndicator flex w-full justify-center -translate-y-11 scale-[1.02]">
-            <div className='absolute rounded w-[90%] bottom-0 h-8 flex gap-x-1'>
-              <p className='w-full bg-red-500'>Lorem</p>
-              <p className='w-full bg-red-500'>Lorem</p>
-              <p className='w-full bg-red-500'>Lorem</p>
-              <p className='w-full bg-red-500'>Lorem</p>
-              <p className='w-full bg-red-500'>Lorem</p>
-              <p className='w-full bg-red-500'>Lorem</p>
-              <p className='w-full bg-red-500'>Lorem</p>
-            </div>
-          </div>
-        )
-      } */}
     </div>
   )
 }

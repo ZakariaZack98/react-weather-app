@@ -3,6 +3,7 @@ import SearchArea from '../../components/home/SearchArea'
 import Summery from '../../components/home/Summery'
 import ForecastSlider from '../../components/home/ForecastSlider'
 import WeatherDetails from '../../components/home/WeatherDetails'
+import LastMonthCal from '../../components/home/LastMonthCal'
 
 const Home = () => {
 
@@ -15,6 +16,7 @@ const Home = () => {
             <Summery />
             <ForecastSlider />
             <WeatherDetails />
+            <LastMonthCal/>
           </div>
           <div className="sidebar w-1/6">
           </div>

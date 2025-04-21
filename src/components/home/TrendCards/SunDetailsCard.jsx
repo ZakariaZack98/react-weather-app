@@ -26,7 +26,6 @@ const SunDetailsCard = () => {
     sunrise && sunset && currentTime
       ? ((currentTime - sunrise) / (sunset - sunrise)) * 100
       : 0;
-  console.log(percent);
   // Only render if all values are present and valid
   const isValid =
     typeof sunrise === 'number' &&
