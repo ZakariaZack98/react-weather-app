@@ -1,3 +1,4 @@
+import { WiThermometer, WiCloudy, WiStrongWind, WiBarometer, WiRaindrops } from 'react-icons/wi';
 const apiKey = import.meta.env.VITE_OW_APIKey;
 const WEATHER_PRIORITY = [
   "Thunderstorm",
@@ -258,3 +259,34 @@ export const GetClosestTime = (timeArray) => {
   
   return timeArray[timeArrayInMinutes.indexOf(closestTimeInMinutes)];
 };
+
+// *HELPER FUNCTION FOR GETTING WEATHER MAP MODES=====================================
+
+export const WeatherLayers = [
+  {
+    modeName: 'Temperature',
+    icon: WiThermometer,
+    keyword: 'temp_new'
+  },
+  {
+    modeName: 'Precipitation',
+    icon: WiRaindrops,
+    keyword: 'precipitation_new'
+  },
+  {
+    modeName: 'Clouds',
+    icon: WiCloudy,
+    keyword: 'clouds_new'
+  },
+  {
+    modeName: 'Wind',
+    icon: WiStrongWind,
+    keyword: 'wind_new'
+  },
+  {
+    modeName: 'Pressure',
+    icon: WiBarometer,
+    keyword: 'pressure_new'
+  }
+];
+

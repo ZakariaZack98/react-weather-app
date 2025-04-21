@@ -8,3 +8,7 @@
   background: #4D6479;
   background: linear-gradient(180deg,rgb(23, 53, 82) 0%,  rgb(0, 31, 63) 90%, rgb(0, 29, 58) 100%);
 }
+
+.leaflet-tile-pane img[src*="tile.openweathermap.org"] {
+  filter: contrast(1.3) brightness(1.2) saturate(5);
+}

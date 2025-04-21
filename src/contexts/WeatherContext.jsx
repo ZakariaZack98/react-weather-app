@@ -13,6 +13,7 @@ const WeatherProvider = ({ children }) => {
   const [aqiData, setAqiData] = useState([]);
   const [hourlyForecastData, setHourlyForeCastData] = useState([]);
   const [uvData, setUvData] = useState(null);
+  const [weatherMapMode, setWeatherMapMode] = useState('');
 
   const fetchAllWeatherData = async (lat, lng) => {
     setCoord([lat, lng])
@@ -67,7 +68,9 @@ const WeatherProvider = ({ children }) => {
       hourlyForecastData,
       setHourlyForeCastData,
       uvData,
-      setUvData
+      setUvData,
+      weatherMapMode,
+      setWeatherMapMode
     }}>
       {children}
     </WeatherContext.Provider>

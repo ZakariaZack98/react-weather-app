@@ -5,8 +5,7 @@ import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-lea
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { WeatherContext } from '../../contexts/WeatherContext'
-import { ConvertToLocalISOString, GetAQICategory, GetWindDirection } from '../../utils/utils'
-import WindDirectionIcon from '../common/WindDirectionIcon'
+import { ConvertToLocalISOString, GetAQICategory, GetWindDirection, WeatherLayers } from '../../utils/utils'
 
 // Fix for default marker icon in Leaflet
 delete L.Icon.Default.prototype._getIconUrl
@@ -17,10 +16,13 @@ L.Icon.Default.mergeOptions({
 })
 
 const Summery = () => {
-  const { fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, coord, weatherDataNow, aqiData, hourlyForecastData, uvData} = useContext(WeatherContext);
+  const { fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, coord, weatherDataNow, aqiData, hourlyForecastData, uvData, weatherMapMode, setWeatherMapMode, apiKey } = useContext(WeatherContext);
 
   const [currentTime, setCurrentTime] = useState('');
 
+  // Find the selected weather layer config
+  const weatherLayers = WeatherLayers;
+  const selectedLayer = weatherLayers.find(layer => layer.modeName === weatherMapMode);
 
   // TODO: UPDATE TIME
   useEffect(() => {
@@ -33,7 +35,7 @@ const Summery = () => {
       setCurrentTime(formattedTime);
     };
 
-    updateTime(); 
+    updateTime();
     const interval = setInterval(updateTime, 1000);
 
     return () => clearInterval(interval);
@@ -64,7 +66,7 @@ const Summery = () => {
 
     useEffect(() => {
       // Center the map on the current position
-      map.setView(coord, map.getZoom()); 
+      map.setView(coord, map.getZoom());
     }, [coord, map]);
 
     useMapEvents({
@@ -77,7 +79,7 @@ const Summery = () => {
               coord: coord
             }
             const updatedRecentSearchLoc = [...recentSearchLoc];
-            if(!updatedRecentSearchLoc.find(item => item.name === newRecentLocation.name))updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
+            if (!updatedRecentSearchLoc.find(item => item.name === newRecentLocation.name)) updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
             if (updatedRecentSearchLoc.length > 4) updatedRecentSearchLoc.pop();
             setRecentSearchLoc(updatedRecentSearchLoc);
           })
@@ -122,7 +124,7 @@ const Summery = () => {
 
   // TODO: GET TODAYS HIGHEST & LOWEST TEMPERATURE=======================================================
   const getTodaysHighestTemp = () => {
-    if(!hourlyForecastData || hourlyForecastData.length === 0) return null;
+    if (!hourlyForecastData || hourlyForecastData.length === 0) return null;
     const today = ConvertToLocalISOString(new Date()).split('T')[0];
     const todaysData = hourlyForecastData.filter(forecast => forecast.dt_txt.split(' ')[0] === today)
     if (todaysData.length === 0) return null;
@@ -130,14 +132,13 @@ const Summery = () => {
     return Math.round(highestTemp);
   }
   const getTodaysLowestTemp = () => {
-    if(!hourlyForecastData || hourlyForecastData.length === 0) return null;
+    if (!hourlyForecastData || hourlyForecastData.length === 0) return null;
     const today = ConvertToLocalISOString(new Date()).split('T')[0];
     const todaysData = hourlyForecastData.filter(forecast => forecast.dt_txt.split(' ')[0] === today)
     if (todaysData.length === 0) return null;
     const highestTemp = Math.min(...todaysData.map(data => data.main.temp));
     return Math.round(highestTemp);
   }
-
 
   return (
     <div className="summery pb-5">
@@ -173,8 +174,8 @@ const Summery = () => {
                   </div>
                 </div>
                 <p className="suggestion">
-                Expect {weatherDataNow?.weather[0]?.description}, The {isDayTime() ? 'High' : 'Low'} will be{' '}
-                {isDayTime() ? `${getTodaysHighestTemp() ? `${getTodaysHighestTemp()}°c` : 'N/A'}` : `${getTodaysLowestTemp() ? `${getTodaysLowestTemp()}°c` : 'N/A'}`}.
+                  Expect {weatherDataNow?.weather[0]?.description}, The {isDayTime() ? 'High' : 'Low'} will be{' '}
+                  {isDayTime() ? `${getTodaysHighestTemp() ? `${getTodaysHighestTemp()}°c` : 'N/A'}` : `${getTodaysLowestTemp() ? `${getTodaysLowestTemp()}°c` : 'N/A'}`}.
                 </p>
                 <div className="othersUpdate w-full flex justify-between">
                   {othersData?.map((item) => (
@@ -209,17 +210,47 @@ const Summery = () => {
             )
           }
         </div>
-        <div className="map w-1/2 h-90 rounded-lg relative z-50 overflow-hidden">
+        <div className="map w-1/2 h-90 rounded-lg relative z-0 overflow-hidden">
+          <div
+            className="mapMode absolute top-3 right-3 flex flex-col gap-y-2 border border-[rgba(0,0,0,0.3)] bg-white p-1.5"
+            style={{
+              zIndex: 1000,
+              borderRadius: '8px',
+              pointerEvents: 'auto',
+            }}
+          >
+            {
+              weatherLayers?.map(layer => (
+                <span
+                  key={layer.modeName}
+                  className={`w-7 h-7 rounded flex justify-center items-center text-3xl duration-300 cursor-pointer ${weatherMapMode === layer.modeName ? 'text-white bg-[#000000a4]' : 'hover:bg-[rgba(0,0,0,0.18)] text-black'}`}
+                  title={layer.modeName}
+                  onClick={() => setWeatherMapMode(layer.modeName)}
+                >
+                  {React.createElement(layer.icon)}
+                </span>
+              ))
+            }
+          </div>
           <MapContainer
             center={coord}
-            zoom={13}
+            zoom={7}
             scrollWheelZoom={false}
             className="w-full h-full"
+            style={{ position: 'relative', zIndex: 0 }}
           >
+            {/* Base OSM Layer */}
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
+            {/* OpenWeatherMap Weather Layer */}
+            {selectedLayer && (
+              <TileLayer
+                url={`https://tile.openweathermap.org/map/${selectedLayer.keyword}/{z}/{x}/{y}.png?appid=${apiKey}`}
+                opacity={1}
+              />
+            )}
             <LocationMarker />
           </MapContainer>
         </div>

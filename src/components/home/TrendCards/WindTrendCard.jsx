@@ -57,7 +57,7 @@ const WindTrendCard = () => {
       <div className="bottomTextSec">
         <div className="flex items-center gap-x-2">
           <p className='font-semibold'>Force: {windTrend}</p>
-          <span className={`h-5 w-5 rounded-full ${windTrend === 'Calm' || windTrend === 'Windy' || windTrend === 'Breezy' ? 'bg-green-700' : windTrend === 'Windy' || windTrend === 'Very Windy' || windTrend === 'Strong Wind' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
+          <span className={`h-5 w-5 rounded-full ${windTrend === 'Calm' || windTrend === 'Windy' || windTrend === 'Breezy' || windTrend ==='Light' ? 'bg-green-700' : windTrend === 'Windy' || windTrend === 'Very Windy' || windTrend === 'Strong Wind' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
         </div>
         <p className='text-[13px] mt-2'>
           Current wind condition is <strong>{windTrend}</strong>. Wind gust can reach upto <strong>{currentWindGust} km/h</strong>. Wind speed is likely to <span className='font-semibold'>{
