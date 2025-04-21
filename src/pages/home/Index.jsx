@@ -1,26 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SearchArea from '../../components/home/SearchArea'
 import Summery from '../../components/home/Summery'
 import ForecastSlider from '../../components/home/ForecastSlider'
 import WeatherDetails from '../../components/home/WeatherDetails'
 import LastMonthCal from '../../components/home/LastMonthCal'
-import LastMonthCharts from '../../components/home/LastMonthCharts'
-import AltLineChart from '../../components/common/AltLineChart'
+import { WeatherContext } from '../../contexts/WeatherContext'
+import NewsCard from '../../components/common/NewsCard'
+import NewsSec from '../../components/home/NewsSec'
 
 const Home = () => {
+  const {newsData} = useContext(WeatherContext);
+  const sampleData = newsData?.slice(0,12);
 
   return (
     <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll" style={{ scrollbarWidth: 'none' }}>
-      <div className='container mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
+      <div className='w-[82%] mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
         <SearchArea />
-        <div className="mainContents flex w-full">
-          <div className="main w-5/6">
+        <div className="mainContents flex w-full gap-x-5">
+          <div className="main w-4/5">
             <Summery />
             <ForecastSlider />
             <WeatherDetails />
             <LastMonthCal/>
+            <NewsSec/>
           </div>
-          <div className="sidebar w-1/6">
+          <div className="sidebar w-1/5 flex flex-col gap-y-4 pt-18">
+            {
+              sampleData?.map(article => <NewsCard article={article}/>)
+            }
           </div>
         </div>
       </div>
