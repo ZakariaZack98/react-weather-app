@@ -4,6 +4,8 @@ import Summery from '../../components/home/Summery'
 import ForecastSlider from '../../components/home/ForecastSlider'
 import WeatherDetails from '../../components/home/WeatherDetails'
 import LastMonthCal from '../../components/home/LastMonthCal'
+import LastMonthCharts from '../../components/home/LastMonthCharts'
+import AltLineChart from '../../components/common/AltLineChart'
 
 const Home = () => {
 
@@ -17,6 +19,7 @@ const Home = () => {
             <ForecastSlider />
             <WeatherDetails />
             <LastMonthCal/>
+            <AltLineChart/>
           </div>
           <div className="sidebar w-1/6">
           </div>
