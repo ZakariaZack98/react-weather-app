@@ -8,7 +8,7 @@ const Navbar = () => {
   const location = useLocation();
   const path = location.pathname;
   return (
-    <div className="bg-white">
+    <div className="bg-white h-0 overflow-hidden">
       <div className= 'container mx-auto py-4 flex justify-between'>
       <div className="navItems flex items-center gap-x-7 font-medium text-sm">
         {

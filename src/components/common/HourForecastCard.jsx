@@ -8,7 +8,7 @@ import { CiTempHigh } from 'react-icons/ci'
 const HourForecastCard = ({ displayData, delay, ...rest }) => {
   return (
     <div
-      className='min-w-[12%] h-[260px] p-4 flex flex-col justify-between rounded-xl bg-[#4e647c] hover:text-[rgba(0,0,0,0.6)] hover:bg-[rgba(255,255,255,0.65)] cursor-pointer'
+      className='min-w-[12%] h-[260px] p-4 flex flex-col justify-between rounded-xl bg-[#364d66] hover:text-[rgba(0,0,0,0.6)] hover:bg-[rgba(255,255,255,0.65)] cursor-pointer'
       data-aos="flip-left"
       data-aos-duration="500"
       data-aos-delay={delay}

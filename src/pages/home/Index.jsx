@@ -8,6 +8,7 @@ import { WeatherContext } from '../../contexts/WeatherContext'
 import NewsCard from '../../components/common/NewsCard'
 import NewsSec from '../../components/home/NewsSec'
 import LastYearChart from '../../components/home/LastYearChart'
+import WeatherMap from '../../components/home/WeatherMap'
 
 const Home = () => {
   const {newsData} = useContext(WeatherContext);
@@ -22,6 +23,7 @@ const Home = () => {
             <Summery />
             <ForecastSlider />
             <WeatherDetails />
+            <WeatherMap/>
             <LastMonthCal/>
             <LastYearChart/>
             <NewsSec/>

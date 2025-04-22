@@ -144,7 +144,7 @@ const ForecastSlider = () => {
           </div>
           {
             visualizeMode === 'chart' ? <Chart data={weatherDataByDay.find((data) => data.date === activeDay)} activeMode={activeMode} /> : (
-              <div className="flex flex-col w-full p-5 bg-[#3E5063] rounded-xl -translate-y-4 gap-x-2">
+              <div className="flex flex-col w-full p-5 bg-[#1B3754] rounded-xl -translate-y-4 gap-x-2">
                 <div className="flex gap-x-2 justify-between">
                   {
                     weatherDataByDay.find((data) => data.date === activeDay).data.map((hourlyForecastData, idx) => <HourForecastCard

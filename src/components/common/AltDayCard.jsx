@@ -120,8 +120,9 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
 
   return (
     <div
-      className={`w-1/5 ${date === activeDay ? "bg-[#3e5063] h-45" : "bg-[#334454]"
-        } py-5 px-7 rounded-xl flex flex-col gap-y-4 cursor-pointer`}
+      className={`w-1/5 ${
+        date === activeDay ? "bg-[#1B3754] h-45 border-t-2" : "bg-[rgba(189,189,189,0.04)]"
+      } py-5 px-7 rounded-xl flex flex-col gap-y-4 cursor-pointer`}
       data-date={date}
       onClick={() => setActiveDay(date)}>
       <div className="date flex justify-between items-center">
