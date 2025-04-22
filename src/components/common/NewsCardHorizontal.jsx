@@ -32,7 +32,6 @@ const NewsCardHorizontal = ({ article }) => {
             backgroundImage: `url(${urlToImage || 'https://via.placeholder.com/600x300.png?text=No+Image'})`
           }}
         />
-        {/* Gradient overlay for text background */}
         <div className="absolute inset-0 pointer-events-none"
           style={{
             background: 'linear-gradient(to top, rgba(0,0,0,0.7) 20%, rgba(0,0,0,0.0) 100%)'

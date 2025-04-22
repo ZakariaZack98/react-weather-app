@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { WeatherContext } from '../../contexts/WeatherContext'
 import { DateFormatter, FetchLast30DaysData, GetRandomWeatherbitIconCode } from '../../utils/utils';
 import AltLineChart from '../common/AltLineChart';
+import mock30daysData from '../../lib/Data30days.json'
 
 const LastMonthCal = () => {
   const { coord, weatherDataNow } = useContext(WeatherContext);
-  const [last30daysData, setLast30daysData] = useState([]);
+  
+  const [last30daysData, setLast30daysData] = useState(mock30daysData.data);
   const chartModes = ['Temperature', 'Precipitation', 'Wind']
   const [chartMode, setChartMode] = useState('Temperature');
 
@@ -20,11 +22,11 @@ const LastMonthCal = () => {
   }
   //* DATA CALCULATIONS ======================================================================
 
-  useEffect(() => {
-    FetchLast30DaysData(coord[0], coord[1])
-      .then(data => setLast30daysData(data?.data))
-      .then(console.log('30days api called'))
-  }, [coord])
+  // useEffect(() => {
+  //   FetchLast30DaysData(coord[0], coord[1])
+  //     .then(data => setLast30daysData(data?.data))
+  //     .then(console.log('30days api called'))
+  // }, [coord])
 
   if (last30daysData && last30daysData.length > 0) return (
     <div className='py-2 w-full'>
@@ -33,7 +35,7 @@ const LastMonthCal = () => {
       <div className="flex flex-wrap justify-start gap-1 items-start rounded-xl bg-[rgba(255,255,255,0.1)] p-10">
         {
           last30daysData?.map(dayData => (
-            <div key={dayData?.datetime} className='w-[14%] h-28 rounded-xl border border-[rgba(255,255,255,0.22)] p-2'>
+            <div key={dayData?.datetime} className='w-[13.8%] h-28 rounded-xl border border-[rgba(255,255,255,0.22)] p-2'>
               <p>{DateFormatter(dayData?.datetime)}</p>
               <div className="flex gap-x-3">
                 <picture>
@@ -52,7 +54,7 @@ const LastMonthCal = () => {
       {/* ==========================================Calender Markup===================================================== */}
 
       {/* ==========================================Charts Markup===================================================== */}
-      <div className="w-full flex justify-between items-stretch gap-x-2 my-5">
+      {/* <div className="w-full flex justify-between items-stretch gap-x-2 my-5">
         <div className="w-2/3 rounded-xl bg-[rgba(255,255,255,0.09)]">
           <div className="flex p-5 gap-x-3">
             {
@@ -68,7 +70,7 @@ const LastMonthCal = () => {
           </div>
         </div>
         <div className="w-1/3"></div>
-      </div>
+      </div> */}
       {/* ==========================================Charts Markup===================================================== */}
     </div>
   )

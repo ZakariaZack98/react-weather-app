@@ -7,10 +7,11 @@ import LastMonthCal from '../../components/home/LastMonthCal'
 import { WeatherContext } from '../../contexts/WeatherContext'
 import NewsCard from '../../components/common/NewsCard'
 import NewsSec from '../../components/home/NewsSec'
+import LastYearChart from '../../components/home/LastYearChart'
 
 const Home = () => {
   const {newsData} = useContext(WeatherContext);
-  const sampleData = newsData?.slice(0,12);
+  const sampleData = newsData?.slice(12,16);
 
   return (
     <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll" style={{ scrollbarWidth: 'none' }}>
@@ -22,6 +23,7 @@ const Home = () => {
             <ForecastSlider />
             <WeatherDetails />
             <LastMonthCal/>
+            <LastYearChart/>
             <NewsSec/>
           </div>
           <div className="sidebar w-1/5 flex flex-col gap-y-4 pt-18">

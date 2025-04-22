@@ -5,7 +5,7 @@ import WindDirectionIcon from '../common/WindDirectionIcon';
 
 const Chart = ({ data, activeMode }) => {
   return (
-    <div className="chartSec p-4 rounded-xl bg-[#3e5063] w-full h-fit -translate-y-3 relative">
+    <div className="chartSec p-4 rounded-xl bg-[#3e5063] w-full h-fit -translate-y-4 relative">
       <p className='font-semibold mb-3 h-[5%]'>{activeMode}</p>
       <div className="iconLine h-[10%] flex justify-between items-center px-6 border border-[rgba(255,255,255,0.14)] pb-2 pt-4 rounded-t-xl">
         {
