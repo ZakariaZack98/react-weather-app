@@ -55,10 +55,10 @@ const weatherLayers = [
     icon: WiStrongWind,
     colors: [
       { range: '0–2 m/s', color: '#E0FFFF' },       // light cyan
-      { range: '2–5 m/s', color: '#ADD8E6' },       // light blue
-      { range: '5–10 m/s', color: '#1E90FF' },      // dodger blue
-      { range: '10–20 m/s', color: '#0000CD' },     // medium blue
-      { range: '> 20 m/s', color: '#00008B' },      // dark blue
+      { range: '2–5 m/s', color: '#f5d7f5' },       // light pink
+      { range: '5–10 m/s', color: '#eb96eb' },      // dodger pink
+      { range: '10–20 m/s', color: '#b81ab8' },     // medium pink
+      { range: '> 20 m/s', color: '#8a0f8a' },      // dark pink
     ]
   },
   {

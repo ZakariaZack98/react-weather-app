@@ -9,6 +9,7 @@ import NewsCard from '../../components/common/NewsCard'
 import NewsSec from '../../components/home/NewsSec'
 import LastYearChart from '../../components/home/LastYearChart'
 import WeatherMap from '../../components/home/WeatherMap'
+import TrendInfo from '../../components/home/TrendInfo'
 
 const Home = () => {
   const {newsData} = useContext(WeatherContext);
@@ -26,6 +27,7 @@ const Home = () => {
             <WeatherMap/>
             <LastMonthCal/>
             <LastYearChart/>
+            <TrendInfo/>
             <NewsSec/>
           </div>
           <div className="sidebar w-1/5 flex flex-col gap-y-4 pt-18">

@@ -93,6 +93,7 @@ const AltLineChart = ({
         position: 'top',
         labels: {
           color: 'white',
+          fontSize: 25,
         },
       },
       title: {
