@@ -135,7 +135,7 @@ const WeatherMap = () => {
       <div className="legends p-3 flex justify-end gap-x-5 bg-[#ffffff42] rounded-xl text-sm">
         {
           selectedLayer?.colors?.map( color => (
-            <div className='flex gap-x-2'>
+            <div key={color.color} className='flex gap-x-2'>
               <div style={{backgroundColor: color.color}} className={`h-5 w-5 rounded-full`}></div>
               <p>{color.range}</p>
             </div>

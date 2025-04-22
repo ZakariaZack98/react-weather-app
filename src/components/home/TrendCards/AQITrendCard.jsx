@@ -15,7 +15,7 @@ const AQITrendCard = () => {
         <TwoThirdsCircularProgressBar value={AQIndex} max={5} size={150} />
         <div className="absolute flex flex-col items-center gap-y-1">
           <h1 className='text-3xl font-semibold'>{AQIndex}</h1>
-          <div style={{ backgroundColor: AQDetails.color }} className={`px-2 py-1 text-sm rounded-xl`}>{AQDetails.level}</div>
+          <div style={{ backgroundColor: AQDetails.color }} className={`px-2 py-1 text-sm rounded-xl ${AQIndex === 2 ? 'text-black' : 'text-white'}`}>{AQDetails.level}</div>
         </div>
       </div>
       <div className="textSec">

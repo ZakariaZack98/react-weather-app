@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { FetchAqiData, FetchCurrentWeatherByMap, FetchHourlyForeCast, FetchNews, FetchUVdata } from '../utils/utils';
 import axios from 'axios';
+import lookup from "country-code-lookup";
 
 const WeatherContext = createContext();
 
@@ -36,6 +37,7 @@ const WeatherProvider = ({ children }) => {
 
       if (weatherResult.status === 'fulfilled') {
         setWeatherDataNow(weatherResult.value);
+        setLocationName(`${weatherResult.value.name}, ${lookup.byIso(weatherResult.value.sys.country).country}`)
       }
 
       if (locationResult.status === 'fulfilled') {
@@ -54,7 +56,6 @@ const WeatherProvider = ({ children }) => {
       if (uvResult.status === 'fulfilled') {
         setUvData(uvResult.value);
       }
-
     });
   }
 

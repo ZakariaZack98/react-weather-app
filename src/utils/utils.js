@@ -5,6 +5,8 @@ import {
   WiBarometer,
   WiRaindrops,
 } from "react-icons/wi";
+import lookup from "country-code-lookup";
+
 const apiKey = import.meta.env.VITE_OW_APIKey;
 const vcApiKey = import.meta.env.VITE_VC_APIKey;
 const wbApiKey = import.meta.env.VITE_WB_APIKey;
@@ -202,7 +204,10 @@ export async function GetCoordBySearch(cityName) {
   const lat = weatherData.coord.lat;
   const lon = weatherData.coord.lon;
   console.log(lat, lon);
-  return [lat, lon];
+  return {
+    coord: [lat, lon],
+    locationName: `${weatherData.name}, ${lookup.byIso(weatherData.sys.country).country}`
+  };
 }
 
 //* Formate ISO Date String to Readable date ie. 15 Apr

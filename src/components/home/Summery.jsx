@@ -73,21 +73,28 @@ const Summery = () => {
       click(e) {
         const { lat, lng } = e.latlng;
         fetchAllWeatherData(lat, lng)
-          .then(() => {
-            const newRecentLocation = {
-              name: `${locationName.split(',')[0]}, ${locationName.split(',')[3]}`,
-              coord: coord
-            }
-            const updatedRecentSearchLoc = [...recentSearchLoc];
-            if (!updatedRecentSearchLoc.find(item => item.name === newRecentLocation.name)) updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
-            if (updatedRecentSearchLoc.length > 4) updatedRecentSearchLoc.pop();
-            setRecentSearchLoc(updatedRecentSearchLoc);
-          })
       },
     });
 
     return coord ? <Marker position={coord}></Marker> : null;
   };
+
+  // TODO: FETCH CURRENT LOCATION WEATHER DATA BY GPS =================================
+  const fetchCurrentLocationData = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (location) => {
+          const { latitude, longitude } = location.coords;
+          fetchAllWeatherData(latitude, longitude);
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }
 
   const othersData = [
     {
@@ -144,7 +151,11 @@ const Summery = () => {
     <div className="summery pb-5">
       <div className="locationHeading flex items-center gap-x-10 py-5">
         <p>{locationName}</p>
-        <span className="w-8 h-8 flex justify-center items-center rounded-full border-[1px] border-white">
+        <span
+          className="currentLoc w-8 h-8 flex justify-center items-center rounded-full border-[1px] border-white cursor-pointer"
+          title="Go to my location"
+          onClick={() => fetchCurrentLocationData()}
+        >
           <FaHome />
         </span>
       </div>
