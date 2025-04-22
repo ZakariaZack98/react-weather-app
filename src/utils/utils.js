@@ -195,12 +195,14 @@ export const FetchHourlyForeCast = async (lat, lon) => {
  * @param {cityName} string name of the city/place
  *
  * */
-export async function GetWeatherBySearch(cityName) {
-  weatherData = await fetchData(
+export async function GetCoordBySearch(cityName) {
+  const weatherData = await fetchData(
     `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`
   );
-  lat = weatherData.coord.lat;
-  lon = weatherData.coord.lon;
+  const lat = weatherData.coord.lat;
+  const lon = weatherData.coord.lon;
+  console.log(lat, lon);
+  return [lat, lon];
 }
 
 //* Formate ISO Date String to Readable date ie. 15 Apr
