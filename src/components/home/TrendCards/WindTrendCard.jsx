@@ -24,10 +24,10 @@ const WindTrendCard = () => {
   const windTrend = getWindTrend();
 
   return (
-    <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)] text-sm'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)] text-sm'>
       <h1 className='font-semibold text-lg'>Wind</h1>
       <div className="compassSec flex justify-center items-stretch gap-x-5">
-        <div className="w-27 h-27 relative border-4 border-[rgba(255,255,255,0.1)] rounded-full">
+        <div className="min-w-27 h-27 relative border-4 border-[rgba(255,255,255,0.1)] rounded-full ">
           <span className='absolute left-[50%] -top-3 text-sm bg-[rgba(255,255,255,0.07)] -translate-x-[50%]'>N</span>
           <span className='absolute -left-2 top-[50%] text-sm bg-[rgba(255,255,255,0.07)] -translate-y-[50%]'>W</span>
           <span className='absolute -right-1.5 top-[50%]  bg-[rgba(255,255,255,0.07)] -translate-y-[50%]'>E</span>
@@ -39,17 +39,17 @@ const WindTrendCard = () => {
         <div className="compassText flex flex-col justify-between">
           <p className='text-sm'>From {GetWindDirection(weatherDataNow?.wind?.deg)} ({weatherDataNow?.wind?.deg}°) </p>
           <div className="speed flex gap-x-1">
-            <div className="text-3xl">{currentWindSpeed}</div>
+            <div className="2xl:text-3xl lg:text-xl">{currentWindSpeed}</div>
             <div className="flex flex-col text-[12px]">
               <span>km/h</span>
-              <span>Wind Speed</span>
+              <span>Speed</span>
             </div>
           </div>
           <div className="gust flex gap-x-1">
-            <div className="text-3xl">{currentWindGust}</div>
+            <div className="2xl:text-3xl lg:text-xl">{currentWindGust}</div>
             <div className="flex flex-col text-[12px]">
               <span>km/h</span>
-              <span>Wind Gust</span>
+              <span className='text-nowrap'>Gust</span>
             </div>
           </div>
         </div>

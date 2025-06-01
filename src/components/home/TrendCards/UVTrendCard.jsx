@@ -43,9 +43,9 @@ const UVTrendCard = () => {
   const uvDetails = getUVDetails(uvIndex)
 
   return (
-    <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
       <h1 className='font-semibold'>UV</h1>
-      <div className="div flex justify-center items-center h-1/2 relative">
+      <div className="div flex justify-center items-center h-25 relative">
         <TwoThirdsCircularProgressBar value={uvIndex} max={14} size={150}/>
         <div className="absolute flex flex-col items-center gap-y-1">
           <h1 className='text-3xl font-semibold'>{uvIndex}</h1>

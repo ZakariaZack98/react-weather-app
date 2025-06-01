@@ -13,7 +13,7 @@ const PrecipitationTrendCard = () => {
   }
 
   return (
-    <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
       <h1 className='font-semibold'>Precipitation</h1>
       <div className="flex w-full justify-center items-center">
         <div className="w-35 h-35 border border-[rgba(255,255,255,0.23)] rounded-full bg-[rgba(255,255,255,0.06)] overflow-hidden relative flex justify-center items-center">

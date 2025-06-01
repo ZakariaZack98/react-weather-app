@@ -10,9 +10,9 @@ const SearchArea = () => {
     setInput('')
   }, [coord])
   return (
-    <div className='flex py-4 gap-x-10 pt-10'>
-      <div className="searchBar w-2/8 relative">
-        <input type="text" className='w-full px-4 py-2 border-[1px] border-[#ffffff3f] rounded-xl bg-[#ffffff28] focus:outline-none' value={input} placeholder='Search for locations' onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => {
+    <div className='flex md:flex-nowrap flex-wrap py-4 md:gap-x-5 gap-y-2 pt-10'>
+      <div className="searchBar xl:w-2/8 md:w-1/3 w-full relative">
+        <input type="text" className='w-full px-4 py-2 border-[1px] border-[#ffffff3f] rounded-3xl bg-[#ffffff28] focus:outline-none' value={input} placeholder='Search for locations' onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => {
           if (e.key === 'Enter') {
             GetCoordBySearch(input)
               .then(data => {
@@ -40,13 +40,13 @@ const SearchArea = () => {
           <FaSearch />
         </span>
       </div>
-      <div className="recentSearchedLocations flex gap-x-4">
+      <div className="recentSearchedLocations flex flex-wrap gap-2">
         {
           recentSearchLoc?.map(location => (
-            <div key={location.coord[1]} className='px-4 py-2 border-[1px] border-[#ffffff3d] rounded-xl bg-[#ffffff28] cursor-pointer hover:bg-[#ffffff4d] duration-300' onClick={() => {
+            <div key={location.coord[1]} className='px-4 py-2 border-[1px] border-[#ffffff3d] rounded-3xl bg-[#ffffff28] cursor-pointer hover:bg-[#ffffff4d] duration-300' onClick={() => {
               fetchAllWeatherData(location.coord[0], location.coord[1])
             }}>
-              <p className='opacity-70'>{location.name}</p>
+              <p className='opacity-70 text-sm'>{location.name}</p>
             </div>
           ))
         }

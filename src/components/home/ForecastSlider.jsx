@@ -92,11 +92,11 @@ const ForecastSlider = () => {
     return (
       <div className="pb-4">
         <div className="modePart flex justify-between items-center pb-5">
-          <div className="modes flex gap-x-4 py-3">
+          <div className="modes flex 2xl:flex-nowrap flex-wrap gap-4 py-3">
             {modes?.map((mode, idx) => (
               <p
                 key={idx}
-                className={`2xl:px-6 xl:px-4 2xl:text-md xl:text-sm text-nowrap py-1 rounded-xl ${activeMode === mode ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
+                className={`2xl:px-6 px-4 2xl:text-md md:text-sm text-nowrap py-1 rounded-xl ${activeMode === mode ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
                   } cursor-pointer  duration-300 opacity-70`}
                 onClick={() => setActiveMode(mode)}>
                 {mode}
@@ -125,7 +125,7 @@ const ForecastSlider = () => {
         <div className="mainSlider">
           <div className="dayCardsWrapper overflow-x-scroll flex justify-between items-start gap-x-2" style={{scrollbarWidth: 'none'}}>
             {weatherDataByDay?.map((data, idx) => (
-              activeMode === 'Overview' || activeMode === 'Feels Like' ? <div className="w-1/5">
+              activeMode === 'Overview' || activeMode === 'Feels Like' ? <div className="w-1/5 min-w-40">
                 <DayCard
                 key={idx}
                 foreCastData={data}
@@ -134,7 +134,7 @@ const ForecastSlider = () => {
                 setActiveDay={setActiveDay}
                 activeMode={activeMode}
               />
-              </div> : <div className="w-1/5">
+              </div> : <div className="w-1/5 min-w-40">
                 <AltDayCard
                 key={idx}
                 foreCastData={data}

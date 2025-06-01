@@ -16,11 +16,11 @@ const Home = () => {
   const sampleData = newsData?.slice(12,16);
 
   return (
-    <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll" style={{ scrollbarWidth: 'none' }}>
-      <div className='w-[82%] mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
+    <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll overflow-x-hidden" style={{ scrollbarWidth: 'none' }}>
+      <div className='lg:w-[82%] w-[95%] mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
         <SearchArea />
-        <div className="mainContents flex 2xl:flex-nowrap lg:flex-wrap w-full gap-x-5">
-          <div className="main 2xl:w-4/5 lg:w-full">
+        <div className="mainContents flex xl:flex-nowrap flex-wrap w-full 2xl:gap-x-5 gap-x-0">
+          <div className="main 2xl:w-4/5 w-full">
             <Summery />
             <ForecastSlider />
             <WeatherDetails />
@@ -30,7 +30,7 @@ const Home = () => {
             <TrendInfo/>
             <NewsSec/>
           </div>
-          <div className="sidebar 2xl:w-1/5 lg:w-full flex flex-col gap-y-4 pt-18">
+          <div className="sidebar 2xl:w-1/5 w-full hidden 2xl:flex flex-col gap-y-4 pt-18">
             {
               sampleData?.map(article => <NewsCard article={article}/>)
             }

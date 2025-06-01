@@ -159,8 +159,8 @@ const Summery = () => {
           <FaHome />
         </span>
       </div>
-      <div className="mainContent w-full flex gap-5 items-stretch">
-        <div className="currentWeather w-1/2 h-90 p-7 bg-[rgba(255,255,255,0.14)] rounded-lg flex flex-col justify-between">
+      <div className="mainContent w-full flex lg:flex-nowrap flex-wrap gap-5 items-stretch">
+        <div className="currentWeather lg:w-1/2 w-full h-90 p-7 bg-[rgba(255,255,255,0.14)] rounded-lg flex flex-col justify-between">
           {
             weatherDataNow && aqiData && hourlyForecastData && Object.keys(weatherDataNow).length > 0 && Object.keys(aqiData).length > 0 && Object.keys(hourlyForecastData).length > 0 ? (
               <>
@@ -184,11 +184,11 @@ const Summery = () => {
                     <p className="">Feels Like {Math.round(weatherDataNow?.main?.feels_like)}°c</p>
                   </div>
                 </div>
-                <p className="suggestion">
+                <p className="suggestion mb-5">
                   Expect {weatherDataNow?.weather[0]?.description}, The {isDayTime() ? 'High' : 'Low'} will be{' '}
                   {isDayTime() ? `${getTodaysHighestTemp() ? `${getTodaysHighestTemp()}°c` : 'N/A'}` : `${getTodaysLowestTemp() ? `${getTodaysLowestTemp()}°c` : 'N/A'}`}.
                 </p>
-                <div className="othersUpdate w-full flex justify-between">
+                <div className="othersUpdate w-full flex md:flex-nowrap flex-wrap md:gap-3 gap-10 justify-between">
                   {othersData?.map((item) => (
                     <div key={item.name}>
                       <div className="flex opacity-70">
@@ -221,7 +221,7 @@ const Summery = () => {
             )
           }
         </div>
-        <div className="map w-1/2 h-90 rounded-lg relative z-0 overflow-hidden">
+        <div className="map lg:w-1/2 w-full md:h-90 h-70 rounded-lg relative z-0 overflow-hidden">
           <div
             className="mapMode absolute top-3 right-3 flex flex-col gap-y-2 border border-[rgba(0,0,0,0.3)] bg-white p-1.5"
             style={{

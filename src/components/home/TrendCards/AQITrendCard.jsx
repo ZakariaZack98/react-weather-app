@@ -9,7 +9,7 @@ const AQITrendCard = () => {
   const AQDetails = GetAQICategory(AQIndex);
 
   return (
-    <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
       <h1 className='font-semibold'>Air Quality</h1>
       <div className="div flex justify-center items-center h-1/2 relative">
         <TwoThirdsCircularProgressBar value={AQIndex} max={5} size={150} />

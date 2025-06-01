@@ -32,19 +32,19 @@ const LastMonthCal = () => {
     <div className='py-2 w-full'>
       {/* ==========================================Calender Markup===================================================== */}
       <h3 className="text-xl font-semibold mb-3">LAST 30 DAYS <span className='text-sm'>(icons are placeholders)</span></h3>
-      <div className="flex flex-wrap justify-start gap-1 items-start rounded-xl bg-[rgba(255,255,255,0.1)] p-10">
+      <div className="flex flex-wrap md:justify-start justify-around xl:gap-1 gap-3 items-start rounded-xl bg-[rgba(255,255,255,0.1)] p-10">
         {
           last30daysData?.map(dayData => (
-            <div key={dayData?.datetime} className='w-[13.8%] h-28 rounded-xl border border-[rgba(255,255,255,0.22)] p-2'>
+            <div key={dayData?.datetime} className='md:w-[13.8%] w-3/10 min-w-20 xl:h-28 h-23 rounded-xl border border-[rgba(255,255,255,0.22)] p-2'>
               <p>{DateFormatter(dayData?.datetime)}</p>
               <div className="flex gap-x-3">
                 <picture>
                   {/* !FIX THE ICON RE-RENDER BUG */}
-                  <img src={`https://www.weatherbit.io/static/img/icons/${GetRandomWeatherbitIconCode()}.png`} className='w-15' />
+                  <img src={`https://www.weatherbit.io/static/img/icons/${GetRandomWeatherbitIconCode()}.png`} className='xl:w-15 md:w-10 w-7' />
                 </picture>
                 <div className="flex flex-col">
-                  <p className='text-2xl font-semibold'>{Math.round(dayData?.max_temp)}°c</p>
-                  <p className='text-2xl font-semibold opacity-75'>{Math.round(dayData?.min_temp)}°c</p>
+                  <p className='xl:text-2xl lg:text-xl md:text-[1rem] text-sm font-semibold'>{Math.round(dayData?.max_temp)}°c</p>
+                  <p className='xl:text-2xl lg:text-xl md:text-[1rem] text-sm font-semibold opacity-75'>{Math.round(dayData?.min_temp)}°c</p>
                 </div>
               </div>
             </div>

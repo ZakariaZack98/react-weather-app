@@ -36,7 +36,7 @@ const SunDetailsCard = () => {
     currentTime <= sunset;
 
   return (
-    <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
       <h1 className='font-semibold'>Sun</h1>
       <div className="flex flex-col w-full justify-center items-center">
         <p className='text-sm'>NOW</p>

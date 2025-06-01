@@ -121,15 +121,15 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
   return (
     <div
       className={`${
-        date === activeDay ? "bg-[#1B3754] h-45 border-t-2" : "bg-[rgba(189,189,189,0.04)]"
-      } py-5 2xl:px-6 xl:px-5 lg:px-4 lg:text-sm 2xl:text-md rounded-xl flex flex-col gap-y-4 cursor-pointer text-nowrap`}
+        date === activeDay ? "bg-[#1B3754] xl:h-45 h-38 border-t-2" : "bg-[rgba(189,189,189,0.04)]"
+      } py-5 2xl:px-6 xl:px-5 lg:px-4 px-3 lg:text-sm 2xl:text-md rounded-xl flex flex-col gap-y-4 cursor-pointer text-nowrap `}
       data-date={date}
       onClick={() => setActiveDay(date)}>
-      <div className="date flex justify-between items-center">
-        <p className="date text-xl font-semibold">
+      <div className="date flex  justify-between items-center">
+        <p className="date lg:text-lg text-[1rem] font-semibold">
           {DateFormatter(ConvertToLocalISOString(new Date().toISOString())) === foreCastData.date ? "Today" : foreCastData.date}
         </p>
-        <p>{foreCastData.day}</p>
+        <p className="text-sm lg:text-[1rem]">{foreCastData.day}</p>
       </div>
       <div className="iconAndDate flex justify-between items-stretch">
         {
@@ -152,28 +152,28 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
             </div>
           ) : (
             <div className="flex flex-col justify-end">
-              <div className="topData flex items-end gap-x-2">
+              <div className="topData flex  items-end gap-x-2">
               {altCardData?.topData?.icon && (
-                  <span className="text-2xl mb-1" style={{ color: altCardData?.color }}>
+                  <span className="lg:text-2xl text-sm mb-1" style={{ color: altCardData?.color }}>
                     {React.createElement(altCardData.topData.icon)}
                   </span>
                 )}
-                <span className='text-2xl font-semibold'>{altCardData?.topData?.data}</span><span className="font-md font-medium">{altCardData?.topData?.prefix}</span>
+                <span className='lg:text-2xl text-[1rem] font-semibold'>{altCardData?.topData?.data}</span><span className="font-md font-medium">{altCardData?.topData?.prefix}</span>
               </div>
-              <div className="bottomData flex items-end 2xl:flex-nowrap lg:flex-wrap gap-x-2">
+              <div className="bottomData xl:text-[0.9rem] text-xs flex items-end flex-nowrap gap-x-2">
                 {altCardData?.bottomData?.icon && (
-                  <span className="text-lg mb-1" style={{ color: altCardData?.color }}>
+                  <span className="lg:text-lg  text-sm mb-1" style={{ color: altCardData?.color }}>
                     {React.createElement(altCardData.bottomData.icon)}
                   </span>
                 )}
-                <span className={`${activeMode === 'Humidity' || activeMode === 'Cloud Cover' || activeMode === 'Pressure' ? 'text-2xl font-semibold' : ''} opacity-50`}>
+                <span className={`${activeMode === 'Humidity' || activeMode === 'Cloud Cover' || activeMode === 'Pressure' ? 'lg:text-2xl text-[1rem] font-semibold' : ''} opacity-50`}>
                   {altCardData?.bottomData?.data}
                 </span><span className="opacity-50">{altCardData?.bottomData?.prefix}</span>
               </div>
             </div>
           )
         }
-        <div className=" lg:w-1/10" style={{ height: "70px", display: "flex", alignItems: "center", zIndex: 50 }}>
+        <div className=" lg:w-1/10 w-2/20" style={{ height: "70px", display: "flex", alignItems: "center", zIndex: 50 }}>
           <ProgressBar maxValue={altCardData.max || 100} inputValue={altCardData.input} color={altCardData.color} />
         </div>
       </div>

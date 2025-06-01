@@ -12,21 +12,21 @@ const HumidityTrendCard = () => {
   const maxHumidTime = ConvertTo12Hour(sampleData?.find(hourlyData => hourlyData?.main?.humidity === maxHumidity).dt_txt.split(' ')[1]);
 
   return (
-    <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)] text-sm'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)] text-sm'>
       <h1 className='font-semibold text-lg'>Humidity</h1>
       <div className="chartSec flex items-center gap-x-6 h-3/5">
-        <div className="w-[50%] flex h-3/4 gap-x-2">
+        <div className="w-[50%] flex h-25 gap-x-2">
           {
             humidityData?.map((humidity, idx) => <ProgressBar key={idx} maxValue={100} inputValue={humidity} color='rgb(24, 194, 201)' />)
           }
         </div>
         <div className="chartTexts w-1/2 flex flex-col gap-y-2">
           <div className="flex flex-col">
-            <h1 className="text-3xl">{currentHumidity}%</h1>
+            <h1 className="xl:text-3xl md:text-lg">{currentHumidity}%</h1>
             <p className="text-sm">Current humidity</p>
           </div>
           <div className="flex flex-col">
-            <h1 className="text-3xl">{maxHumidity}%</h1>
+            <h1 className="xl:text-3xl md:text-lg">{maxHumidity}%</h1>
             <p className="text-sm">Max humidity</p>
           </div>
         </div>

@@ -67,9 +67,9 @@ const PressureTrendCard = () => {
   const pressureDetails = getPressureDetails(currentPressure);
 
   return (
-    <div className='w-[24%] h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
       <h1 className='font-semibold'>Pressure</h1>
-      <div className='h-[35%] w-full'>
+      <div className='h-25 w-full'>
         <TrendCurve data={dataForCurve} curveColor={pressureDetails.color} min={970} max={1050} ascpectMaintain={false} fill={true}/>
       </div>
       <div className="textSec text-sm">

@@ -39,7 +39,7 @@ const BarChart = ({hourlyDataset, activeMode}) => {
         borderColor: activeMode === 'Cloud Cover' ? 'cyan' : 'rgba(78, 113, 252, 1)',
         backgroundColor: activeMode === 'Cloud Cover' ? 'cyan' : 'rgba(78, 113, 252, 1)',
         borderRadius: 50,
-        barThickness: 40,
+        barThickness: 30,
       },
     ],
   };
