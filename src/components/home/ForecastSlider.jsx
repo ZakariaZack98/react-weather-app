@@ -96,7 +96,7 @@ const ForecastSlider = () => {
             {modes?.map((mode, idx) => (
               <p
                 key={idx}
-                className={`px-6 py-1 border border-[#ffffff3d] rounded-xl ${activeMode === mode ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
+                className={`2xl:px-6 xl:px-4 2xl:text-md xl:text-sm text-nowrap py-1 rounded-xl ${activeMode === mode ? "bg-yellow-500 text-black font-bold" : "bg-[#ffffff28] hover:bg-[#ffffff4d]"
                   } cursor-pointer  duration-300 opacity-70`}
                 onClick={() => setActiveMode(mode)}>
                 {mode}
@@ -123,16 +123,10 @@ const ForecastSlider = () => {
           </div>
         </div>
         <div className="mainSlider">
-          <div className="dayCardsWrapper flex items-start gap-x-2">
+          <div className="dayCardsWrapper overflow-x-scroll flex justify-between items-start gap-x-2" style={{scrollbarWidth: 'none'}}>
             {weatherDataByDay?.map((data, idx) => (
-              activeMode === 'Overview' || activeMode === 'Feels Like' ? <DayCard
-                key={idx}
-                foreCastData={data}
-                date={data.date}
-                activeDay={activeDay}
-                setActiveDay={setActiveDay}
-                activeMode={activeMode}
-              /> : <AltDayCard
+              activeMode === 'Overview' || activeMode === 'Feels Like' ? <div className="w-1/5">
+                <DayCard
                 key={idx}
                 foreCastData={data}
                 date={data.date}
@@ -140,6 +134,16 @@ const ForecastSlider = () => {
                 setActiveDay={setActiveDay}
                 activeMode={activeMode}
               />
+              </div> : <div className="w-1/5">
+                <AltDayCard
+                key={idx}
+                foreCastData={data}
+                date={data.date}
+                activeDay={activeDay}
+                setActiveDay={setActiveDay}
+                activeMode={activeMode}
+              />
+              </div>
             ))}
           </div>
           {

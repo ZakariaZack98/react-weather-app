@@ -403,6 +403,6 @@ export const FetchNews = async () => {
   try {
     return await fetchData(`https://newsapi.org/v2/everything?q=weather&apiKey=${newsApiKey}`)
   } catch (error) {
-    console.error('Error fetching news', error.message);
+    console.error('Error fetching news', error);
   }
 }

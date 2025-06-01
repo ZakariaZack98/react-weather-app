@@ -120,9 +120,9 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
 
   return (
     <div
-      className={`w-1/5 ${
+      className={`${
         date === activeDay ? "bg-[#1B3754] h-45 border-t-2" : "bg-[rgba(189,189,189,0.04)]"
-      } py-5 px-7 rounded-xl flex flex-col gap-y-4 cursor-pointer`}
+      } py-5 2xl:px-6 xl:px-5 lg:px-4 lg:text-sm 2xl:text-md rounded-xl flex flex-col gap-y-4 cursor-pointer text-nowrap`}
       data-date={date}
       onClick={() => setActiveDay(date)}>
       <div className="date flex justify-between items-center">
@@ -160,9 +160,9 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
                 )}
                 <span className='text-2xl font-semibold'>{altCardData?.topData?.data}</span><span className="font-md font-medium">{altCardData?.topData?.prefix}</span>
               </div>
-              <div className="bottomData flex items-end gap-x-2">
+              <div className="bottomData flex items-end 2xl:flex-nowrap lg:flex-wrap gap-x-2">
                 {altCardData?.bottomData?.icon && (
-                  <span className="text-2xl mb-1" style={{ color: altCardData?.color }}>
+                  <span className="text-lg mb-1" style={{ color: altCardData?.color }}>
                     {React.createElement(altCardData.bottomData.icon)}
                   </span>
                 )}
@@ -173,7 +173,7 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
             </div>
           )
         }
-        <div style={{ height: "70px", display: "flex", alignItems: "center", zIndex: 50 }}>
+        <div className=" lg:w-1/10" style={{ height: "70px", display: "flex", alignItems: "center", zIndex: 50 }}>
           <ProgressBar maxValue={altCardData.max || 100} inputValue={altCardData.input} color={altCardData.color} />
         </div>
       </div>

@@ -19,8 +19,8 @@ const Home = () => {
     <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll" style={{ scrollbarWidth: 'none' }}>
       <div className='w-[82%] mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
         <SearchArea />
-        <div className="mainContents flex w-full gap-x-5">
-          <div className="main w-4/5">
+        <div className="mainContents flex 2xl:flex-nowrap lg:flex-wrap w-full gap-x-5">
+          <div className="main 2xl:w-4/5 lg:w-full">
             <Summery />
             <ForecastSlider />
             <WeatherDetails />
@@ -30,7 +30,7 @@ const Home = () => {
             <TrendInfo/>
             <NewsSec/>
           </div>
-          <div className="sidebar w-1/5 flex flex-col gap-y-4 pt-18">
+          <div className="sidebar 2xl:w-1/5 lg:w-full flex flex-col gap-y-4 pt-18">
             {
               sampleData?.map(article => <NewsCard article={article}/>)
             }

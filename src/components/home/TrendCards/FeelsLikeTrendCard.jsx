@@ -28,10 +28,10 @@ const FeelsLikeTrendCard = () => {
       </div>
       <div className="textSec">
         <div className="flex items-center gap-x-2">
-          <p className='font-semibold'>Feels like <span className='text-3xl'>{currentFeelTemp}°</span> celcius</p>
+          <p className='font-semibold'>Feels like <span className='2xl:text-3xl lg:text-sm'>{currentFeelTemp}°</span> celcius</p>
           <span className={`h-5 w-5 rounded-full ${currentFeelTemp < 10 ? 'bg-blue-400' : currentFeelTemp < 32 ? 'bg-green-700' : currentFeelTemp < 42 ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
         </div>
-        <p className='font-semibold'>Actual temperature <span className='text-3xl'>{currentRealTemp}°</span> celcius</p>
+        <p className='font-semibold'>Actual temperature <span className='2xl:text-3xl lg:text-sm'>{currentRealTemp}°</span> celcius</p>
         <p className='text-[13px] mt-2'>Feels {getFeelTrend().toLowerCase()} the actual temperature due to the {getFeelTrend().includes('Cooler') ? 'wind' : 'humidity'}.</p>
       </div>
     </div>
