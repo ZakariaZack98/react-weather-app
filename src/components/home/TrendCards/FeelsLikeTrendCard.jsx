@@ -21,7 +21,7 @@ const FeelsLikeTrendCard = () => {
   }
 
   return (
-    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl surface-card'>
       <h1 className='font-semibold'>Feels Like</h1>
       <div className='h-25 w-full'>
       <TrendCurve data={dataForCurve} curveColor={'#fcba03'} min={Math.min(...sampleData.map(hourlyData => hourlyData?.main?.feels_like)) - 5} max={Math.max(...sampleData.map(hourlyData => hourlyData?.main?.feels_like)) + 5} ascpectMaintain={false}/>

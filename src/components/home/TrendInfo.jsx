@@ -96,7 +96,7 @@ const TrendInfo = () => {
   // * DATA CALCULATIONS ========================================================
   return (
     <div className='pb-25 flex lg:flex-nowrap flex-wrap gap-3'>
-      <div className="lg:w-1/2 w-full rounded-2xl bg-[rgba(255,255,255,0.06)] overflow-hidden">
+      <div className="lg:w-1/2 w-full rounded-2xl surface-card overflow-hidden">
         <div className="heading flex bg-[rgba(255,255,255,0.17)] font-semibold py-3 px-5">
           <p className="w-[55%]">Daily Summery (last 12 months)</p>
           <p className="w-[15%] text-end">Max</p>
@@ -117,7 +117,7 @@ const TrendInfo = () => {
         </div>
       </div>
 
-      <div className="lg:w-1/2 w-full rounded-2xl bg-[rgba(255,255,255,0.06)] overflow-hidden flex justify-center gap-x-2 items-center">
+      <div className="lg:w-1/2 w-full rounded-2xl surface-card overflow-hidden flex justify-center gap-x-2 items-center">
         <div className="w-full me-10 ms-10 ">
           <DoughnutChart label='Days Count' labels={Object.keys(conditionsData).map((item, idx) => item + `: ${Object.values(conditionsData)[idx]} days`)} dataSet={Object.values(conditionsData)} />
         </div>

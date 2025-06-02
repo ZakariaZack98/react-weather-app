@@ -41,7 +41,7 @@ const LastYearChart = () => {
       </div>
       {/* ==========================================Charts Markup===================================================== */}
       <div className="w-full flex justify-between items-stretch gap-x-2 my-5">
-        <div className="w-full rounded-xl bg-[rgba(255,255,255,0.09)]">
+        <div className="w-full rounded-xl surface-card">
           <div className="flex p-5 gap-x-3">
             {
               chartModes?.map(mode => (

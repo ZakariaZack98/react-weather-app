@@ -24,7 +24,7 @@ const WindTrendCard = () => {
   const windTrend = getWindTrend();
 
   return (
-    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)] text-sm'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl surface-card text-sm'>
       <h1 className='font-semibold text-lg'>Wind</h1>
       <div className="compassSec flex justify-center items-stretch gap-x-5">
         <div className="min-w-27 h-27 relative border-4 border-[rgba(255,255,255,0.1)] rounded-full ">

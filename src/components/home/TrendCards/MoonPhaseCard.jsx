@@ -119,7 +119,7 @@ const moonPhaseDetails = getMoonPhaseDetails(phase);
 
 
   return (
-    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl surface-card'>
       <h1 className='font-semibold'>Moon Phase</h1>
       <div className="flex justify-center items-center">
         <MoonPhase phase={phase} />

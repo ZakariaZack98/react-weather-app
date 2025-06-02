@@ -4,13 +4,13 @@
   --font-arial: "Arial", sans-serif;
 }
 
-.body {
-  background: #4D6479;
-  background: linear-gradient(180deg,rgb(23, 53, 82) 0%,  rgb(0, 31, 63) 90%, rgb(0, 29, 58) 100%);
-  /* background-image: url('https://images.pexels.com/photos/39811/pexels-photo-39811.jpeg?cs=srgb&dl=pexels-veeterzy-39811.jpg&fm=jpg');
+.backdrop {
+  /* background: #4D6479;
+  background: linear-gradient(180deg,rgb(23, 53, 82) 0%,  rgb(0, 31, 63) 90%, rgb(0, 29, 58) 100%); */
+  background-image: url('https://wallpapers.com/images/hd/aesthetic-rain-wkfiz5qfrxlbx4fl.jpg');
   background-position: center;
   background-size: cover;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
 }
 
 .leaflet-tile-pane img[src*="tile.openweathermap.org"] {

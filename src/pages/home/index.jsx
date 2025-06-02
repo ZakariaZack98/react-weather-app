@@ -16,7 +16,8 @@ const Home = () => {
   const sampleData = newsData?.slice(12,16);
 
   return (
-    <div className="body text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll overflow-x-hidden" style={{ scrollbarWidth: 'none' }}>
+    <div className="backdrop w-full h-full">
+      <div className="body  bg-[rgba(0,0,0,0.25)] text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll overflow-x-hidden]" style={{ scrollbarWidth: 'none' }}>
       <div className='lg:w-[82%] w-[95%] mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
         <SearchArea />
         <div className="mainContents flex xl:flex-nowrap flex-wrap w-full 2xl:gap-x-5 gap-x-0">
@@ -37,6 +38,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }

@@ -148,7 +148,7 @@ const Summery = () => {
   }
 
   return (
-    <div className="summery pb-5">
+    <div className="summery pb-5 text-shadow">
       <div className="locationHeading flex items-center gap-x-10 py-5">
         <p>{locationName}</p>
         <span
@@ -160,7 +160,7 @@ const Summery = () => {
         </span>
       </div>
       <div className="mainContent w-full flex lg:flex-nowrap flex-wrap gap-5 items-stretch">
-        <div className="currentWeather lg:w-1/2 w-full h-90 p-7 bg-[rgba(255,255,255,0.14)] rounded-lg flex flex-col justify-between">
+        <div className="currentWeather lg:w-1/2 w-full h-90 p-7 surface-card rounded-lg flex flex-col justify-between">
           {
             weatherDataNow && aqiData && hourlyForecastData && Object.keys(weatherDataNow).length > 0 && Object.keys(aqiData).length > 0 && Object.keys(hourlyForecastData).length > 0 ? (
               <>

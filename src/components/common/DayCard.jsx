@@ -5,7 +5,7 @@ const DayCard = ({ foreCastData, date, activeDay, setActiveDay }) => {
   return (
     <div
       className={` ${
-        date === activeDay ? "bg-[#1B3754] xl:h-45 h-38  border-t-2" : "bg-[rgba(189,189,189,0.04)]"
+        date === activeDay ? "surface-card-darker xl:h-45 h-38  border-t-2" : "surface-card"
       } xl:py-5 2xl:px-7 xl:px-4 px-3 py-5 rounded-xl flex flex-col gap-y-4 cursor-pointer text-nowrap`}
       data-date={date}
       onClick={() => setActiveDay(date)}>

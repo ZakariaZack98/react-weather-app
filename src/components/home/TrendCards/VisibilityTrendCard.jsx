@@ -38,7 +38,7 @@ const VisibilityTrendCard = () => {
   const visibilityDetails = getVisibilityCategory(visibility);
 
   return (
-    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl bg-[rgba(255,255,255,0.06)]'>
+    <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl surface-card'>
       <h1 className='font-semibold'>Visibiity</h1>
       <div className="div flex flex-col justify-center items-center relative gap-y-2">
         {

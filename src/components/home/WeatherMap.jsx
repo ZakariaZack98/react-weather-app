@@ -132,7 +132,7 @@ const WeatherMap = () => {
           <LocationMarker />
         </MapContainer>
       </div>
-      <div className="legends p-3 flex justify-end gap-x-5 bg-[#ffffff42] rounded-xl text-sm">
+      <div className="legends p-3 flex justify-end md:gap-x-5 2xl:flex-nowrap flex-wrap gap-x-3 surface-card rounded-xl text-sm">
         {
           selectedLayer?.colors?.map( color => (
             <div key={color.color} className='flex gap-x-2'>

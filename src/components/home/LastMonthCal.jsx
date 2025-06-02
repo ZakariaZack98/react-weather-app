@@ -32,7 +32,7 @@ const LastMonthCal = () => {
     <div className='py-2 w-full'>
       {/* ==========================================Calender Markup===================================================== */}
       <h3 className="text-xl font-semibold mb-3">LAST 30 DAYS <span className='text-sm'>(icons are placeholders)</span></h3>
-      <div className="flex flex-wrap md:justify-start justify-around xl:gap-1 gap-3 items-start rounded-xl bg-[rgba(255,255,255,0.1)] p-10">
+      <div className="flex flex-wrap md:justify-start justify-around xl:gap-1 gap-3 items-start rounded-xl surface-card p-10">
         {
           last30daysData?.map(dayData => (
             <div key={dayData?.datetime} className='md:w-[13.8%] w-3/10 min-w-20 xl:h-28 h-23 rounded-xl border border-[rgba(255,255,255,0.22)] p-2'>
