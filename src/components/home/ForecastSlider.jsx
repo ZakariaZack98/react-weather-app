@@ -44,11 +44,15 @@ const ForecastSlider = () => {
 
       if (hourlyForecastData && hourlyForecastData.length > 0) {
         const today = new Date();
+        const todayStr = ConvertToLocalISOString(today).split("T")[0];
         const weatherDataByDate = [];
 
         try {
-          //? First day's data: first 8 elements (24 hours)
-          weatherDataByDate.push(hourlyForecastData.slice(0, 8));
+          //? Get today's data based on actual date
+          const todaysData = hourlyForecastData.filter(
+            data => data.dt_txt.split(" ")[0] === todayStr
+          );
+          weatherDataByDate.push(todaysData);
 
           //? Next 4 days by date
           for (let i = 1; i <= 4; i++) {
