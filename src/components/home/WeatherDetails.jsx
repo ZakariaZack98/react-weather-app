@@ -30,19 +30,19 @@ const WeatherDetails = () => {
                 </span>
               </div>
             </div>
-            <div className="w-full flex flex-wrap justify-between items-stretch my-5 gap-y-3 sm:gap-y-10 md:gap-6 xl:gap-3 ">
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><TempTrendCard /></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><FeelsLikeTrendCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><CloudCoverCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><PrecipitationTrendCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><WindTrendCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><HumidityTrendCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><UVTrendCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><AQITrendCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><VisibilityTrendCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><PressureTrendCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><SunDetailsCard/></div>
-              <div className="xl:w-[24%] md:w-[30%] sm:w-[47%] w-full h-full"><MoonPhaseCard/></div>
+            <div className="w-full flex flex-wrap justify-between items-stretch my-5 gap-y-3 sm:gap-y-3 md:gap-0 xl:gap-0 ">
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><TempTrendCard /></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><FeelsLikeTrendCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><CloudCoverCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><PrecipitationTrendCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><WindTrendCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><HumidityTrendCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><UVTrendCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><AQITrendCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><VisibilityTrendCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><PressureTrendCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><SunDetailsCard/></div>
+              <div className="xl:w-[24%] md:w-[32%] sm:w-[47%] w-full md:min-h-85 h-full"><MoonPhaseCard/></div>
             </div>
           </div>
         )

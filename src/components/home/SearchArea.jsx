@@ -38,7 +38,7 @@ const SearchArea = () => {
   };
 
   return (
-    <div className="flex md:flex-nowrap flex-wrap py-4 md:gap-x-5 gap-y-2 pt-10">
+    <div className="flex md:flex-nowrap flex-wrap py-4 md:gap-x-5 lg:gap-y-0 gap-y-2 ">
       <div className="searchBar xl:w-2/8 md:w-1/3 w-full relative">
         <input
           type="text"

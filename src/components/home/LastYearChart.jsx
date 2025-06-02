@@ -24,7 +24,6 @@ const LastYearChart = () => {
     borderColors: ['rgba(39, 238, 245, 0.8)', 'rgba(203, 252, 254, 0.2)'],
     backgroundColors: ['rgba(39, 238, 245, 0.1)', 'rgba(203, 252, 254, 0)'],
   }
-
   const rainChartData = {
     labels: yearlyData?.map(dayData => dayData.datetime),
     precipData: yearlyData?.map(dayData => dayData.precip),

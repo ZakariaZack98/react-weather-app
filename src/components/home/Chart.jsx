@@ -25,7 +25,7 @@ const Chart = ({ data, activeMode }) => {
           ))
         }
       </div>
-      <div className="w-full 2xl:h-[45dvh] lg:h-[60dvh] h-[30dvh]  px-5 border border-[rgba(255,255,255,0.14)] p-2 rounded-b-xl">
+      <div className="w-full 2xl:h-[45dvh] lg:h-100 h-[30dvh]  px-5 border border-[rgba(255,255,255,0.14)] p-2 rounded-b-xl">
         {
           activeMode === 'Precipitation' || activeMode === 'Cloud Cover' ? <BarChart hourlyDataset={data?.data} activeMode={activeMode} /> : <LineChart hourlyDataset={data?.data} activeMode={activeMode} seconderyDataSet={activeMode === 'Overview' || activeMode === 'Wind' ? true : false} />
         }

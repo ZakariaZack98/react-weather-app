@@ -15,11 +15,11 @@ const NewsSec = () => {
           <>
             {
               idx === 0 || idx === 5 || idx === 6 ? (
-                <div className="w-[48%]">
+                <div className="xl:w-[48%] w-full">
                   <NewsCardHorizontal key={idx} article={article}/>
                 </div>
               ) : (
-                <div className='w-[24%]'>
+                <div className='sm:w-[48%] xl:w-[24%] w-full'>
                   <NewsCard key={idx} article={article}/>
                 </div>
               )

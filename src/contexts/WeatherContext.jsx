@@ -23,6 +23,12 @@ const WeatherProvider = ({ children }) => {
     .catch(console.error)
   }, [])
 
+  /**
+   * TODO: Fetch all weather data for the given latitude and longitude =========================================
+   * @param {number} lat - The latitude of the location
+   * @param {number} lng - The longitude of the location
+   * @returns void
+   */
   const fetchAllWeatherData = async (lat, lng) => {
     setCoord([lat, lng])
     Promise.allSettled([
@@ -56,6 +62,9 @@ const WeatherProvider = ({ children }) => {
       if (uvResult.status === 'fulfilled') {
         setUvData(uvResult.value);
       }
+    })
+    .catch(error => {
+      console.error('Error fetching weather data- ', error.message)
     });
   }
 

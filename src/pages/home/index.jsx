@@ -45,30 +45,26 @@ const Home = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div 
-        className="body bg-[rgba(0,0,0,0.36)] text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll overflow-x-hidden]" 
-      >
+      <div className="body bg-[rgba(0,0,0,0.36)] text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll overflow-x-hidden]">
         <div className='lg:w-[82%] w-[95%] mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-        <SearchArea />
-        <div className="mainContents flex xl:flex-nowrap flex-wrap w-full 2xl:gap-x-5 gap-x-0">
-          <div className="main 2xl:w-4/5 w-full">
-            <Summery />
-            <ForecastSlider />
-            <WeatherDetails />
-            <WeatherMap/>
-            <LastMonthCal/>
-            <LastYearChart/>
-            <TrendInfo/>
-            <NewsSec/>
-          </div>
-          <div className="sidebar 2xl:w-1/5 w-full hidden 2xl:flex flex-col gap-y-4 pt-18">
-            {
-              sampleData?.map(article => <NewsCard article={article}/>)
-            }
+          <SearchArea />
+          <div className="mainContents flex xl:flex-nowrap flex-wrap w-full 2xl:gap-x-5 gap-x-0">
+            <div className="main 2xl:w-4/5 w-full">
+              <Summery />
+              <ForecastSlider />
+              <WeatherDetails />
+              <WeatherMap/>
+              <LastMonthCal/>
+              <LastYearChart/>
+              <TrendInfo/>
+              <NewsSec/>
+            </div>
+            <div className="sidebar 2xl:w-1/5 w-full hidden 2xl:flex flex-col gap-y-4 pt-18">
+              {sampleData?.map(article => <NewsCard key={article.url} article={article}/>)}
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   )
 }

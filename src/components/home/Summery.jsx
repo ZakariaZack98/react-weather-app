@@ -5,7 +5,9 @@ import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-lea
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { WeatherContext } from '../../contexts/WeatherContext'
-import { ConvertToLocalISOString, GetAQICategory, GetWindDirection, WeatherLayers } from '../../utils/utils'
+import { ConvertToLocalISOString, GetAQICategory, GetWindDirection, IsDayTime, WeatherLayers } from '../../utils/utils'
+import _ from '../../lib/componentsData'
+import SummerySkeleton from '../LoadingSkeletons/SummerySkeleton'
 
 // Fix for default marker icon in Leaflet
 delete L.Icon.Default.prototype._getIconUrl
@@ -16,13 +18,11 @@ L.Icon.Default.mergeOptions({
 })
 
 const Summery = () => {
-  const { fetchAllWeatherData, recentSearchLoc, setRecentSearchLoc, locationName, coord, weatherDataNow, aqiData, hourlyForecastData, uvData, weatherMapMode, setWeatherMapMode, apiKey } = useContext(WeatherContext);
-
+  const { fetchAllWeatherData, locationName, coord, weatherDataNow, aqiData, hourlyForecastData, uvData, weatherMapMode, setWeatherMapMode, apiKey } = useContext(WeatherContext);
   const [currentTime, setCurrentTime] = useState('');
-
-  // Find the selected weather layer config
   const weatherLayers = WeatherLayers;
   const selectedLayer = weatherLayers.find(layer => layer.modeName === weatherMapMode);
+  const othersData = _.othersData;
 
   // TODO: UPDATE TIME
   useEffect(() => {
@@ -41,9 +41,7 @@ const Summery = () => {
     return () => clearInterval(interval);
   }, []);
 
-  /**
-   * TODO: GET THE USERS POSITION USING GEOLOCATION API & UPDATE WEATHER DATA ========================================
-   * */
+  //TODO: GET THE USERS POSITION USING GEOLOCATION API & UPDATE WEATHER DATA ========================================
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -65,7 +63,7 @@ const Summery = () => {
     const map = useMap();
 
     useEffect(() => {
-      // Center the map on the current position
+      //? Center the map on the current position
       map.setView(coord, map.getZoom());
     }, [coord, map]);
 
@@ -96,39 +94,6 @@ const Summery = () => {
     }
   }
 
-  const othersData = [
-    {
-      name: 'Air Quality',
-      data: 100,
-    },
-    {
-      name: 'Wind',
-      data: '2km/h NNE',
-    },
-    {
-      name: 'Humidity',
-      data: '66%',
-    },
-    {
-      name: 'Visibility',
-      data: '2km',
-    },
-    {
-      name: 'Pressure',
-      data: '1001mb',
-    },
-    {
-      name: 'UV Index',
-    }
-  ]
-
-  // TODO: DETERMINE IF IT'S NIGHT OR DAY===============================================================
-  const isDayTime = () => {
-    const currentHour = new Date().getHours();
-    return currentHour >= 6 && currentHour < 18;
-  }
-
-
   // TODO: GET TODAYS HIGHEST & LOWEST TEMPERATURE=======================================================
   const getTodaysHighestTemp = () => {
     if (!hourlyForecastData || hourlyForecastData.length === 0) return null;
@@ -147,9 +112,16 @@ const Summery = () => {
     return Math.round(highestTemp);
   }
 
+  if (!weatherDataNow || !aqiData || !hourlyForecastData || 
+      Object.keys(weatherDataNow).length === 0 || 
+      Object.keys(aqiData).length === 0 || 
+      Object.keys(hourlyForecastData).length === 0) {
+    return <SummerySkeleton />;
+  }
+
   return (
-    <div className="summery pb-5 text-shadow">
-      <div className="locationHeading flex items-center gap-x-10 py-5">
+    <div className="summery pb-2 text-shadow">
+      <div className="locationHeading flex items-center gap-x-10 pb-2">
         <p>{locationName}</p>
         <span
           className="currentLoc w-8 h-8 flex justify-center items-center rounded-full border-[1px] border-white cursor-pointer"
@@ -160,7 +132,7 @@ const Summery = () => {
         </span>
       </div>
       <div className="mainContent w-full flex lg:flex-nowrap flex-wrap gap-5 items-stretch">
-        <div className="currentWeather lg:w-1/2 w-full h-90 p-7 surface-card rounded-lg flex flex-col justify-between">
+        <div className="currentWeather lg:w-1/2 w-full h-100 md:h-90 p-7 surface-card rounded-lg flex flex-col justify-between">
           {
             weatherDataNow && aqiData && hourlyForecastData && Object.keys(weatherDataNow).length > 0 && Object.keys(aqiData).length > 0 && Object.keys(hourlyForecastData).length > 0 ? (
               <>
@@ -185,8 +157,8 @@ const Summery = () => {
                   </div>
                 </div>
                 <p className="suggestion mb-5">
-                  Expect {weatherDataNow?.weather[0]?.description}, The {isDayTime() ? 'High' : 'Low'} will be{' '}
-                  {isDayTime() ? `${getTodaysHighestTemp() ? `${getTodaysHighestTemp()}°c` : 'N/A'}` : `${getTodaysLowestTemp() ? `${getTodaysLowestTemp()}°c` : 'N/A'}`}.
+                  Expect {weatherDataNow?.weather[0]?.description}, The {IsDayTime() ? 'High' : 'Low'} will be{' '}
+                  {IsDayTime() ? `${getTodaysHighestTemp() ? `${getTodaysHighestTemp()}°c` : 'N/A'}` : `${getTodaysLowestTemp() ? `${getTodaysLowestTemp()}°c` : 'N/A'}`}.
                 </p>
                 <div className="othersUpdate w-full flex md:flex-nowrap flex-wrap md:gap-3 gap-10 justify-between">
                   {othersData?.map((item) => (

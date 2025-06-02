@@ -18,7 +18,7 @@ const HourForecastCard = ({ displayData, delay, ...rest }) => {
 
   return (
     <div
-      className={`min-w-[12%] h-[260px] p-4 flex flex-col justify-between rounded-xl bg-[#364d66] hover:text-[rgba(0,0,0,0.6)] hover:bg-[rgba(255,255,255,0.65)] cursor-pointer transition-all duration-500 2xl:text-[1rem] text-sm ${
+      className={`min-w-[12%] h-[260px] p-4 flex flex-col justify-between rounded-xl bg-[#ffffff36] hover:bg-blue-950  cursor-pointer transition-all duration-500 2xl:text-[1rem] text-sm ${
         isVisible ? 'opacity-100 transform-none' : 'opacity-0 -rotate-90'
       }`}
       {...rest}

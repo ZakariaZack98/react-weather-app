@@ -33,7 +33,7 @@ const NewsCard = ({ article }) => {
         />
       </div>
 
-      <div className="h-1/3 p-3 flex flex-col justify-between">
+      <div className="sm:h-1/3 h-1/4 p-3 flex flex-col justify-between">
         <h3 className="text-sm font-semibold line-clamp-3 text-gray-800">
           {title}
         </h3>
