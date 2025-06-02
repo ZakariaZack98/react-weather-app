@@ -1,6 +1,5 @@
-import Aos from 'aos'
-import "aos/dist/aos.css"
-import React, { useEffect } from 'react'
+import React from 'react'
+import './assets/transitions.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CommonLayout from './pages/CommonLayout'
 import Home from './pages/home/index'
@@ -8,12 +7,6 @@ import { WeatherProvider } from './contexts/WeatherContext'
 
 
 const App = () => {
-  useEffect(() => {
-    Aos.init({
-      duration: 300,
-      once: true,
-    });
-  }, [])
   return (
     <WeatherProvider>
       <BrowserRouter>

@@ -1,5 +1,3 @@
-import Aos from 'aos';
-import "aos/dist/aos.css"
 import React, { useContext, useEffect, useState } from "react";
 import { FaChartBar, FaList, FaTemperatureHigh, FaWind } from "react-icons/fa";
 import { WeatherContext } from "../../contexts/WeatherContext";
@@ -51,6 +49,11 @@ const ForecastSlider = () => {
    * @param {hourlyForecastData} {Array}
    * */
   useEffect(() => {
+    //? FIX OF THE DATE FORMAT CONFLICT
+    if(activeDay.startsWith('0')) {
+      setActiveDay(activeDay.slice(1))
+    }
+
     if (hourlyForecastData && hourlyForecastData.length > 0) {
       const today = new Date();
       const weatherDataByDate = [];
@@ -81,12 +84,6 @@ const ForecastSlider = () => {
       setWeatherDataByDay(updatedWeatherData);
     }
   }, [hourlyForecastData, activeDay, visualizeMode, activeMode]);
-
-  useEffect(() => {
-    if (weatherDataByDay && weatherDataByDay.length > 0) {
-      Aos.refresh();
-    }
-  }, [weatherDataByDay]);
 
   if (weatherDataByDay && weatherDataByDay.length > 0) {
     return (
@@ -148,16 +145,25 @@ const ForecastSlider = () => {
           </div>
           {
             visualizeMode === 'chart' ? <Chart data={weatherDataByDay.find((data) => data.date === activeDay)} activeMode={activeMode} /> : (
-              <div className="flex flex-col w-full p-5 bg-[#1B3754] rounded-xl -translate-y-4 gap-x-2">
-                <div className="flex gap-x-2 justify-between">
+              <div className="flex flex-col w-full p-5 bg-[#1B3754] rounded-xl -translate-y-4 gap-x-2 " >
+                <div className="flex gap-x-2 justify-between overflow-x-scroll" style={{scrollbarWidth: 'none'}}>
                   {
-                    weatherDataByDay.find((data) => data.date === activeDay).data.map((hourlyForecastData, idx) => <HourForecastCard
-                      key={hourlyForecastData.dt}
-                      displayData={hourlyForecastData}
-                      delay={idx * 100}
-                      data-aos-once="false"
-                      data-aos-anchor-placement="top-bottom"
-                    />)
+                    weatherDataByDay.find((data) => data.date === activeDay).data.map((hourlyForecastData, idx) => (
+                      <div 
+                        key={hourlyForecastData.dt}
+                        className="transition-all duration-500 ease-in-out"
+                        style={{ 
+                          opacity: '1',
+                          transform: 'none',
+                          willChange: 'transform, opacity'
+                        }}
+                      >
+                        <HourForecastCard
+                          displayData={hourlyForecastData}
+                          delay={idx * 100}
+                        />
+                      </div>
+                    ))
                   }
                 </div>
                 <div className="legends flex gap-x-10 mt-4">
