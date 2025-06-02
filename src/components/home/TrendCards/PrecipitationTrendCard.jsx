@@ -15,8 +15,8 @@ const PrecipitationTrendCard = () => {
   return (
     <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl surface-card'>
       <h1 className='font-semibold'>Precipitation</h1>
-      <div className="flex w-full justify-center items-center">
-        <div className="w-35 h-35 border border-[rgba(255,255,255,0.23)] rounded-full bg-[rgba(255,255,255,0.06)] overflow-hidden relative flex justify-center items-center">
+      <div className="flex w-full h-full justify-center items-center">
+        <div className="h-30 aspect-square border border-[rgba(255,255,255,0.23)] rounded-full bg-[rgba(255,255,255,0.06)] overflow-hidden relative flex justify-center items-center">
           {
             getTotalRainfall() > 0 && (
               <div style={{ filter: 'hue-rotate(220deg) saturate(2)' }}>

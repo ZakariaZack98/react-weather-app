@@ -5,7 +5,7 @@ const DayCard = ({ foreCastData, date, activeDay, setActiveDay }) => {
   return (
     <div
       className={` ${
-        date === activeDay ? "surface-card-darker xl:h-45 h-38  border-t-2" : "surface-card"
+        date === activeDay ? "surface-card-darkest xl:h-45 h-38 border-t-2 border-white" : "surface-card"
       } xl:py-5 2xl:px-7 xl:px-4 px-3 py-5 rounded-xl flex flex-col gap-y-4 cursor-pointer text-nowrap`}
       data-date={date}
       onClick={() => setActiveDay(date)}>
@@ -25,7 +25,7 @@ const DayCard = ({ foreCastData, date, activeDay, setActiveDay }) => {
               className="w-9/10 "
             />
           </picture>
-          <picture className=" w-1/2 flex justify-center items-center rounded-full bg-blue-950 -translate-x-3">
+          <picture className=" w-1/2 flex justify-center items-center rounded-full bg-black -translate-x-3">
             <img
               src={`https://openweathermap.org/img/wn/${foreCastData.dominantIcons.nightIcon}@2x.png`}
               alt=""

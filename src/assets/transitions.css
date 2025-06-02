@@ -3,6 +3,28 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* Background transition effects */
+.backdrop {
+  position: relative;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.backdrop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.backdrop.changing::before {
+  opacity: 1;
+}
+
 /* Glassmorphic effect */
 .glass-effect {
   background: rgba(255, 255, 255, 0.1);
@@ -27,6 +49,13 @@
   -webkit-backdrop-filter: blur(10px);
   background-color: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.surface-card-darkest {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 

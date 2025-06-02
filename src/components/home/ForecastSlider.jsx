@@ -94,7 +94,7 @@ const ForecastSlider = () => {
               <p
                 key={idx}
                 className={`2xl:px-6 px-4 2xl:text-md md:text-sm text-nowrap py-1 rounded-xl ${activeMode === mode ? "bg-yellow-500 text-black font-bold" : "surface-card-darker hover:bg-[#ffffff4d]"
-                  } cursor-pointer  duration-300 opacity-70`}
+                  } cursor-pointer  duration-300 `}
                 onClick={() => setActiveMode(mode)}>
                 {mode}
               </p>

@@ -74,11 +74,11 @@ const PressureTrendCard = () => {
       </div>
       <div className="textSec text-sm">
         <div className="flex items-center gap-x-2 pb-7">
-          <p className='font-semibold text-5xl'>
+          <p className='font-semibold text-4xl'>
             {currentPressure}
           </p>
           <div className="flex flex-col gap-y-1">
-            <p className='text-xl leading-5'>mbr</p>
+            <p className='text-lg leading-5'>mbr</p>
             <p>Right Now</p>
           </div>
         </div>

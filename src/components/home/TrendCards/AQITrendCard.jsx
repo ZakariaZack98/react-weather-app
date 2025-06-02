@@ -12,7 +12,9 @@ const AQITrendCard = () => {
     <div className='min-h-75 p-4 flex flex-col gap-y-3 justify-between rounded-xl glass-effect'>
       <h1 className='font-semibold'>Air Quality</h1>
       <div className="div flex justify-center items-center h-1/2 relative">
-        <TwoThirdsCircularProgressBar value={AQIndex} max={5} size={150} />
+        <div className="h-35">
+          <TwoThirdsCircularProgressBar value={AQIndex} max={5} size={150} />
+        </div>
         <div className="absolute flex flex-col items-center gap-y-1">
           <h1 className='text-3xl font-semibold'>{AQIndex}</h1>
           <div style={{ backgroundColor: AQDetails.color }} className={`px-2 py-1 text-sm rounded-xl ${AQIndex === 2 ? 'text-black' : 'text-white'}`}>{AQDetails.level}</div>
