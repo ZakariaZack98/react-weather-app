@@ -1,20 +1,20 @@
 // Weather background images
 export const weatherImageUrls = {
-  Clear: '/src/assets/weather-backgrounds/original/clear.jpg',
-  Clouds: '/src/assets/weather-backgrounds/original/clouds.jpg',
-  Rain: '/src/assets/weather-backgrounds/original/rain.jpg',
-  Snow: '/src/assets/weather-backgrounds/original/snow.jpg',
-  Thunderstorm: '/src/assets/weather-backgrounds/original/thunderstorm.jpg',
-  Drizzle: '/src/assets/weather-backgrounds/original/drizzle.jpg',
-  Mist: '/src/assets/weather-backgrounds/original/mist.jpg'
+  Clear: '/weather-backgrounds/original/clear.jpg',
+  Clouds: '/weather-backgrounds/original/clouds.jpg',
+  Rain: '/weather-backgrounds/original/rain.jpg',
+  Snow: '/weather-backgrounds/original/snow.jpg',
+  Thunderstorm: '/weather-backgrounds/original/thunderstorm.jpg',
+  Drizzle: '/weather-backgrounds/original/drizzle.jpg',
+  Mist: '/weather-backgrounds/original/mist.jpg'
 }
 
 export const weatherImageThumbnails = {
-  Clear: '/src/assets/weather-backgrounds/thumbnail/clear.jpg',
-  Clouds: '/src/assets/weather-backgrounds/thumbnail/clouds.jpg',
-  Rain: '/src/assets/weather-backgrounds/thumbnail/rain.jpg',
-  Snow: '/src/assets/weather-backgrounds/thumbnail/snow.jpg',
-  Thunderstorm: '/src/assets/weather-backgrounds/thumbnail/thunderstorm.jpg',
-  Drizzle: '/src/assets/weather-backgrounds/thumbnail/drizzle.jpg',
-  Mist: '/src/assets/weather-backgrounds/thumbnail/mist.jpg'
+  Clear: '/weather-backgrounds/thumbnail/clear.jpg',
+  Clouds: '/weather-backgrounds/thumbnail/clouds.jpg',
+  Rain: '/weather-backgrounds/thumbnail/rain.jpg',
+  Snow: '/weather-backgrounds/thumbnail/snow.jpg',
+  Thunderstorm: '/weather-backgrounds/thumbnail/thunderstorm.jpg',
+  Drizzle: '/weather-backgrounds/thumbnail/drizzle.jpg',
+  Mist: '/weather-backgrounds/thumbnail/mist.jpg'
 }

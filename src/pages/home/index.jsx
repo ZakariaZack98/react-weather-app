@@ -22,31 +22,46 @@ const Home = () => {
   const [currentBg, setCurrentBg] = useState(weatherImageUrls.Clear);
   
   // Preload all weather background images when component mounts
+  // Preload all images when the component mounts
   useEffect(() => {
-    Object.values(weatherImageUrls).forEach(url => {
-      imagePreloader.preload(url).catch(console.error);
+    console.log('Preloading weather background images...');
+    imagePreloader.preloadAll().then((results) => {
+      results.forEach((result, index) => {
+        if (result.status === 'rejected') {
+          console.warn(`Failed to preload image ${index}:`, result.reason);
+        }
+      });
     });
   }, []);
 
-  // Use progressive loading for the current background
-  const loadedBackground = useProgressiveImage(
-    weatherImageThumbnails[currentWeather] || weatherImageThumbnails.Clear,
-    weatherImageUrls[currentWeather] || weatherImageUrls.Clear
-  );
+  // Get the appropriate image URLs based on weather condition
+  const weatherCondition = currentWeather || 'Clear';
+  const thumbnailUrl = weatherImageThumbnails[weatherCondition] || weatherImageThumbnails.Clear;
+  const fullSizeUrl = weatherImageUrls[weatherCondition] || weatherImageUrls.Clear;
 
+  // Use progressive loading for the current background
+  const loadedBackground = useProgressiveImage(thumbnailUrl, fullSizeUrl);
+
+  // Handle background image transitions
   useEffect(() => {
     if (currentWeather) {
       const newBg = weatherImageUrls[currentWeather];
       if (newBg !== currentBg) {
         setIsChanging(true);
-        imagePreloader.preload(newBg).then(() => {
-          setTimeout(() => {
-            setCurrentBg(newBg);
+        
+        // Try to preload the new image
+        imagePreloader.preload(newBg)
+          .then(() => {
             setTimeout(() => {
-              setIsChanging(false);
+              setCurrentBg(newBg);
+              setTimeout(() => setIsChanging(false), 500);
             }, 500);
-          }, 500);
-        });
+          })
+          .catch((error) => {
+            console.error('Failed to load new background:', error);
+            // Keep the current background if loading fails
+            setIsChanging(false);
+          });
       }
     }
   }, [currentWeather, currentBg]);
