@@ -116,8 +116,8 @@ const ForecastSlider = () => {
   }
 
   return (
-    <div className="pb-4">
-      <div className="modePart flex justify-between items-center pb-2">
+    <div className="pb-4 mt-3 lg:mt-0">
+      <div className="modePart flex flex-col-reverse md:flex-row justify-between items-center pb-2">
         <div className="modes flex 2xl:flex-nowrap flex-wrap gap-4 py-3">
           {modes?.map((mode, idx) => (
             <p

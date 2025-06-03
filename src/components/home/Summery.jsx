@@ -169,7 +169,7 @@ const Summery = () => {
                           <FaInfo />
                         </span>
                       </div>
-                      <div className=''>{
+                      <div className='md:text-[1rem] text-sm'>{
                         item.name === 'Humidity'
                           ? weatherDataNow?.main?.humidity + '%'
                           : item.name === 'Air Quality'

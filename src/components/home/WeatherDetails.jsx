@@ -21,10 +21,10 @@ const WeatherDetails = () => {
       {
         hourlyForecastData && hourlyForecastData?.length > 0 && (
           <div className="w-full">
-            <div className="heading flex justify-between items-center ">
-              <h3 className='text-xl font-semibold'>Current Weather Trends</h3>
+            <div className="heading flex flex-col md:flex-row  justify-between items-center ">
+              <h3 className='md:text-xl text-sm font-semibold'>Current Weather Trends</h3>
               <div className="flex items-center gap-x-1 opacity-60">
-                <p className='font-semibold'>SUGGESTION FOR YOUR DAY</p>
+                <p className='md:text-[1rem] text-xs font-semibold'>SUGGESTION FOR YOUR DAY</p>
                 <span>
                   <FaAngleRight />
                 </span>

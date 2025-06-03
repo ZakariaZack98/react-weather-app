@@ -29,7 +29,7 @@ const LastMonthCal = () => {
   // }, [coord])
 
   if (last30daysData && last30daysData.length > 0) return (
-    <div className='py-2 w-full'>
+    <div className='py-2 w-full hidden md:block'>
       {/* ==========================================Calender Markup===================================================== */}
       <h3 className="text-xl font-semibold mb-3">LAST 30 DAYS <span className='text-sm'>(icons are placeholders)</span></h3>
       <div className="flex flex-wrap md:justify-start justify-around xl:gap-1 gap-3 items-start rounded-xl surface-card p-10">

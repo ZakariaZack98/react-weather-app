@@ -191,7 +191,7 @@ const LineChart = ({ hourlyDataset, activeMode, seconderyDataSet }) => {
       />
       {
         activeMode === 'Overview' && (
-          <div className="rainIndicator flex w-full justify-center -translate-y-11">
+          <div className="rainIndicator sm:flex hidden w-full justify-center -translate-y-11 ">
             <div className='absolute rounded lg:w-[95.5%] md:w-[93%] sm:w-[92%] w-[80%] mx-auto  bottom-0 h-8 flex'>
               {hourlyDataset?.slice(0, 7).map(hourlyData => (
                 <div className={`flex justify-center items-center w-full ${hourlyData?.pop * 100 > 0 ? 'bg-blue-400' : 'bg-[rgba(255,255,255,0.33)]'}`}>

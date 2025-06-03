@@ -36,10 +36,16 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
         }
       })
     } else if (activeMode === 'Cloud Cover') {
-      const dayObj = foreCastData?.data?.filter(hourlyData => hourlyData.sys.pod === 'd');
-      const avgDayCloud = dayObj.map(data => data.clouds.all).reduce((a, b) => a + b) / dayObj.length;
-      const nightObj = foreCastData?.data?.filter(hourlyData => hourlyData.sys.pod === 'n');
-      const avgNightCloud = nightObj.map(data => data.clouds.all).reduce((a, b) => a + b) / nightObj.length;
+      const dayObj = foreCastData?.data?.filter(hourlyData => hourlyData.sys.pod === 'd') || [];
+      const nightObj = foreCastData?.data?.filter(hourlyData => hourlyData.sys.pod === 'n') || [];
+
+      const avgDayCloud = dayObj.length > 0
+        ? dayObj.map(data => data.clouds.all).reduce((a, b) => a + b, 0) / dayObj.length
+        : foreCastData?.data?.[0]?.clouds?.all || 0;
+      
+      const avgNightCloud = nightObj.length > 0
+        ? nightObj.map(data => data.clouds.all).reduce((a, b) => a + b, 0) / nightObj.length
+        : foreCastData?.data?.[0]?.clouds?.all || 0;
       setAltCardData({
         input: foreCastData?.data?.map(hourlyData => hourlyData.clouds.all).reduce((a, b) => a + b) / foreCastData?.data?.length,
         color: 'cyan',
@@ -121,8 +127,8 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
   return (
     <div
       className={`${
-        date === activeDay ? "surface-card-darkest xl:h-45 h-38 border-t-2" : "surface-card"
-      } py-5 2xl:px-6 xl:px-5 lg:px-4 px-3 lg:text-sm 2xl:text-md rounded-xl flex flex-col gap-y-4 cursor-pointer text-nowrap `}
+        date === activeDay ? "surface-card-darkest xl:h-45 h-32 border-t-2" : "surface-card"
+      } py-2 md:py-5 2xl:px-6 xl:px-5 lg:px-4 px-3  lg:text-sm 2xl:text-md rounded-xl flex flex-col gap-y-4 cursor-pointer text-nowrap `}
       data-date={date}
       onClick={() => setActiveDay(date)}>
       <div className="date flex  justify-between items-center">
@@ -151,7 +157,7 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
               </picture>
             </div>
           ) : (
-            <div className="flex flex-col justify-end">
+            <div className="flex flex-col justify-end md:translate-y-0 -translate-y-3">
               <div className="topData flex  items-end gap-x-2">
               {altCardData?.topData?.icon && (
                   <span className="lg:text-2xl text-sm mb-1" style={{ color: altCardData?.color }}>
@@ -173,7 +179,7 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
             </div>
           )
         }
-        <div className=" lg:w-1/10 w-2/20" style={{ height: "70px", display: "flex", alignItems: "center", zIndex: 50 }}>
+        <div className=" lg:w-1/10 w-2/20 md:-translate-y-0 -translate-y-3" style={{ height: "70px", display: "flex", alignItems: "center", zIndex: 50 }}>
           <ProgressBar maxValue={altCardData.max || 100} inputValue={altCardData.input} color={altCardData.color} />
         </div>
       </div>

@@ -96,7 +96,7 @@ const TrendInfo = () => {
   // * DATA CALCULATIONS ========================================================
   return (
     <div className='mb-25 flex lg:flex-nowrap flex-wrap gap-3'>
-      <div className="lg:w-1/2 w-full rounded-2xl surface-card overflow-hidden">
+      <div className="lg:w-1/2 w-full rounded-2xl surface-card overflow-hidden text-sm md:text-[1rem]">
         <div className="heading flex bg-[rgba(255,255,255,0.17)] font-semibold py-3 px-5">
           <p className="w-[55%]">Daily Summery (last 12 months)</p>
           <p className="w-[15%] text-end">Max</p>

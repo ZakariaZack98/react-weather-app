@@ -21,8 +21,7 @@ const Home = () => {
   const [isChanging, setIsChanging] = useState(false);
   const [currentBg, setCurrentBg] = useState(weatherImageUrls.Clear);
   
-  // Preload all weather background images when component mounts
-  // Preload all images when the component mounts
+  //TODO: Preload all weather background images when component mounts
   useEffect(() => {
     console.log('Preloading weather background images...');
     imagePreloader.preloadAll().then((results) => {
@@ -34,22 +33,19 @@ const Home = () => {
     });
   }, []);
 
-  // Get the appropriate image URLs based on weather condition
   const weatherCondition = currentWeather || 'Clear';
   const thumbnailUrl = weatherImageThumbnails[weatherCondition] || weatherImageThumbnails.Clear;
   const fullSizeUrl = weatherImageUrls[weatherCondition] || weatherImageUrls.Clear;
-
-  // Use progressive loading for the current background
   const loadedBackground = useProgressiveImage(thumbnailUrl, fullSizeUrl);
 
-  // Handle background image transitions
+  //TODO: Handle background image transitions
   useEffect(() => {
     if (currentWeather) {
       const newBg = weatherImageUrls[currentWeather];
       if (newBg !== currentBg) {
         setIsChanging(true);
         
-        // Try to preload the new image
+        //? Try to preload the new image
         imagePreloader.preload(newBg)
           .then(() => {
             setTimeout(() => {
@@ -59,7 +55,7 @@ const Home = () => {
           })
           .catch((error) => {
             console.error('Failed to load new background:', error);
-            // Keep the current background if loading fails
+            //? Keep the current background if loading fails
             setIsChanging(false);
           });
       }
