@@ -172,10 +172,30 @@ export async function GetCoordBySearch(cityName) {
  */
 export const FetchNews = async () => {
   try {
-    // Use our serverless API route instead of direct NewsAPI call
-    return await fetchData('/api/news');
+    // Direct API call with API key in development
+    const apiKey = import.meta.env.VITE_NEWS_APIKey;
+    if (!apiKey) {
+      throw new Error('News API key not found in environment variables');
+    }
+
+    const url = import.meta.env.PROD
+      ? '/api/news'  // Use serverless function in production
+      : `https://newsapi.org/v2/everything?q=weather OR climate&sortBy=publishedAt&language=en&pageSize=20&apiKey=${apiKey}`;
+
+    const response = await fetch(url, {
+      headers: {
+        'X-Api-Key': apiKey
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`News API responded with status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error("Error fetching news", error);
+    console.error("Error fetching news:", error);
     return { articles: [] }; // Return empty articles array on error
   }
 };

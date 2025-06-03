@@ -7,10 +7,18 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET');
   
   try {
-    const newsApiKey = process.env.VITE_NEWS_API_KEY;
-    const response = await axios.get(`https://newsapi.org/v2/everything?q=weather OR climate&sortBy=publishedAt&language=en&pageSize=20&apiKey=${newsApiKey}`, {
-      headers: {
-        'X-Api-Key': newsApiKey
+    const newsApiKey = process.env.NEWS_API_KEY || process.env.VITE_NEWS_APIKey;
+    if (!newsApiKey) {
+      throw new Error('NEWS_API_KEY environment variable is not configured');
+    }
+    
+    const response = await axios.get('https://newsapi.org/v2/everything', {
+      params: {
+        q: 'weather OR climate',
+        sortBy: 'publishedAt',
+        language: 'en',
+        pageSize: '20',
+        apiKey: newsApiKey
       }
     });
 
