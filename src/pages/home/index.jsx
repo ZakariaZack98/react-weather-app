@@ -1,4 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react';
+import { imagePreloader } from '../../utils/ImagePreloader';
+import useProgressiveImage from '../../hooks/useProgressiveImage';
 import SearchArea from '../../components/home/SearchArea'
 import Summery from '../../components/home/Summery'
 import ForecastSlider from '../../components/home/ForecastSlider'
@@ -10,43 +12,56 @@ import NewsSec from '../../components/home/NewsSec'
 import LastYearChart from '../../components/home/LastYearChart'
 import WeatherMap from '../../components/home/WeatherMap'
 import TrendInfo from '../../components/home/TrendInfo'
-import _ from "../../lib/componentsData"
+import { weatherImageUrls, weatherImageThumbnails } from "../../lib/backgrounds"
 
 const Home = () => {
   const {newsData, weatherDataNow} = useContext(WeatherContext);
   const sampleData = newsData?.slice(12,16);
   const currentWeather = weatherDataNow?.weather?.[0]?.main;
   const [isChanging, setIsChanging] = useState(false);
-  const [currentBg, setCurrentBg] = useState(_.weatherImageUrls.Clear);
+  const [currentBg, setCurrentBg] = useState(weatherImageUrls.Clear);
+  
+  // Preload all weather background images when component mounts
+  useEffect(() => {
+    Object.values(weatherImageUrls).forEach(url => {
+      imagePreloader.preload(url).catch(console.error);
+    });
+  }, []);
+
+  // Use progressive loading for the current background
+  const loadedBackground = useProgressiveImage(
+    weatherImageThumbnails[currentWeather] || weatherImageThumbnails.Clear,
+    weatherImageUrls[currentWeather] || weatherImageUrls.Clear
+  );
 
   useEffect(() => {
     if (currentWeather) {
-      const newBg = _.weatherImageUrls[currentWeather];
+      const newBg = weatherImageUrls[currentWeather];
       if (newBg !== currentBg) {
         setIsChanging(true);
-        setTimeout(() => {
-          setCurrentBg(newBg);
+        imagePreloader.preload(newBg).then(() => {
           setTimeout(() => {
-            setIsChanging(false);
+            setCurrentBg(newBg);
+            setTimeout(() => {
+              setIsChanging(false);
+            }, 500);
           }, 500);
-        }, 500);
+        });
       }
     }
-  }, [currentWeather]);
+  }, [currentWeather, currentBg]);
 
   return (
     <div 
-      className={`backdrop w-full h-full ${isChanging ? 'changing' : ''}`}
+      className={`backdrop w-full h-screen bg-cover bg-center bg-no-repeat overflow-y-scroll ${isChanging ? 'changing' : ''}`}
       style={{ 
         scrollbarWidth: 'none',
-        backgroundImage: `url(${currentBg})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
+        backgroundImage: `url(${loadedBackground})`,
+        transition: 'background-image 0.5s ease-in-out',
       }}
     >
-      <div className="body bg-[rgba(0,0,0,0.36)] text-[rgba(255,255,255,0.94)] h-screen overflow-y-scroll overflow-x-hidden]">
-        <div className='lg:w-[82%] w-[95%] mx-auto' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
+      <div className="body bg-[rgba(0,0,0,0.36)] text-[rgba(255,255,255,0.94)] min-h-screen w-full pointer-events-auto">
+        <div className='lg:w-[82%] w-[95%] mx-auto pb-10' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
           <SearchArea />
           <div className="mainContents flex xl:flex-nowrap flex-wrap w-full 2xl:gap-x-5 gap-x-0">
             <div className="main 2xl:w-4/5 w-full">

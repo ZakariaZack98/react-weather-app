@@ -13,12 +13,7 @@ const PressureTrendCard = () => {
 
   // * HELPER FUNCTION FOR GETTING PRESSURE RELATED DISPLAY DATA==================================================
   function getPressureDetails(pressure) {
-    // Validate input
-    if (typeof pressure !== 'number' || pressure < 800 || pressure > 1100) {
-      throw new Error('Invalid pressure value (expected 800-1100 hPa)');
-    }
 
-    // Categorize pressure
     let label, description, color;
 
     if (pressure < 980) {
