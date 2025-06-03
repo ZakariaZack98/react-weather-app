@@ -149,7 +149,7 @@ const ForecastSlider = () => {
         </div>
       </div>
       <div className="mainSlider">
-        <div className="dayCardsWrapper overflow-x-scroll flex justify-between items-start gap-x-2" style={{scrollbarWidth: 'none'}}>
+        <div className="dayCardsWrapper overflow-x-auto flex justify-between items-start gap-x-2 no-scrollbar" style={{msOverflowStyle: 'none'}}>
           {weatherDataByDay?.map((data, idx) => (
             activeMode === 'Overview' || activeMode === 'Feels Like' ? <div className="w-1/5 min-w-40">
               <DayCard
@@ -175,7 +175,7 @@ const ForecastSlider = () => {
         {
           visualizeMode === 'chart' ? <Chart data={weatherDataByDay.find((data) => data.date === activeDay)} activeMode={activeMode} /> : (
             <div className="flex flex-col w-full p-5 surface-card-darkest rounded-xl -translate-y-4 gap-x-2 " >
-              <div className="flex gap-x-2 justify-between overflow-x-scroll" style={{scrollbarWidth: 'none'}}>
+              <div className="flex gap-x-2 justify-between overflow-x-auto no-scrollbar" style={{msOverflowStyle: 'none'}}>
                 {
                   weatherDataByDay.find((data) => data.date === activeDay).data.map((hourlyForecastData, idx) => (
                     <div 

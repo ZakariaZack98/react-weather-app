@@ -1,7 +1,33 @@
 @import "tailwindcss";
 
-@theme {
+:root {
   --font-arial: "Arial", sans-serif;
+}
+
+/* Prevent horizontal scrolling globally */
+html, body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* Ensure all main containers respect width */
+* {
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+/* Prevent horizontal scrolling globally */
+html, body {
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* Ensure all main containers respect width */
+* {
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 

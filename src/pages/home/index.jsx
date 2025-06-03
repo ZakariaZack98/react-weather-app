@@ -71,10 +71,10 @@ const Home = () => {
         transition: 'background-image 0.5s ease-in-out',
       }}
     >
-      <div className="body bg-[rgba(0,0,0,0.36)] text-[rgba(255,255,255,0.94)] min-h-screen w-full pointer-events-auto">
+      <div className="body bg-[rgba(0,0,0,0.36)] text-[rgba(255,255,255,0.94)] min-h-screen w-full pointer-events-auto overflow-x-hidden">
         <div className='lg:w-[82%] w-[95%] mx-auto pb-10' style={{ fontFamily: "'Segoe UI', sans-serif" }}>
           <SearchArea />
-          <div className="mainContents flex xl:flex-nowrap flex-wrap w-full 2xl:gap-x-5 gap-x-0">
+          <div className="mainContents flex xl:flex-nowrap flex-wrap w-full 2xl:gap-x-5 gap-x-0 overflow-x-hidden">
             <div className="main 2xl:w-4/5 w-full">
               <Summery />
               <ForecastSlider />
@@ -85,7 +85,7 @@ const Home = () => {
               <TrendInfo/>
               <NewsSec/>
             </div>
-            <div className="sidebar 2xl:w-1/5 w-full hidden 2xl:flex flex-col gap-y-4 pt-18">
+            <div className="sidebar 2xl:w-1/5 w-full hidden 2xl:flex flex-col gap-y-4 mt-10">
               {sampleData?.map(article => <NewsCard key={article.url} article={article}/>)}
             </div>
           </div>

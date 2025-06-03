@@ -17,10 +17,10 @@ import SunDetailsCard from './TrendCards/SunDetailsCard'
 const WeatherDetails = () => {
   const { hourlyForecastData } = useContext(WeatherContext);
   return (
-    <div className='w-full mt-10 mb-7'>
+    <div className='w-full mt-10 mb-7 overflow-x-hidden'>
       {
         hourlyForecastData && hourlyForecastData?.length > 0 && (
-          <div className="w-full">
+          <div className="w-full overflow-hidden">
             <div className="heading flex flex-col md:flex-row  justify-between items-center ">
               <h3 className='md:text-xl text-sm font-semibold'>Current Weather Trends</h3>
               <div className="flex items-center gap-x-1 opacity-60">
