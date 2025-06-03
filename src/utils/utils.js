@@ -172,9 +172,11 @@ export async function GetCoordBySearch(cityName) {
  */
 export const FetchNews = async () => {
   try {
-    return await fetchData(`https://newsapi.org/v2/everything?q=weather&apiKey=${newsApiKey}`);
+    // Use our serverless API route instead of direct NewsAPI call
+    return await fetchData('/api/news');
   } catch (error) {
     console.error("Error fetching news", error);
+    return { articles: [] }; // Return empty articles array on error
   }
 };
 

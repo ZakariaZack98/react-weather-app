@@ -6,7 +6,10 @@ export const weatherImageUrls = {
   Snow: '/weather-backgrounds/original/snow.jpg',
   Thunderstorm: '/weather-backgrounds/original/thunderstorm.jpg',
   Drizzle: '/weather-backgrounds/original/drizzle.jpg',
-  Mist: '/weather-backgrounds/original/mist.jpg'
+  Mist: '/weather-backgrounds/original/mist.jpg',
+  Haze: '/weather-backgrounds/original/mist.jpg',
+  Fog: '/weather-backgrounds/original/mist.jpg',
+  Smoke: '/weather-backgrounds/original/mist.jpg'
 }
 
 export const weatherImageThumbnails = {
@@ -16,5 +19,8 @@ export const weatherImageThumbnails = {
   Snow: '/weather-backgrounds/thumbnail/snow.jpg',
   Thunderstorm: '/weather-backgrounds/thumbnail/thunderstorm.jpg',
   Drizzle: '/weather-backgrounds/thumbnail/drizzle.jpg',
-  Mist: '/weather-backgrounds/thumbnail/mist.jpg'
+  Mist: '/weather-backgrounds/thumbnail/mist.jpg',
+  Haze: '/weather-backgrounds/thumbnail/mist.jpg',
+  Fog: '/weather-backgrounds/thumbnail/mist.jpg',
+  Smoke: '/weather-backgrounds/thumbnail/mist.jpg'
 }
