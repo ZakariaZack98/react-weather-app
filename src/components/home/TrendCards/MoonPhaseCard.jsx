@@ -1,5 +1,5 @@
 import React from 'react'
-import { WiMoonAltFull, WiMoonAltNew, WiMoonAltWaningCrescent4, WiMoonAltWaxingCrescent4 } from 'react-icons/wi';
+import { WiMoonAltFull, WiMoonAltNew, WiMoonAltWaningCrescent4, WiMoonAltWaningGibbous1, WiMoonAltWaxingCrescent4, WiMoonAltWaxingGibbous1, } from 'react-icons/wi';
 
 const MoonPhaseCard = () => {
   //* HELPER FUNCTION TO CALCULATE MOON PHASE=================================
@@ -32,9 +32,9 @@ const MoonPhaseCard = () => {
     const getPhaseIcon = () => {
       if (phase === 0) return <WiMoonAltNew size={200} color='yellow' />;
       if (phase <= 0.25) return <WiMoonAltWaxingCrescent4 size={200} color='yellow' />;
-      if (phase <= 0.5) return <WiMoonAltWaxingGibbous size={200} color='yellow' />;
+      if (phase <= 0.5) return <WiMoonAltWaxingGibbous1 size={200} color='yellow' />;
       if (phase === 0.5) return <WiMoonAltFull size={200} color='yellow' />;
-      if (phase <= 0.75) return <WiMoonAltWaningGibbous size={200} color='yellow' />;
+      if (phase <= 0.75) return <WiMoonAltWaningGibbous1 size={200} color='yellow' />;
       return <WiMoonAltWaningCrescent4 size={200} color='yellow' />;
     };
 
