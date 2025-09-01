@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { WeatherContext } from '../../../contexts/WeatherContext';
+import { useSelector } from 'react-redux';
 
 const CloudCoverCard = () => {
-  const { hourlyForecastData, weatherDataNow } = useContext(WeatherContext);
+  const { hourlyForecastData, weatherDataNow } = useSelector(state => state.weather);
   const futureData = hourlyForecastData[4];
   const cloudCoverNow = weatherDataNow?.clouds?.all;
   const cloudCoverFuture = futureData?.clouds?.all;

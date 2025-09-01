@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import { SemiCircularProgressBar, TwoThirdsCircularProgressBar }from '../../common/SemiCircularProgressbar'
-import { WeatherContext } from '../../../contexts/WeatherContext'
+import React from 'react'
+import { TwoThirdsCircularProgressBar }from '../../common/SemiCircularProgressbar'
+import { useSelector } from 'react-redux';
 
 const UVTrendCard = () => {
-  const {uvData} = useContext(WeatherContext);
+  const {uvData} = useSelector(state => state.weather);
   const uvIndex = uvData?.value;
 
   //* HELPER FUNCTION TO GET UV DETAILS 

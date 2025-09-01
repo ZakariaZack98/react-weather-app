@@ -1,9 +1,9 @@
 import { DotLottieReact } from '@lottiefiles/dotlottie-react'
-import React, { useContext } from 'react'
-import { WeatherContext } from '../../../contexts/WeatherContext';
+import React from 'react'
+import { useSelector } from 'react-redux';
 
 const PrecipitationTrendCard = () => {
-  const { hourlyForecastData } = useContext(WeatherContext);
+  const { hourlyForecastData } = useSelector(state => state.weather);
   const next24hrsForecast = hourlyForecastData?.slice(2, 10);
   const forecastWithRains = next24hrsForecast?.map(hourlyData => hourlyData.rain).filter(item => Boolean(item));
   const maxRainChance = Math.max(...next24hrsForecast?.map(hourlyData => hourlyData.pop)) * 100;

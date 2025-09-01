@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { imagePreloader } from '../../utils/ImagePreloader';
 import useProgressiveImage from '../../hooks/useProgressiveImage';
 import SearchArea from '../../components/home/SearchArea'
@@ -6,22 +6,26 @@ import Summery from '../../components/home/Summery'
 import ForecastSlider from '../../components/home/ForecastSlider'
 import WeatherDetails from '../../components/home/WeatherDetails'
 import LastMonthCal from '../../components/home/LastMonthCal'
-import { WeatherContext } from '../../contexts/WeatherContext'
 import NewsCard from '../../components/common/NewsCard'
 import NewsSec from '../../components/home/NewsSec'
 import LastYearChart from '../../components/home/LastYearChart'
 import WeatherMap from '../../components/home/WeatherMap'
 import TrendInfo from '../../components/home/TrendInfo'
 import { weatherImageUrls, weatherImageThumbnails } from "../../lib/backgrounds"
+import { useSelector, useDispatch } from 'react-redux'
+import { FetchNews } from '../../utils/utils'
+import { setNewsData } from '../../features/weatherData/weatherSlice'
 
 const Home = () => {
-  const {newsData, weatherDataNow} = useContext(WeatherContext);
-  const sampleData = newsData?.slice(12,16);
+  const dispatch = useDispatch()
+  const { newsData, weatherDataNow } = useSelector(state => state.weather)
+  const sampleData = newsData?.slice(5, 9);
   const currentWeather = weatherDataNow?.weather?.[0]?.main;
   const [isChanging, setIsChanging] = useState(false);
   const [currentBg, setCurrentBg] = useState(weatherImageUrls.Clear);
   
-  //TODO: Preload all weather background images when component mounts
+
+  //TODO: Preload all weather background images when component mounts 
   useEffect(() => {
     console.log('Preloading weather background images...');
     imagePreloader.preloadAll().then((results) => {
@@ -32,6 +36,18 @@ const Home = () => {
       });
     });
   }, []);
+
+  //TODO: Fetch news once when site loads and store in redux
+  useEffect(() => {
+    let mounted = true
+    FetchNews()
+      .then(data => {
+        if (!mounted) return
+        dispatch(setNewsData(data?.articles || []))
+      })
+      .catch(err => console.error('Failed to fetch news:', err))
+    return () => { mounted = false }
+  }, [dispatch])
 
   const weatherCondition = currentWeather || 'Clear';
   const thumbnailUrl = weatherImageThumbnails[weatherCondition] || weatherImageThumbnails.Clear;
@@ -44,7 +60,7 @@ const Home = () => {
       const newBg = weatherImageUrls[currentWeather];
       if (newBg !== currentBg) {
         setIsChanging(true);
-        
+
         //? Try to preload the new image
         imagePreloader.preload(newBg)
           .then(() => {
@@ -63,9 +79,9 @@ const Home = () => {
   }, [currentWeather, currentBg]);
 
   return (
-    <div 
+    <div
       className={`backdrop w-full h-screen bg-cover bg-center bg-no-repeat overflow-y-scroll ${isChanging ? 'changing' : ''}`}
-      style={{ 
+      style={{
         scrollbarWidth: 'none',
         backgroundImage: `url(${loadedBackground})`,
         transition: 'background-image 0.5s ease-in-out',
@@ -79,14 +95,14 @@ const Home = () => {
               <Summery />
               <ForecastSlider />
               <WeatherDetails />
-              <WeatherMap/>
-              <LastMonthCal/>
-              <LastYearChart/>
-              <TrendInfo/>
-              <NewsSec/>
+              <WeatherMap />
+              <LastMonthCal />
+              <LastYearChart />
+              <TrendInfo />
+              <NewsSec />
             </div>
             <div className="sidebar 2xl:w-1/5 w-full hidden 2xl:flex flex-col gap-y-4 mt-10">
-              {sampleData?.map(article => <NewsCard key={article.url} article={article}/>)}
+              {sampleData?.map(article => <NewsCard key={article.url} article={article} />)}
             </div>
           </div>
         </div>

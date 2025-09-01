@@ -1,7 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { FaAngleRight } from 'react-icons/fa'
 import TempTrendCard from './TrendCards/TempTrendCard'
-import { WeatherContext } from '../../contexts/WeatherContext'
 import FeelsLikeTrendCard from './TrendCards/FeelsLikeTrendCard'
 import CloudCoverCard from './TrendCards/CloudCoverCard'
 import PrecipitationTrendCard from './TrendCards/PrecipitationTrendCard'
@@ -13,9 +12,10 @@ import VisibilityTrendCard from './TrendCards/VisibilityTrendCard'
 import PressureTrendCard from './TrendCards/PressureTrendCard'
 import MoonPhaseCard from './TrendCards/MoonPhaseCard'
 import SunDetailsCard from './TrendCards/SunDetailsCard'
+import { useSelector } from 'react-redux'
 
 const WeatherDetails = () => {
-  const { hourlyForecastData } = useContext(WeatherContext);
+  const { hourlyForecastData } = useSelector(state => state.weather);
   return (
     <div className='w-full mt-10 mb-7 overflow-x-hidden'>
       {

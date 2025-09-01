@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { WeatherContext } from '../../contexts/WeatherContext'
+import React, { useEffect, useState } from 'react'
 import { DateFormatter, FetchLast30DaysData, GetRandomWeatherbitIconCode } from '../../utils/utils';
 import AltLineChart from '../common/AltLineChart';
 import mock30daysData from '../../lib/Data30days.json'
+import { useSelector } from 'react-redux';
 
 const LastMonthCal = () => {
-  const { coord, weatherDataNow } = useContext(WeatherContext);
+  const { coord, weatherDataNow } = useSelector(state => state.weather);
   
   const [last30daysData, setLast30daysData] = useState(mock30daysData.data);
   const chartModes = ['Temperature', 'Precipitation', 'Wind']

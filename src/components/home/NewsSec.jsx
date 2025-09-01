@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import { WeatherContext } from '../../contexts/WeatherContext';
+import React from 'react'
 import NewsCardHorizontal from '../common/NewsCardHorizontal';
 import NewsCard from '../common/NewsCard';
+import { useSelector } from 'react-redux';
 
 const NewsSec = () => {
-  const {newsData} = useContext(WeatherContext);
+  const {newsData} = useSelector(state => state.weather);
   const sampleData = newsData?.slice(2,12);
   return (
     <div className='w-full'>

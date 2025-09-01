@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import { WeatherContext } from '../../../contexts/WeatherContext'
+import React from 'react'
 import { GetWindDirection } from '../../../utils/utils';
 import MovingArrow from '../../common/MovingArrow';
+import { useSelector } from 'react-redux';
 
 const WindTrendCard = () => {
-  const { weatherDataNow, hourlyForecastData } = useContext(WeatherContext);
+  const { weatherDataNow, hourlyForecastData } = useSelector(state => state.weather);
   const futureWindSpeed = hourlyForecastData[4]?.wind?.speed;
   const currentWindSpeed = weatherDataNow?.wind?.speed;
   const currentWindGust = weatherDataNow?.wind?.gust;

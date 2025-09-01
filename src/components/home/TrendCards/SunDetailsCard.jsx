@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { WeatherContext } from '../../../contexts/WeatherContext';
+import React from 'react';
 import { SemiCircularProgressBar } from '../../common/SemiCircularProgressbar';
 import { FiSunrise, FiSunset } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
 
 const SunDetailsCard = () => {
-  const { weatherDataNow } = useContext(WeatherContext);
+  const { weatherDataNow } = useSelector(state => state.weather);
   const currentTime = weatherDataNow?.dt ? weatherDataNow.dt * 1000 : undefined;
   const sunrise = weatherDataNow?.sys?.sunrise ? weatherDataNow.sys.sunrise * 1000 : undefined;
   const sunset = weatherDataNow?.sys?.sunset ? weatherDataNow.sys.sunset * 1000 : undefined;

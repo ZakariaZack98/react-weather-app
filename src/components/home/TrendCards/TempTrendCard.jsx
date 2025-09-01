@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import { WeatherContext } from '../../../contexts/WeatherContext'
+import React from 'react'
 import TrendCurve from '../../common/TrendCurve';
+import { useSelector } from 'react-redux';
 
 const TempTrendCard = () => {
-  const { hourlyForecastData, weatherDataNow } = useContext(WeatherContext);
+  const { hourlyForecastData, weatherDataNow } = useSelector(state => state.weather);
   const sampleData = hourlyForecastData?.slice(0, 5);
   const dataForCurve = {
     labels: sampleData?.map(hourlyData => hourlyData?.dt_txt?.split(' ')[1]),

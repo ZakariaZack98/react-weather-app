@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
-import { WeatherContext } from '../../../contexts/WeatherContext'
+import React from 'react'
+import { useSelector } from 'react-redux';
 
 const VisibilityTrendCard = () => {
-  const {weatherDataNow} = useContext(WeatherContext);
+  const {weatherDataNow} = useSelector(state => state.weather);
   const visibility = weatherDataNow?.visibility;
   const visibilityKM = visibility / 1000;
 

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import { WeatherContext } from '../../../contexts/WeatherContext'
+import React from 'react'
 import { GetAQICategory } from '../../../utils/utils';
 import { TwoThirdsCircularProgressBar } from '../../common/SemiCircularProgressbar';
+import { useSelector } from 'react-redux';
 
 const AQITrendCard = () => {
-  const { aqiData } = useContext(WeatherContext);
+  const { aqiData } = useSelector(state => state.weather);
   const AQIndex = aqiData?.main?.aqi;
   const AQDetails = GetAQICategory(AQIndex);
 

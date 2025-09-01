@@ -153,7 +153,7 @@ const ForecastSlider = () => {
           {weatherDataByDay?.map((data, idx) => (
             activeMode === 'Overview' || activeMode === 'Feels Like' ? <div className="w-1/5 min-w-40">
               <DayCard
-                key={idx}
+                key={data.date}
                 foreCastData={data}
                 date={data.date}
                 activeDay={activeDay}

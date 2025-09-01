@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import ProgressBar from '../../common/ProgressBar'
-import { WeatherContext } from '../../../contexts/WeatherContext'
 import { ConvertTo12Hour } from '../../../utils/utils';
+import { useSelector } from 'react-redux';
 
 const HumidityTrendCard = () => {
-  const { hourlyForecastData, weatherDataNow } = useContext(WeatherContext);
+  const { hourlyForecastData, weatherDataNow } = useSelector(state => state.weather);
   const sampleData = hourlyForecastData?.slice(2, 10);
   const humidityData = sampleData?.map(hourlyData => hourlyData?.main?.humidity);
   const currentHumidity = weatherDataNow?.main?.humidity;
