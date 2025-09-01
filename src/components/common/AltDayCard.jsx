@@ -127,7 +127,7 @@ const AltDayCard = ({ foreCastData, date, activeDay, setActiveDay, activeMode })
   return (
     <div
       className={`${
-        date === activeDay ? "surface-card-darkest xl:h-45 h-32 border-t-2" : "surface-card"
+        date.split(' ')[0] === activeDay.split(' ')[0] ? "surface-card-darkest xl:h-45 h-32 border-t-2" : "surface-card"
       } py-2 md:py-5 2xl:px-6 xl:px-5 lg:px-4 px-3  lg:text-sm 2xl:text-md rounded-xl flex flex-col gap-y-4 cursor-pointer text-nowrap `}
       data-date={date}
       onClick={() => setActiveDay(date)}>

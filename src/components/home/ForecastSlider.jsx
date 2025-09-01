@@ -173,7 +173,7 @@ const ForecastSlider = () => {
           ))}
         </div>
         {
-          visualizeMode === 'chart' ? <Chart data={weatherDataByDay.find((data) => data.date === activeDay)} activeMode={activeMode} /> : (
+          visualizeMode === 'chart' ? <Chart data={weatherDataByDay.find((data) => data.date.split(' ')[0] === activeDay.split(' ')[0])} activeMode={activeMode} /> : (
             <div className="flex flex-col w-full p-5 surface-card-darkest rounded-xl -translate-y-4 gap-x-2 " >
               <div className="flex gap-x-2 justify-between overflow-x-auto no-scrollbar" style={{msOverflowStyle: 'none'}}>
                 {
