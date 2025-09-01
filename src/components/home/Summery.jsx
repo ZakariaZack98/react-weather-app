@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaHome } from 'react-icons/fa'
 import { FaInfo } from 'react-icons/fa6'
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import { WeatherContext } from '../../contexts/WeatherContext'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchAllWeatherData, setWeatherMapMode } from '../../features/weatherData/weatherSlice'
 import { ConvertToLocalISOString, GetAQICategory, GetWindDirection, IsDayTime, WeatherLayers } from '../../utils/utils'
 import _ from '../../lib/componentsData'
 import SummerySkeleton from '../LoadingSkeletons/SummerySkeleton'
@@ -18,7 +19,8 @@ L.Icon.Default.mergeOptions({
 })
 
 const Summery = () => {
-  const { fetchAllWeatherData, locationName, coord, weatherDataNow, aqiData, hourlyForecastData, uvData, weatherMapMode, setWeatherMapMode, apiKey } = useContext(WeatherContext);
+  const dispatch = useDispatch()
+  const { locationName, coord, weatherDataNow, aqiData, hourlyForecastData, uvData, weatherMapMode, apiKey } = useSelector(state => state.weather)
   const [currentTime, setCurrentTime] = useState('');
   const weatherLayers = WeatherLayers;
   const selectedLayer = weatherLayers.find(layer => layer.modeName === weatherMapMode);
@@ -47,7 +49,7 @@ const Summery = () => {
       navigator.geolocation.getCurrentPosition(
         (location) => {
           const { latitude, longitude } = location.coords;
-          fetchAllWeatherData(latitude, longitude)
+          dispatch(fetchAllWeatherData({ lat: latitude, lon: longitude }))
         },
         (error) => {
           console.error('Error getting location:', error);
@@ -56,7 +58,7 @@ const Summery = () => {
     } else {
       console.error('Geolocation is not supported by this browser.');
     }
-  }, []);
+  }, [dispatch]);
 
   // TODO: Component to handle map click events and center the map & UPDATE WEATHER DATA =============================
   const LocationMarker = () => {
@@ -70,7 +72,7 @@ const Summery = () => {
     useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng;
-        fetchAllWeatherData(lat, lng)
+        dispatch(fetchAllWeatherData({ lat, lon: lng }))
       },
     });
 
@@ -83,7 +85,7 @@ const Summery = () => {
       navigator.geolocation.getCurrentPosition(
         (location) => {
           const { latitude, longitude } = location.coords;
-          fetchAllWeatherData(latitude, longitude);
+          dispatch(fetchAllWeatherData({ lat: latitude, lon: longitude }));
         },
         (error) => {
           console.error('Error getting location:', error);
@@ -112,10 +114,10 @@ const Summery = () => {
     return Math.round(highestTemp);
   }
 
-  if (!weatherDataNow || !aqiData || !hourlyForecastData || 
-      Object.keys(weatherDataNow).length === 0 || 
-      Object.keys(aqiData).length === 0 || 
-      Object.keys(hourlyForecastData).length === 0) {
+  if (!weatherDataNow || !aqiData || !hourlyForecastData ||
+    Object.keys(weatherDataNow).length === 0 ||
+    Object.keys(aqiData).length === 0 ||
+    Object.keys(hourlyForecastData).length === 0) {
     return <SummerySkeleton />;
   }
 
@@ -208,7 +210,7 @@ const Summery = () => {
                   key={layer.modeName}
                   className={`w-7 h-7 rounded flex justify-center items-center text-3xl duration-300 cursor-pointer ${weatherMapMode === layer.modeName ? 'text-white bg-[#000000a4]' : 'hover:bg-[rgba(0,0,0,0.18)] text-black'}`}
                   title={layer.modeName}
-                  onClick={() => setWeatherMapMode(layer.modeName)}
+                  onClick={() => dispatch(setWeatherMapMode(layer.modeName))}
                 >
                   {React.createElement(layer.icon)}
                 </span>

@@ -1,12 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
-import { WeatherContext } from "../../contexts/WeatherContext";
+import { useSelector, useDispatch } from 'react-redux';
+import { setRecentSearchLoc, setLocationName, fetchAllWeatherData } from '../../features/weatherData/weatherSlice';
 import { GetCoordBySearch } from "../../utils/utils";
 
 const SearchArea = () => {
   const [input, setInput] = useState("");
-  const { recentSearchLoc, setRecentSearchLoc, fetchAllWeatherData, setLocationName, coord } =
-    useContext(WeatherContext);
+  const dispatch = useDispatch();
+  const { recentSearchLoc, coord } = useSelector((state) => state.weather);
+
   useEffect(() => {
     setInput("");
   }, [coord]);
@@ -15,7 +17,7 @@ const SearchArea = () => {
     if (e.key === "Enter") {
       GetCoordBySearch(input)
         .then((data) => {
-          fetchAllWeatherData(...data.coord);
+          dispatch(fetchAllWeatherData({ lat: data.coord[0], lon: data.coord[1] }));
           return data;
         })
         .then((data) => {
@@ -26,13 +28,12 @@ const SearchArea = () => {
             name: adjustedName,
             coord: data.coord,
           };
-          console.log(newRecentLocation.name);
-          setLocationName(newRecentLocation.name);
+          dispatch(setLocationName(newRecentLocation.name));
           const updatedRecentSearchLoc = [...recentSearchLoc];
           if (!updatedRecentSearchLoc.find((item) => item.name === newRecentLocation.name))
             updatedRecentSearchLoc.splice(0, 0, newRecentLocation);
           if (updatedRecentSearchLoc.length > 4) updatedRecentSearchLoc.pop();
-          setRecentSearchLoc(updatedRecentSearchLoc);
+          dispatch(setRecentSearchLoc(updatedRecentSearchLoc));
         });
     }
   };
@@ -68,4 +69,4 @@ const SearchArea = () => {
   );
 };
 
-export default SearchArea;
+export default SearchArea

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
-import { FaChartBar, FaList} from "react-icons/fa";
-import { WeatherContext } from "../../contexts/WeatherContext";
+import React, { useEffect, useState } from "react";
+import { FaChartBar, FaList } from "react-icons/fa";
+import { useSelector } from 'react-redux'
 import DayCard from "../common/DayCard";
 import { ConvertToLocalISOString, DateFormatter, GetDailyIcon, GetTempSummery } from "../../utils/utils";
 import Chart from "./Chart";
@@ -15,7 +15,7 @@ const ForecastSlider = () => {
   const cardLegends = _.cardLegends;
   const [visualizeMode, setVisualizeMode] = useState("chart");
   const [activeMode, setActiveMode] = useState("Overview");
-  const { hourlyForecastData } = useContext(WeatherContext);
+  const hourlyForecastData = useSelector(state => state.weather.hourlyForecastData);
   const [weatherDataByDay, setWeatherDataByDay] = useState([]);
   const [activeDay, setActiveDay] = useState(
     new Date().toString().split(" ")[2] + " " + new Date().toString().split(" ")[1]
@@ -38,7 +38,7 @@ const ForecastSlider = () => {
       }
 
       //? FIX OF THE DATE FORMAT CONFLICT
-      if(activeDay.startsWith('0')) {
+      if (activeDay.startsWith('0')) {
         setActiveDay(activeDay.slice(1));
       }
 
@@ -60,11 +60,11 @@ const ForecastSlider = () => {
             nextDate.setDate(today.getDate() + i);
             const formattedDate = ConvertToLocalISOString(new Date(nextDate)).split("T")[0];
             const targetDateData = hourlyForecastData.filter((data) => data.dt_txt.split(" ")[0] === formattedDate);
-            
+
             if (!targetDateData.length) {
               throw new Error(`No data available for date: ${formattedDate}`);
             }
-            
+
             weatherDataByDate.push(targetDateData);
           }
 
@@ -149,39 +149,39 @@ const ForecastSlider = () => {
         </div>
       </div>
       <div className="mainSlider">
-        <div className="dayCardsWrapper overflow-x-auto flex justify-between items-start gap-x-2 no-scrollbar" style={{msOverflowStyle: 'none'}}>
+        <div className="dayCardsWrapper overflow-x-auto flex justify-between items-start gap-x-2 no-scrollbar" style={{ msOverflowStyle: 'none' }}>
           {weatherDataByDay?.map((data, idx) => (
             activeMode === 'Overview' || activeMode === 'Feels Like' ? <div className="w-1/5 min-w-40">
               <DayCard
-              key={idx}
-              foreCastData={data}
-              date={data.date}
-              activeDay={activeDay}
-              setActiveDay={setActiveDay}
-              activeMode={activeMode}
-            />
+                key={idx}
+                foreCastData={data}
+                date={data.date}
+                activeDay={activeDay}
+                setActiveDay={setActiveDay}
+                activeMode={activeMode}
+              />
             </div> : <div className="w-1/5 min-w-40">
               <AltDayCard
-              key={idx}
-              foreCastData={data}
-              date={data.date}
-              activeDay={activeDay}
-              setActiveDay={setActiveDay}
-              activeMode={activeMode}
-            />
+                key={idx}
+                foreCastData={data}
+                date={data.date}
+                activeDay={activeDay}
+                setActiveDay={setActiveDay}
+                activeMode={activeMode}
+              />
             </div>
           ))}
         </div>
         {
           visualizeMode === 'chart' ? <Chart data={weatherDataByDay.find((data) => data.date.split(' ')[0] === activeDay.split(' ')[0])} activeMode={activeMode} /> : (
             <div className="flex flex-col w-full p-5 surface-card-darkest rounded-xl -translate-y-4 gap-x-2 " >
-              <div className="flex gap-x-2 justify-between overflow-x-auto no-scrollbar" style={{msOverflowStyle: 'none'}}>
+              <div className="flex gap-x-2 justify-between overflow-x-auto no-scrollbar" style={{ msOverflowStyle: 'none' }}>
                 {
                   weatherDataByDay.find((data) => data.date === activeDay).data.map((hourlyForecastData, idx) => (
-                    <div 
+                    <div
                       key={hourlyForecastData.dt}
                       className="transition-all duration-500 ease-in-out"
-                      style={{ 
+                      style={{
                         opacity: '1',
                         transform: 'none',
                         willChange: 'transform, opacity'

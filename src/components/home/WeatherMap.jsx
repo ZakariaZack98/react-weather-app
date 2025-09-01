@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet'
-import { WeatherContext } from '../../contexts/WeatherContext'
 import L from 'leaflet'
 import _ from '../../lib/componentsData'
+import { useSelector } from 'react-redux'
 
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
@@ -24,8 +24,8 @@ const LocationMarker = () => {
 };
 
 const WeatherMap = () => {
-  const { apiKey } = useContext(WeatherContext);
-  const [selectedLayer, setSelectedLayer] = useState(weatherLayers[0]); // Default to first layer
+  const { apiKey } = useSelector((state) => state.weather);
+  const [selectedLayer, setSelectedLayer] = useState(weatherLayers[0]); 
 
   return (
     <div className="mapSection py-10">

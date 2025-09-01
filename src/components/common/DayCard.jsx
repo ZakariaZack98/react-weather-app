@@ -2,7 +2,6 @@ import React from "react";
 import { ConvertToLocalISOString, DateFormatter } from "../../utils/utils";
 
 const DayCard = ({ foreCastData, date, activeDay, setActiveDay }) => {
-  console.log(date, activeDay)
   return (
     <div
       className={` ${
